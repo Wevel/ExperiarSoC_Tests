@@ -1,0 +1,30 @@
+[*]
+[*] GTKWave Analyzer v3.3.100 (w)1999-2019 BSI
+[*] Sun Jun 05 13:13:41 2022
+[*]
+[dumpfile] "F:\WSL\ASIC\ExperiarSoC\verilog\dv\flash\waveRTL.vcd"
+[dumpfile_mtime] "Sun Jun 05 13:10:08 2022"
+[dumpfile_size] 7364573
+[savefile] "F:\WSL\ASIC\ExperiarSoC\verilog\dv\flash\WaveDisplay.gtkw"
+[timestart] 0
+[size] 2560 1377
+[pos] -61 -61
+*-30.102249 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] flash_tb.
+[treeopen] flash_tb.uut.
+[sst_width] 197
+[signals_width] 142
+[sst_expanded] 1
+[sst_vpaned_height] 426
+@28
+flash_tb.uut.mprj.wb_clk_i
+flash_tb.uut.mprj.wb_rst_i
+flash_tb.succesOutput
+flash_tb.nextTestOutput
+flash_tb.user_flash_clk
+flash_tb.user_flash_csb
+flash_tb.user_flash_io0
+@29
+flash_tb.user_flash_io1
+[pattern_trace] 1
+[pattern_trace] 0

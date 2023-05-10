@@ -1,0 +1,39 @@
+[*]
+[*] GTKWave Analyzer v3.3.100 (w)1999-2019 BSI
+[*] Mon Jun 06 19:16:10 2022
+[*]
+[dumpfile] "F:\WSL\ASIC\ExperiarSoC\verilog\dv\coreMemory\waveRTL.vcd"
+[dumpfile_mtime] "Mon Jun 06 19:00:56 2022"
+[dumpfile_size] 9461135
+[savefile] "F:\WSL\ASIC\ExperiarSoC\verilog\dv\coreMemory\WaveDisplay.gtkw"
+[timestart] 0
+[size] 2560 1377
+[pos] -217 -217
+*-30.587677 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] coreMemory_tb.
+[treeopen] coreMemory_tb.uut.
+[treeopen] coreMemory_tb.uut.mprj.
+[sst_width] 197
+[signals_width] 214
+[sst_expanded] 1
+[sst_vpaned_height] 426
+@28
+coreMemory_tb.uut.mprj.wb_clk_i
+coreMemory_tb.uut.mprj.wb_rst_i
+coreMemory_tb.succesOutput
+coreMemory_tb.nextTestOutput
+@29
+coreMemory_tb.uut.mprj.experiarSoC.caravel_wb_cyc_o
+@28
+coreMemory_tb.uut.mprj.experiarSoC.caravel_wb_stb_o
+coreMemory_tb.uut.mprj.experiarSoC.caravel_wb_we_o
+coreMemory_tb.uut.mprj.experiarSoC.caravel_wb_ack_i
+coreMemory_tb.uut.mprj.experiarSoC.caravel_wb_stall_i
+coreMemory_tb.uut.mprj.experiarSoC.caravel_wb_error_i
+@22
+coreMemory_tb.uut.mprj.experiarSoC.caravel_wb_sel_o[3:0]
+coreMemory_tb.uut.mprj.experiarSoC.caravel_wb_adr_o[27:0]
+coreMemory_tb.uut.mprj.experiarSoC.caravel_wb_data_i[31:0]
+coreMemory_tb.uut.mprj.experiarSoC.caravel_wb_data_o[31:0]
+[pattern_trace] 1
+[pattern_trace] 0

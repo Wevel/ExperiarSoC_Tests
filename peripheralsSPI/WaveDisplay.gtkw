@@ -1,0 +1,151 @@
+[*]
+[*] GTKWave Analyzer v3.3.100 (w)1999-2019 BSI
+[*] Sat Jun 04 09:48:10 2022
+[*]
+[dumpfile] "F:\WSL\ASIC\ExperiarSoC\verilog\dv\peripheralsSPI\waveRTL.vcd"
+[dumpfile_mtime] "Sat Jun 04 09:47:45 2022"
+[dumpfile_size] 3831970
+[savefile] "F:\WSL\ASIC\ExperiarSoC\verilog\dv\peripheralsSPI\WaveDisplay.gtkw"
+[timestart] 2409920000
+[size] 2560 1377
+[pos] -1 -1
+*-18.674072 2411787500 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] peripheralsSPI_tb.
+[treeopen] peripheralsSPI_tb.uut.
+[treeopen] peripheralsSPI_tb.uut.mprj.
+[treeopen] peripheralsSPI_tb.uut.mprj.experiarSoC.
+[treeopen] peripheralsSPI_tb.uut.mprj.experiarSoC.peripherals.
+[treeopen] peripheralsSPI_tb.uut.mprj.experiarSoC.peripherals.spi.
+[treeopen] peripheralsSPI_tb.uut.mprj.experiarSoC.peripherals.spi.genblk1[0].
+[treeopen] peripheralsSPI_tb.uut.mprj.experiarSoC.peripherals.spi.genblk1[0].device.
+[sst_width] 357
+[signals_width] 246
+[sst_expanded] 1
+[sst_vpaned_height] 900
+@28
+peripheralsSPI_tb.uut.mprj.wb_clk_i
+peripheralsSPI_tb.uut.mprj.wb_rst_i
+peripheralsSPI_tb.succesOutput
+peripheralsSPI_tb.timingValid
+peripheralsSPI_tb.nextTestOutput
+peripheralsSPI_tb.sck
+peripheralsSPI_tb.mosi
+peripheralsSPI_tb.miso
+peripheralsSPI_tb.chipSelect
+peripheralsSPI_tb.uut.mprj.experiarSoC.core0Memory_wb_cyc_i
+peripheralsSPI_tb.uut.mprj.experiarSoC.core0Memory_wb_stb_i
+peripheralsSPI_tb.uut.mprj.experiarSoC.core0Memory_wb_we_i
+peripheralsSPI_tb.uut.mprj.experiarSoC.core0Memory_wb_stall_o
+peripheralsSPI_tb.uut.mprj.experiarSoC.core0Memory_wb_ack_o
+peripheralsSPI_tb.uut.mprj.experiarSoC.core0Memory_wb_error_o
+@22
+peripheralsSPI_tb.uut.mprj.experiarSoC.core0Memory_wb_adr_i[23:0]
+peripheralsSPI_tb.uut.mprj.experiarSoC.core0Memory_wb_sel_i[3:0]
+peripheralsSPI_tb.uut.mprj.experiarSoC.core0Memory_wb_data_i[31:0]
+peripheralsSPI_tb.uut.mprj.experiarSoC.core0Memory_wb_data_o[31:0]
+@28
+peripheralsSPI_tb.uut.mprj.experiarSoC.peripherals.spi.genblk1[0].device.deviceBusy
+@22
+peripheralsSPI_tb.uut.mprj.experiarSoC.peripherals.spi.genblk1[0].device.dataRegisterReadData[7:0]
+peripheralsSPI_tb.uut.mprj.experiarSoC.peripherals.spi.genblk1[0].device.dataRegisterWriteData[7:0]
+@c00022
+peripheralsSPI_tb.shiftValue[7:0]
+@28
+(0)peripheralsSPI_tb.shiftValue[7:0]
+(1)peripheralsSPI_tb.shiftValue[7:0]
+(2)peripheralsSPI_tb.shiftValue[7:0]
+(3)peripheralsSPI_tb.shiftValue[7:0]
+(4)peripheralsSPI_tb.shiftValue[7:0]
+(5)peripheralsSPI_tb.shiftValue[7:0]
+(6)peripheralsSPI_tb.shiftValue[7:0]
+(7)peripheralsSPI_tb.shiftValue[7:0]
+@1401200
+-group_end
+@c00022
+peripheralsSPI_tb.uut.mprj.experiarSoC.peripherals.spi.genblk1[0].device.clockCounter[7:0]
+@28
+(0)peripheralsSPI_tb.uut.mprj.experiarSoC.peripherals.spi.genblk1[0].device.clockCounter[7:0]
+(1)peripheralsSPI_tb.uut.mprj.experiarSoC.peripherals.spi.genblk1[0].device.clockCounter[7:0]
+(2)peripheralsSPI_tb.uut.mprj.experiarSoC.peripherals.spi.genblk1[0].device.clockCounter[7:0]
+(3)peripheralsSPI_tb.uut.mprj.experiarSoC.peripherals.spi.genblk1[0].device.clockCounter[7:0]
+(4)peripheralsSPI_tb.uut.mprj.experiarSoC.peripherals.spi.genblk1[0].device.clockCounter[7:0]
+(5)peripheralsSPI_tb.uut.mprj.experiarSoC.peripherals.spi.genblk1[0].device.clockCounter[7:0]
+(6)peripheralsSPI_tb.uut.mprj.experiarSoC.peripherals.spi.genblk1[0].device.clockCounter[7:0]
+(7)peripheralsSPI_tb.uut.mprj.experiarSoC.peripherals.spi.genblk1[0].device.clockCounter[7:0]
+@1401200
+-group_end
+@28
+peripheralsSPI_tb.uut.mprj.experiarSoC.peripherals.spi.genblk1[0].device.spiClock
+@c00028
+peripheralsSPI_tb.uut.mprj.experiarSoC.peripherals.spi.genblk1[0].device.state[1:0]
+@28
+(0)peripheralsSPI_tb.uut.mprj.experiarSoC.peripherals.spi.genblk1[0].device.state[1:0]
+(1)peripheralsSPI_tb.uut.mprj.experiarSoC.peripherals.spi.genblk1[0].device.state[1:0]
+@1401200
+-group_end
+@28
+peripheralsSPI_tb.uut.mprj.experiarSoC.peripherals.spi.genblk1[0].device.spiClockRise
+peripheralsSPI_tb.uut.mprj.experiarSoC.peripherals.spi.genblk1[0].device.spiClockFall
+peripheralsSPI_tb.uut.mprj.experiarSoC.peripherals.spi.genblk1[0].device.shiftInEnable
+peripheralsSPI_tb.uut.mprj.experiarSoC.peripherals.spi.genblk1[0].device.shiftOutEnable
+@c00023
+peripheralsSPI_tb.uut.mprj.experiarSoC.peripherals.spi.genblk1[0].device.register.data[7:0]
+@29
+(0)peripheralsSPI_tb.uut.mprj.experiarSoC.peripherals.spi.genblk1[0].device.register.data[7:0]
+(1)peripheralsSPI_tb.uut.mprj.experiarSoC.peripherals.spi.genblk1[0].device.register.data[7:0]
+(2)peripheralsSPI_tb.uut.mprj.experiarSoC.peripherals.spi.genblk1[0].device.register.data[7:0]
+(3)peripheralsSPI_tb.uut.mprj.experiarSoC.peripherals.spi.genblk1[0].device.register.data[7:0]
+(4)peripheralsSPI_tb.uut.mprj.experiarSoC.peripherals.spi.genblk1[0].device.register.data[7:0]
+(5)peripheralsSPI_tb.uut.mprj.experiarSoC.peripherals.spi.genblk1[0].device.register.data[7:0]
+(6)peripheralsSPI_tb.uut.mprj.experiarSoC.peripherals.spi.genblk1[0].device.register.data[7:0]
+(7)peripheralsSPI_tb.uut.mprj.experiarSoC.peripherals.spi.genblk1[0].device.register.data[7:0]
+@1401201
+-group_end
+@28
+peripheralsSPI_tb.uut.mprj.experiarSoC.peripherals.spi.genblk1[0].device.register.serialIn
+peripheralsSPI_tb.uut.mprj.experiarSoC.peripherals.spi.genblk1[0].device.register.loadEnable
+@c00022
+peripheralsSPI_tb.mprj_io[37:0]
+@28
+(0)peripheralsSPI_tb.mprj_io[37:0]
+(1)peripheralsSPI_tb.mprj_io[37:0]
+(2)peripheralsSPI_tb.mprj_io[37:0]
+(3)peripheralsSPI_tb.mprj_io[37:0]
+(4)peripheralsSPI_tb.mprj_io[37:0]
+(5)peripheralsSPI_tb.mprj_io[37:0]
+(6)peripheralsSPI_tb.mprj_io[37:0]
+(7)peripheralsSPI_tb.mprj_io[37:0]
+(8)peripheralsSPI_tb.mprj_io[37:0]
+(9)peripheralsSPI_tb.mprj_io[37:0]
+(10)peripheralsSPI_tb.mprj_io[37:0]
+(11)peripheralsSPI_tb.mprj_io[37:0]
+(12)peripheralsSPI_tb.mprj_io[37:0]
+(13)peripheralsSPI_tb.mprj_io[37:0]
+(14)peripheralsSPI_tb.mprj_io[37:0]
+(15)peripheralsSPI_tb.mprj_io[37:0]
+(16)peripheralsSPI_tb.mprj_io[37:0]
+(17)peripheralsSPI_tb.mprj_io[37:0]
+(18)peripheralsSPI_tb.mprj_io[37:0]
+(19)peripheralsSPI_tb.mprj_io[37:0]
+(20)peripheralsSPI_tb.mprj_io[37:0]
+(21)peripheralsSPI_tb.mprj_io[37:0]
+(22)peripheralsSPI_tb.mprj_io[37:0]
+(23)peripheralsSPI_tb.mprj_io[37:0]
+(24)peripheralsSPI_tb.mprj_io[37:0]
+(25)peripheralsSPI_tb.mprj_io[37:0]
+(26)peripheralsSPI_tb.mprj_io[37:0]
+(27)peripheralsSPI_tb.mprj_io[37:0]
+(28)peripheralsSPI_tb.mprj_io[37:0]
+(29)peripheralsSPI_tb.mprj_io[37:0]
+(30)peripheralsSPI_tb.mprj_io[37:0]
+(31)peripheralsSPI_tb.mprj_io[37:0]
+(32)peripheralsSPI_tb.mprj_io[37:0]
+(33)peripheralsSPI_tb.mprj_io[37:0]
+(34)peripheralsSPI_tb.mprj_io[37:0]
+(35)peripheralsSPI_tb.mprj_io[37:0]
+(36)peripheralsSPI_tb.mprj_io[37:0]
+(37)peripheralsSPI_tb.mprj_io[37:0]
+@1401200
+-group_end
+[pattern_trace] 1
+[pattern_trace] 0
