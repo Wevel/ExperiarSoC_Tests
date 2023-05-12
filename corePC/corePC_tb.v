@@ -116,6 +116,23 @@ module corePC_tb;
 	end
 
 	initial begin
+		// Check if a test fails
+		@(negedge succesOutput);
+
+		// Wait for a few extra clock cycles
+		#100
+		
+		$display("%c[1;31m",27);
+		`ifdef GL
+			$display ("Monitor: Core PC Test (GL) Failed");
+		`else
+			$display ("Monitor: Core PC Test (RTL) Failed");
+		`endif
+		$display("%c[0m",27);
+	    $finish;
+	end
+
+	initial begin
 		RSTB <= 1'b0;
 		CSB  <= 1'b1;		// Force CSB high
 		#2000;

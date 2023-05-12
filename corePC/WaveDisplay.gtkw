@@ -1,37 +1,31 @@
 [*]
 [*] GTKWave Analyzer v3.3.100 (w)1999-2019 BSI
-[*] Fri Jun 03 09:36:24 2022
+[*] Fri May 12 10:11:20 2023
 [*]
-[dumpfile] "F:\WSL\ASIC\ExperiarSoC\verilog\dv\peripheralsGPIO\waveRTL.vcd"
-[dumpfile_mtime] "Fri Jun 03 09:06:35 2022"
-[dumpfile_size] 7582662
-[savefile] "F:\WSL\ASIC\ExperiarSoC\verilog\dv\CaravelWaveDisplay.gtkw"
-[timestart] 0
+[dumpfile] "F:\WSL\ASIC\ExperiarSoC\verilog\dv\ExperiarSoC_Tests\corePC\RTL-corePC.vcd"
+[dumpfile_mtime] "Fri May 12 09:26:30 2023"
+[dumpfile_size] 11643940
+[savefile] "F:\WSL\ASIC\ExperiarSoC\verilog\dv\ExperiarSoC_Tests\corePC\WaveDisplay.gtkw"
+[timestart] 5816182130
 [size] 2560 1377
-[pos] -347 -347
-*-29.873032 3135000000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
-[treeopen] peripheralsGPIO_tb.
-[treeopen] peripheralsGPIO_tb.uut.
-[treeopen] peripheralsGPIO_tb.uut.mprj.
-[sst_width] 197
-[signals_width] 214
+[pos] -217 -217
+*-13.639670 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] corePC_tb.
+[treeopen] corePC_tb.uut.
+[treeopen] corePC_tb.uut.chip_core.
+[treeopen] corePC_tb.uut.chip_core.mprj.
+[treeopen] corePC_tb.uut.chip_core.mprj.experiarSoC.
+[treeopen] corePC_tb.uut.chip_core.mprj.experiarSoC.core0.
+[sst_width] 297
+[signals_width] 318
 [sst_expanded] 1
 [sst_vpaned_height] 426
 @28
-peripheralsGPIO_tb.uut.mprj.wb_clk_i
-peripheralsGPIO_tb.uut.mprj.wb_rst_i
-peripheralsGPIO_tb.succesOutput
-peripheralsGPIO_tb.nextTestOutput
-peripheralsGPIO_tb.uut.mprj.experiarSoC.caravel_wb_cyc_o
-peripheralsGPIO_tb.uut.mprj.experiarSoC.caravel_wb_stb_o
-peripheralsGPIO_tb.uut.mprj.experiarSoC.caravel_wb_we_o
-peripheralsGPIO_tb.uut.mprj.experiarSoC.caravel_wb_stall_i
-peripheralsGPIO_tb.uut.mprj.experiarSoC.caravel_wb_ack_i
-peripheralsGPIO_tb.uut.mprj.experiarSoC.caravel_wb_error_i
+corePC_tb.nextTestOutput
+corePC_tb.succesOutput
+corePC_tb.uut.chip_core.mprj.experiarSoC.core0.core.state
+corePC_tb.uut.chip_core.mprj.experiarSoC.core0.core.stepPipe
 @22
-peripheralsGPIO_tb.uut.mprj.experiarSoC.caravel_wb_sel_o[3:0]
-peripheralsGPIO_tb.uut.mprj.experiarSoC.caravel_wb_adr_o[27:0]
-peripheralsGPIO_tb.uut.mprj.experiarSoC.caravel_wb_data_i[31:0]
-peripheralsGPIO_tb.uut.mprj.experiarSoC.caravel_wb_data_o[31:0]
+corePC_tb.uut.chip_core.mprj.experiarSoC.core0.core.fetchProgramCounter[31:0]
 [pattern_trace] 1
 [pattern_trace] 0
