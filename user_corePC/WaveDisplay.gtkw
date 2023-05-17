@@ -1,0 +1,40 @@
+[*]
+[*] GTKWave Analyzer v3.3.100 (w)1999-2019 BSI
+[*] Mon May 15 21:15:19 2023
+[*]
+[dumpfile] "F:\WSL\ASIC\ExperiarSoC\verilog\dv\ExperiarSoC_Tests\user_corePC\user_corePC_tb.vcd"
+[dumpfile_mtime] "Mon May 15 21:14:20 2023"
+[dumpfile_size] 48957
+[savefile] "F:\WSL\ASIC\ExperiarSoC\verilog\dv\ExperiarSoC_Tests\user_corePC\WaveDisplay.gtkw"
+[timestart] 0
+[size] 2560 1377
+[pos] -1 -1
+*-20.835791 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] user_corePC_tb.
+[treeopen] user_corePC_tb.mprj.
+[treeopen] user_corePC_tb.mprj.experiarSoC.
+[sst_width] 377
+[signals_width] 262
+[sst_expanded] 1
+[sst_vpaned_height] 426
+@28
+user_corePC_tb.clock
+user_corePC_tb.RSTB
+user_corePC_tb.succesOutput
+user_corePC_tb.nextTestOutput
+user_corePC_tb.wbEnable
+user_corePC_tb.wbWriteEnable
+@22
+user_corePC_tb.wbAddress[31:0]
+user_corePC_tb.wbByteSelect[3:0]
+user_corePC_tb.wbDataWrite[31:0]
+user_corePC_tb.wbDataRead[31:0]
+@28
+user_corePC_tb.wbBusy
+@22
+user_corePC_tb.testValue[31:0]
+user_corePC_tb.initialInstructionCount[31:0]
+user_corePC_tb.mprj.experiarSoC.core0.probe_programCounter[31:0]
+user_corePC_tb.mprj.experiarSoC.core1.probe_programCounter[31:0]
+[pattern_trace] 1
+[pattern_trace] 0
