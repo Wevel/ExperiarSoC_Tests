@@ -58,7 +58,7 @@ module corePC_tb;
 `endif
 
 		// Repeat cycles of 1000 clock edges as needed to complete testbench
-		repeat (700) begin
+		repeat (800) begin
 			repeat (1000) @(posedge clock);
 			//$display("+1000 cycles");
 		end
@@ -74,27 +74,8 @@ module corePC_tb;
 
 	initial begin
 		// Wait for tests
-		@(posedge nextTestOutput);
-		@(posedge nextTestOutput);
-		@(posedge nextTestOutput);
-		@(posedge nextTestOutput);
-		@(posedge nextTestOutput);
-		@(posedge nextTestOutput);
-		@(posedge nextTestOutput);
-		@(posedge nextTestOutput);
-		@(posedge nextTestOutput);
-		@(posedge nextTestOutput);
-		@(posedge nextTestOutput);
-		@(posedge nextTestOutput);
-		@(posedge nextTestOutput);
-		@(posedge nextTestOutput);
-		@(posedge nextTestOutput);
-		@(posedge nextTestOutput);
-		@(posedge nextTestOutput);
+		repeat (20) @(posedge nextTestOutput);
 
-		// Wait for management core to output a output test result
-		@(posedge nextTestOutput);
-		
 		if (succesOutput) begin
 			$display("%c[1;92m",27);
 			`ifdef GL
@@ -112,23 +93,6 @@ module corePC_tb;
 			`endif
 			$display("%c[0m",27);
 		end
-	    $finish;
-	end
-
-	initial begin
-		// Check if a test fails
-		@(negedge succesOutput);
-
-		// Wait for a few extra clock cycles
-		#100
-		
-		$display("%c[1;31m",27);
-		`ifdef GL
-			$display ("Monitor: Core PC Test (GL) Failed");
-		`else
-			$display ("Monitor: Core PC Test (RTL) Failed");
-		`endif
-		$display("%c[0m",27);
 	    $finish;
 	end
 
@@ -156,8 +120,25 @@ module corePC_tb;
 		power4 <= 1'b1;
 	end
 
+	reg[31:0] testCounter = 0;
 	always @(succesOutput, nextTestOutput) begin
-		#1 $display("Success:0b%b Next test:0b%b", succesOutput, nextTestOutput);
+		#1
+		if (nextTestOutput) begin
+			if (succesOutput) begin
+				$display("%c[1;92m",27);
+				$display("Passed test:0b%b", testCounter);
+				$display("%c[0m",27);
+			end	else begin
+				$display("%c[1;31m",27);
+				$display("Failed test:0b%b", testCounter);
+				$display("%c[0m",27);
+				#500
+				$finish;
+			end
+			testCounter <= testCounter + 1;
+		end else begin
+			$display("Starting test0b%b", testCounter);
+		end
 	end
 
 	wire flash_csb;

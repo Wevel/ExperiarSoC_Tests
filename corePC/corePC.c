@@ -38,30 +38,29 @@
 #define GPIO1_OUTPUT_TOGGLE_ADDR ((uint32_t*)0x3303201C)
 #define GPIO1_INPUT_ADDR ((uint32_t*)0x33032020)
 
+#define CORE0_SRAM_ADDR ((uint32_t*)0x30000000)
 #define CORE0_CONFIG_ADDR ((uint32_t*)0x30800000)
-#define CORE0_STATUS_ADDR ((uint32_t*)0x30800004)
 #define CORE0_REG_PC_ADDR ((uint32_t*)0x30810000)
 #define CORE0_REG_JUMP_ADDR ((uint32_t*)0x30810004)
 #define CORE0_REG_STEP_ADDR ((uint32_t*)0x30810008)
 #define CORE0_REG_INSTR_ADDR ((uint32_t*)0x30810010)
-#define CORE0_REG_IREG_ADDR ((uint32_t*)0x30811000)
-#define CORE0_SRAM_ADDR ((uint32_t*)0x30000000)
+#define CORE0_REG_IREG_ADDR ((uint32_t*)0x30814000)
+#define CORE0_CSR_ADDR ((uint32_t*)0x30818000)
 
+#define CORE1_SRAM_ADDR ((uint32_t*)0x31000000)
 #define CORE1_CONFIG_ADDR ((uint32_t*)0x31800000)
-#define CORE1_STATUS_ADDR ((uint32_t*)0x31800004)
 #define CORE1_REG_PC_ADDR ((uint32_t*)0x31810000)
 #define CORE1_REG_JUMP_ADDR ((uint32_t*)0x31810004)
 #define CORE1_REG_STEP_ADDR ((uint32_t*)0x31810008)
 #define CORE1_REG_INSTR_ADDR ((uint32_t*)0x31810010)
-#define CORE1_REG_IREG_ADDR ((uint32_t*)0x31811000)
-#define CORE1_SRAM_ADDR ((uint32_t*)0x31000000)
+#define CORE1_REG_IREG_ADDR ((uint32_t*)0x31814000)
+#define CORE1_CSR_ADDR ((uint32_t*)0x31818000)
 
 #define MPRJ_WB_ADDRESS (*(volatile uint32_t*)0x30000000)
 #define MPRJ_WB_DATA_LOCATION 0x30008000
 
 #define CORE_RUN 0x1
 #define CORE_HALT 0x0
-#define CORE_RUNNING_NOERROR 0x10
 
 #define RV32I_NOP 0x00000013
 #define RV32I_JMP_PREV 0xFFDFF06F
@@ -188,7 +187,7 @@ void main ()
 	if (wbRead (CORE0_REG_PC_ADDR) != 0x4) testPass = false;
 	nextTest (testPass);
 
-	// Check that an NOP was read
+	// Check that a NOP was read
 	if (wbRead (CORE0_REG_INSTR_ADDR) != RV32I_NOP) testPass = false;
 	nextTest (testPass);
 
@@ -203,7 +202,14 @@ void main ()
 	wbWrite (CORE0_CONFIG_ADDR, CORE_RUN);
 
 	// Check that the core is running
-	if (wbRead (CORE0_STATUS_ADDR) != CORE_RUNNING_NOERROR) testPass = false;
+	wbWrite (CORE0_CONFIG_ADDR, CORE_HALT);
+	uint32_t initialInstructionCount = wbRead (CORE0_CSR_ADDR + 0xC02);
+	if (initialInstructionCount <= 1 || initialInstructionCount == ~0) testPass = false;
+	nextTest (testPass);
+
+	wbWrite (CORE0_CONFIG_ADDR, CORE_RUN);
+	wbWrite (CORE0_CONFIG_ADDR, CORE_HALT);
+	if (wbRead (CORE0_CSR_ADDR + 0xC02) == initialInstructionCount) testPass = false;
 	nextTest (testPass);
 
 	// Halt the core
@@ -249,7 +255,14 @@ void main ()
 	wbWrite (CORE1_CONFIG_ADDR, CORE_RUN);
 
 	// Check that the core is running
-	if (wbRead (CORE1_STATUS_ADDR) != CORE_RUNNING_NOERROR) testPass = false;
+	wbWrite (CORE1_CONFIG_ADDR, CORE_HALT);
+	initialInstructionCount = wbRead (CORE1_CSR_ADDR + 0xC02);
+	if (initialInstructionCount <= 1 || initialInstructionCount == ~0) testPass = false;
+	nextTest (testPass);
+
+	wbWrite (CORE1_CONFIG_ADDR, CORE_RUN);
+	wbWrite (CORE1_CONFIG_ADDR, CORE_HALT);
+	if (wbRead (CORE1_CSR_ADDR + 0xC02) == initialInstructionCount) testPass = false;
 	nextTest (testPass);
 
 	// Halt the core
