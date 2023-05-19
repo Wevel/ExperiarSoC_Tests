@@ -2,9 +2,10 @@
 
 `timescale 1 ns / 1 ps
 
+`include "../RV32I.v"
 `include "../UserSpace.v"
 
-module user_corePC_tb;
+module userSpace_tb;
 	reg clk;
 	reg rst;
 
@@ -31,12 +32,13 @@ module user_corePC_tb;
 	wire [2:0]   user_irq_core;
 
 	initial begin
-		$dumpfile("user_corePC.vcd");
-		$dumpvars(0, user_corePC_tb);
+		$dumpfile("userSpace.vcd");
+		$dumpvars(0, userSpace_tb);
 		`TIMEOUT(100)
 		$finish;
 	end
 
+	reg[6:0] tmp;
 	reg[31:0] testValue = 32'b0;
 	reg[31:0] initialInstructionCount = 32'b0;
 	initial begin
@@ -49,12 +51,13 @@ module user_corePC_tb;
 		`TEST_WRITE(`CORE0_SRAM_ADDR, `SELECT_WORD, testValue, `RV32I_NOP)
 		`TEST_WRITE(`OFFSET_WORD(`CORE0_SRAM_ADDR, 32'h40), `SELECT_WORD, testValue, `RV32I_NOP)
 		`TEST_WRITE(`OFFSET_WORD(`CORE0_SRAM_ADDR, 32'h41), `SELECT_WORD, testValue, `RV32I_NOP)
-		`TEST_WRITE(`OFFSET_WORD(`CORE0_SRAM_ADDR, 32'h42), `SELECT_WORD, testValue, `RV32I_JMP_PREV)
+		`TEST_WRITE(`OFFSET_WORD(`CORE0_SRAM_ADDR, 32'h42), `SELECT_WORD, testValue, `RV32I_JAL(`RV32I_X0, -32'h4))
+		
 
 		`TEST_WRITE(`CORE1_SRAM_ADDR, `SELECT_WORD, testValue, `RV32I_NOP)
 		`TEST_WRITE(`OFFSET_WORD(`CORE1_SRAM_ADDR, 32'h40), `SELECT_WORD, testValue, `RV32I_NOP)
 		`TEST_WRITE(`OFFSET_WORD(`CORE1_SRAM_ADDR, 32'h41), `SELECT_WORD, testValue, `RV32I_NOP)
-		`TEST_WRITE(`OFFSET_WORD(`CORE1_SRAM_ADDR, 32'h42), `SELECT_WORD, testValue, `RV32I_JMP_PREV)
+		`TEST_WRITE(`OFFSET_WORD(`CORE1_SRAM_ADDR, 32'h42), `SELECT_WORD, testValue, `RV32I_JAL(`RV32I_X0, -32'h4))
 
 		// Test core 0
 		// Read that the config defaulted to 0

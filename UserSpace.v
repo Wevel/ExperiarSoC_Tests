@@ -1,5 +1,7 @@
 `timescale 1 ns / 1 ps
 
+`define TEST_NAME_LENGTH 128
+
 `define GPIO0_OE_WRITE_ADDR 32'h33031000
 `define GPIO0_OE_SET_ADDR 32'h33031004
 `define GPIO0_OE_CLEAR_ADDR 32'h33031008
@@ -39,9 +41,6 @@
 
 `define CORE_RUN 32'h1
 `define CORE_HALT 32'h0
-
-`define RV32I_NOP 32'h00000013
-`define RV32I_JMP_PREV 32'hFFDFF06F
 
 `define SELECT_WORD 4'b1111
 `define SELECT_HALF 4'b0011
@@ -85,7 +84,8 @@
 	`WB_WRITE_RAW(32'h30000000, `SELECT_WORD, (ADDRESS) & 32'hFFFF8000) \ // Set top part of address
 	`WB_READ_RAW(((ADDRESS) & 32'h00007FFF) | 32'h30008000, BYTE_SELECT, DATA) // Perform read
 
-`define TEST_RESULT(RESULT) \
+`define TEST_RESULT(RESULT, TEST_NAME) \
+	currentTestName = TEST_NAME; \
 	@(negedge clk) \ // Wait till before clock rising edge
 	#1 \
 	if (succesOutput) succesOutput <= (RESULT);\
@@ -94,14 +94,14 @@
 	@(negedge clk); \
 	nextTestOutput <= 1'b0;
 
-`define TEST_WRITE(ADDRESS, BYTE_SELECT, DATA, EXPECTED_RESULT) \
+`define TEST_WRITE(ADDRESS, BYTE_SELECT, DATA, EXPECTED_RESULT, TEST_NAME) \
 	`WB_WRITE(ADDRESS, BYTE_SELECT, EXPECTED_RESULT) \
 	`WB_READ(ADDRESS, BYTE_SELECT, DATA) \
-	`TEST_RESULT(DATA == (EXPECTED_RESULT))
+	`TEST_RESULT(DATA == (EXPECTED_RESULT), TEST_NAME)
 
-`define TEST_READ(ADDRESS, BYTE_SELECT, DATA, EXPECTED_RESULT) \
+`define TEST_READ(ADDRESS, BYTE_SELECT, DATA, EXPECTED_RESULT, TEST_NAME) \
 	`WB_READ(ADDRESS, BYTE_SELECT, DATA) \
-	`TEST_RESULT(DATA == (EXPECTED_RESULT))
+	`TEST_RESULT(DATA == (EXPECTED_RESULT), TEST_NAME)
 
 `define TIMEOUT(TIME) \
 	repeat (TIME) begin \ // Repeat cycles of 1000 clock edges as needed to complete testbench
@@ -159,7 +159,8 @@ module UserSpace(
 		output wire wbBusy,
 
 		input wire succesOutput,
-		input wire nextTestOutput
+		input wire nextTestOutput,
+		input wire[(`TEST_NAME_LENGTH*5)-1:0] currentTestName 
 	);
 
 	// Dispaly message with result of each test, ending the simulation if a test fails
@@ -168,9 +169,9 @@ module UserSpace(
 		#1
 		if (nextTestOutput) begin
 			if (succesOutput) begin
-				$display("%c[1;92mPassed test: %d%c[0m", 27, testCounter, 27);
+				$display("%c[1;92mPassed test: %d %s%c[0m", 27, testCounter, currentTestName, 27);
 			end	else begin
-				$display("%c[1;31mFailed test: %d%c[0m", 27, testCounter, 27);
+				$display("%c[1;31mFailed test: %d %s%c[0m", 27, testCounter, currentTestName, 27);
 				#500
 				$finish;
 			end

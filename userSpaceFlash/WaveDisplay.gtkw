@@ -1,0 +1,57 @@
+[*]
+[*] GTKWave Analyzer v3.3.100 (w)1999-2019 BSI
+[*] Fri May 19 13:38:50 2023
+[*]
+[dumpfile] "F:\WSL\ASIC\ExperiarSoC\verilog\dv\ExperiarSoC_Tests\userSpaceFlash\RTL-userSpaceFlash.vcd"
+[dumpfile_mtime] "Fri May 19 13:22:35 2023"
+[dumpfile_size] 39782
+[savefile] "F:\WSL\ASIC\ExperiarSoC\verilog\dv\ExperiarSoC_Tests\userSpaceFlash\WaveDisplay.gtkw"
+[timestart] 2835000
+[size] 2560 1377
+[pos] -1 -1
+*-18.417549 5555000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] userSpaceFlash_tb.
+[treeopen] userSpaceFlash_tb.userSpace.
+[treeopen] userSpaceFlash_tb.userSpace.mprj.
+[treeopen] userSpaceFlash_tb.userSpace.mprj.experiarSoC.
+[treeopen] userSpaceFlash_tb.userSpace.mprj.experiarSoC.flash.
+[sst_width] 377
+[signals_width] 262
+[sst_expanded] 1
+[sst_vpaned_height] 900
+@28
+userSpaceFlash_tb.clk
+userSpaceFlash_tb.rst
+userSpaceFlash_tb.succesOutput
+userSpaceFlash_tb.nextTestOutput
+@22
+userSpaceFlash_tb.testValue[31:0]
+@28
+userSpaceFlash_tb.user_flash_clk
+userSpaceFlash_tb.user_flash_csb
+userSpaceFlash_tb.user_flash_io0
+userSpaceFlash_tb.user_flash_io1
+userSpaceFlash_tb.userSpace.mprj.caravel_wb_cyc_o
+userSpaceFlash_tb.userSpace.mprj.caravel_wb_stb_o
+userSpaceFlash_tb.userSpace.mprj.caravel_wb_we_o
+@22
+userSpaceFlash_tb.userSpace.mprj.caravel_wb_adr_o[27:0]
+userSpaceFlash_tb.userSpace.mprj.caravel_wb_sel_o[3:0]
+userSpaceFlash_tb.userSpace.mprj.caravel_wb_data_o[31:0]
+userSpaceFlash_tb.userSpace.mprj.caravel_wb_data_i[31:0]
+@28
+userSpaceFlash_tb.userSpace.mprj.caravel_wb_stall_i
+userSpaceFlash_tb.userSpace.mprj.caravel_wb_ack_i
+userSpaceFlash_tb.userSpace.mprj.experiarSoC.flash.qspiDevice.qspi_enable
+userSpaceFlash_tb.userSpace.mprj.experiarSoC.flash.qspiDevice.qspi_changeAddress
+@23
+userSpaceFlash_tb.userSpace.mprj.experiarSoC.flash.qspiDevice.qspi_address[23:0]
+@28
+userSpaceFlash_tb.userSpace.mprj.experiarSoC.flash.qspiDevice.qspi_requestData
+@22
+userSpaceFlash_tb.userSpace.mprj.experiarSoC.flash.qspiDevice.qspi_readData[31:0]
+@28
+userSpaceFlash_tb.userSpace.mprj.experiarSoC.flash.qspiDevice.qspi_readDataValid
+userSpaceFlash_tb.userSpace.mprj.experiarSoC.flash.qspiDevice.qspi_initialised
+[pattern_trace] 1
+[pattern_trace] 0

@@ -1,0 +1,406 @@
+
+userSpaceFlash.elf:     file format elf32-littleriscv
+
+
+Disassembly of section .text:
+
+14000000 <_start>:
+    .cfi_startproc 
+    .cfi_undefined ra
+
+    .option push
+    .option norelax
+    la gp, _global_pointer$
+14000000:	6c00                	flw	fs0,24(s0)
+14000002:	6269                	lui	tp,0x1a
+14000004:	6f732e63          	0x6f732e63
+    .option pop
+
+    la sp, _stack_top
+14000008:	362e                	fld	fa2,232(sp)
+1400000a:	ec00                	fsw	fs0,24(s0)
+1400000c:	ff810113          	addi	sp,sp,-8
+    add s0, sp, zero
+14000010:	00010433          	add	s0,sp,zero
+
+	la a0, _sidata
+14000014:	00001517          	auipc	a0,0x1
+14000018:	46050513          	addi	a0,a0,1120 # 14001474 <_etext>
+	la a1, _sdata
+1400001c:	00000593          	li	a1,0
+	la a2, _edata
+14000020:	00000613          	li	a2,0
+	bge a1, a2, end_init_data
+14000024:	00c5dc63          	bge	a1,a2,1400003c <end_init_data>
+
+14000028 <loop_init_data>:
+loop_init_data:
+	lw a3, 0(a0)
+14000028:	00052683          	lw	a3,0(a0)
+	sw a3, 0(a1)
+1400002c:	00d5a023          	sw	a3,0(a1)
+	addi a0, a0, 4
+14000030:	00450513          	addi	a0,a0,4
+	addi a1, a1, 4
+14000034:	00458593          	addi	a1,a1,4
+	blt a1, a2, loop_init_data
+14000038:	fec5c8e3          	blt	a1,a2,14000028 <loop_init_data>
+
+1400003c <end_init_data>:
+end_init_data:
+
+	la a0, _sbss
+1400003c:	08c00513          	li	a0,140
+	la a1, _ebss
+14000040:	09c00593          	li	a1,156
+	bge a0, a1, end_init_bss
+14000044:	00b55863          	bge	a0,a1,14000054 <end_init_bss>
+
+14000048 <loop_init_bss>:
+loop_init_bss:
+	sw zero, 0(a0)
+14000048:	00052023          	sw	zero,0(a0)
+	addi a0, a0, 4
+1400004c:	00450513          	addi	a0,a0,4
+	blt a0, a1, loop_init_bss
+14000050:	feb54ce3          	blt	a0,a1,14000048 <loop_init_bss>
+
+14000054 <end_init_bss>:
+end_init_bss:
+
+    jal main
+14000054:	46c000ef          	jal	ra,140004c0 <main>
+
+	ecall
+14000058:	00000073          	ecall
+
+1400005c <paddingBuffer>:
+1400005c:	65726f4c 7069206d 206d7573 6f6c6f64     Lorem ipsum dolo
+1400006c:	69732072 6d612074 202c7465 736e6f63     r sit amet, cons
+1400007c:	65746365 20727574 70696461 69637369     ectetur adipisci
+1400008c:	6520676e 2e74696c 6e654120 206e6165     ng elit. Aenean 
+1400009c:	73697571 6c657420 2073756c 73697571     quis tellus quis
+140000ac:	73756a20 65206f74 74736567 65207361      justo egestas e
+140000bc:	6669656c 2e646e65 206e4920 2063656e     leifend. In nec 
+140000cc:	6e67616d 696e2061 202e6c73 65746e49     magna nisl. Inte
+140000dc:	20726567 636e6974 6e756469 696e2074     ger tincidunt ni
+140000ec:	76206c73 65617469 73696e20 6c62206c     sl vitae nisl bl
+140000fc:	69646e61 616d2074 756d6978 43202e73     andit maximus. C
+1400010c:	20736172 6e207461 20686269 2e697564     ras at nibh dui.
+1400011c:	6f725020 72206e69 75727475 6974206d      Proin rutrum ti
+1400012c:	6469636e 20746e75 6862696e 206e6920     ncidunt nibh in 
+1400013c:	73656765 2e736174 76695620 73756d61     egestas. Vivamus
+1400014c:	6e726f20 20657261 72746c75 73656369      ornare ultrices
+1400015c:	2e696d20 6c754e20 206d616c 73206361      mi. Nullam ac s
+1400016c:	65706d65 656c2072 73757463 724f202e     emper lectus. Or
+1400017c:	76206963 75697261 616e2073 75716f74     ci varius natoqu
+1400018c:	65702065 6974616e 20737562 6d207465     e penatibus et m
+1400019c:	696e6761 69642073 61702073 72757472     agnis dis partur
+140001ac:	746e6569 6e6f6d20 2c736574 73616e20     ient montes, nas
+140001bc:	75746563 69722072 75636964 2073756c     cetur ridiculus 
+140001cc:	2e73756d 746e4920 72656765 696c6120     mus. Integer ali
+140001dc:	74657571 74697620 61206561 20756372     quet vitae arcu 
+140001ec:	74656765 62696220 75646e65 53202e6d     eget bibendum. S
+140001fc:	65707375 7369646e 76206573 75697261     uspendisse variu
+1400020c:	69642073 61206d61 78652074 75656620     s diam at ex feu
+1400021c:	74616967 6d657320 2e726570 69754420     giat semper. Dui
+1400022c:	69622073 646e6562 76206d75 74756c6f     s bibendum volut
+1400023c:	20746170 2c6f656c 20747520 63737573     pat leo, ut susc
+1400024c:	74697069 6f656c20 6f616c20 74656572     ipit leo laoreet
+1400025c:	62696220 75646e65 45202e6d 6d616974      bibendum. Etiam
+1400026c:	20646920 636e6974 6e756469 696c2074      id tincidunt li
+1400027c:	6f726562 7250202e 206e696f 6f69646f     bero. Proin odio
+1400028c:	6f656c20 6c61202c 65757169 6e692074      leo, aliquet in
+1400029c:	6f656c20 69757120 61202c73 7571696c      leo quis, aliqu
+140002ac:	76206d61 75697261 726f2073 202e6963     am varius orci. 
+140002bc:	65617250 746e6573 64657320 6d657320     Praesent sed sem
+140002cc:	20726570 75637261 6f44202e 2063656e     per arcu. Donec 
+140002dc:	2063656e 756c6f76 74617074 71656e20     nec volutpat neq
+140002ec:	202c6575 61642061 75626970 6f742073     ue, a dapibus to
+140002fc:	726f7472 6550202e 6e656c6c 71736574     rtor. Pellentesq
+1400030c:	6d206575 61737361 62696c20 2c6f7265     ue massa libero,
+1400031c:	74757220 206d7572 2063656e 63737573      rutrum nec susc
+1400032c:	74697069 2c6e6920 6e697420 75646963     ipit in, tincidu
+1400033c:	6520746e 20746567 7473756a 43202e6f     nt eget justo. C
+1400034c:	20736172 616c6c75 726f636d 2c726570     ras ullamcorper,
+1400035c:	726f6c20 6e206d65 6c206365 6e696361      lorem nec lacin
+1400036c:	63206169 69646e6f 746e656d 202c6d75     ia condimentum, 
+1400037c:	636e756e 73756a20 63206f74 75737275     nunc justo cursu
+1400038c:	72612073 202c7563 76207565 75706c75     s arcu, eu vulpu
+1400039c:	65746174 6f656c20 20696d20 74636964     tate leo mi dict
+140003ac:	61206d75 2e756372 76695620 73756d61     um arcu. Vivamus
+140003bc:	706d6920 69647265 73207465 65697061      imperdiet sapie
+140003cc:	6573206e 73202c6d 65706d65 63732072     n sem, semper sc
+140003dc:	72656c65 75717369 646f2065 66206f69     elerisque odio f
+140003ec:	62696e69 69207375 4e202e6e 20636e75     inibus in. Nunc 
+140003fc:	74736576 6c756269 67206d75 69766172     vestibulum gravi
+1400040c:	74206164 756c6c65 75652073 656c6520     da tellus eu ele
+1400041c:	746e656d 202e6d75 65746e49 6d756472     mentum. Interdum
+1400042c:	20746520 656c616d 64617573 61662061      et malesuada fa
+1400043c:	2073656d 61206361 2065746e 75737069     mes ac ante ipsu
+1400044c:	7270206d 73696d69 2e696220 00000000     m primis bi.....
+
+1400045c <primaryLoop>:
+{
+	primaryLoop ();
+}
+
+void primaryLoop ()
+{
+1400045c:	ff010113          	addi	sp,sp,-16
+14000460:	00112623          	sw	ra,12(sp)
+14000464:	00812423          	sw	s0,8(sp)
+	uint32_t i = 0;
+14000468:	00000413          	li	s0,0
+1400046c:	0380006f          	j	140004a4 <primaryLoop+0x48>
+	while (1)
+	{
+		if (state == 0)
+		{
+			currentChar = paddingBuffer[i % sizeof (paddingBuffer)];
+14000470:	3fd00593          	li	a1,1021
+14000474:	00040513          	mv	a0,s0
+14000478:	0d4000ef          	jal	ra,1400054c <__umodsi3>
+1400047c:	140007b7          	lui	a5,0x14000
+14000480:	05c78793          	addi	a5,a5,92 # 1400005c <paddingBuffer>
+14000484:	00a787b3          	add	a5,a5,a0
+14000488:	0007c703          	lbu	a4,0(a5)
+1400048c:	08e00623          	sb	a4,140(zero) # 8c <currentChar>
+			primaryTotal += i;
+14000490:	09000793          	li	a5,144
+14000494:	0007a703          	lw	a4,0(a5)
+14000498:	00870733          	add	a4,a4,s0
+1400049c:	00e7a023          	sw	a4,0(a5)
+			i += 1;
+140004a0:	00140413          	addi	s0,s0,1
+		if (state == 0)
+140004a4:	09802783          	lw	a5,152(zero) # 98 <state>
+140004a8:	fc0784e3          	beqz	a5,14000470 <primaryLoop+0x14>
+		}
+		else
+		{
+			secondaryLoop ();
+140004ac:	355000ef          	jal	ra,14001000 <secondaryLoop>
+			break;
+		}
+	}
+}
+140004b0:	00c12083          	lw	ra,12(sp)
+140004b4:	00812403          	lw	s0,8(sp)
+140004b8:	01010113          	addi	sp,sp,16
+140004bc:	00008067          	ret
+
+140004c0 <main>:
+{
+140004c0:	ff010113          	addi	sp,sp,-16
+140004c4:	00112623          	sw	ra,12(sp)
+	primaryLoop ();
+140004c8:	f95ff0ef          	jal	ra,1400045c <primaryLoop>
+}
+140004cc:	00c12083          	lw	ra,12(sp)
+140004d0:	01010113          	addi	sp,sp,16
+140004d4:	00008067          	ret
+
+140004d8 <__mulsi3>:
+140004d8:	00050613          	mv	a2,a0
+140004dc:	00000513          	li	a0,0
+140004e0:	0015f693          	andi	a3,a1,1
+140004e4:	00068463          	beqz	a3,140004ec <__mulsi3+0x14>
+140004e8:	00c50533          	add	a0,a0,a2
+140004ec:	0015d593          	srli	a1,a1,0x1
+140004f0:	00161613          	slli	a2,a2,0x1
+140004f4:	fe0596e3          	bnez	a1,140004e0 <__mulsi3+0x8>
+140004f8:	00008067          	ret
+
+140004fc <__divsi3>:
+140004fc:	06054063          	bltz	a0,1400055c <__umodsi3+0x10>
+14000500:	0605c663          	bltz	a1,1400056c <__umodsi3+0x20>
+
+14000504 <__udivsi3>:
+14000504:	00058613          	mv	a2,a1
+14000508:	00050593          	mv	a1,a0
+1400050c:	fff00513          	li	a0,-1
+14000510:	02060c63          	beqz	a2,14000548 <__udivsi3+0x44>
+14000514:	00100693          	li	a3,1
+14000518:	00b67a63          	bgeu	a2,a1,1400052c <__udivsi3+0x28>
+1400051c:	00c05863          	blez	a2,1400052c <__udivsi3+0x28>
+14000520:	00161613          	slli	a2,a2,0x1
+14000524:	00169693          	slli	a3,a3,0x1
+14000528:	feb66ae3          	bltu	a2,a1,1400051c <__udivsi3+0x18>
+1400052c:	00000513          	li	a0,0
+14000530:	00c5e663          	bltu	a1,a2,1400053c <__udivsi3+0x38>
+14000534:	40c585b3          	sub	a1,a1,a2
+14000538:	00d56533          	or	a0,a0,a3
+1400053c:	0016d693          	srli	a3,a3,0x1
+14000540:	00165613          	srli	a2,a2,0x1
+14000544:	fe0696e3          	bnez	a3,14000530 <__udivsi3+0x2c>
+14000548:	00008067          	ret
+
+1400054c <__umodsi3>:
+1400054c:	00008293          	mv	t0,ra
+14000550:	fb5ff0ef          	jal	ra,14000504 <__udivsi3>
+14000554:	00058513          	mv	a0,a1
+14000558:	00028067          	jr	t0
+1400055c:	40a00533          	neg	a0,a0
+14000560:	00b04863          	bgtz	a1,14000570 <__umodsi3+0x24>
+14000564:	40b005b3          	neg	a1,a1
+14000568:	f9dff06f          	j	14000504 <__udivsi3>
+1400056c:	40b005b3          	neg	a1,a1
+14000570:	00008293          	mv	t0,ra
+14000574:	f91ff0ef          	jal	ra,14000504 <__udivsi3>
+14000578:	40a00533          	neg	a0,a0
+1400057c:	00028067          	jr	t0
+
+14000580 <__modsi3>:
+14000580:	00008293          	mv	t0,ra
+14000584:	0005ca63          	bltz	a1,14000598 <__modsi3+0x18>
+14000588:	00054c63          	bltz	a0,140005a0 <__modsi3+0x20>
+1400058c:	f79ff0ef          	jal	ra,14000504 <__udivsi3>
+14000590:	00058513          	mv	a0,a1
+14000594:	00028067          	jr	t0
+14000598:	40b005b3          	neg	a1,a1
+1400059c:	fe0558e3          	bgez	a0,1400058c <__modsi3+0xc>
+140005a0:	40a00533          	neg	a0,a0
+140005a4:	f61ff0ef          	jal	ra,14000504 <__udivsi3>
+140005a8:	40b00533          	neg	a0,a1
+140005ac:	00028067          	jr	t0
+140005b0:	62696c2f          	0x62696c2f
+140005b4:	2d646c2f          	0x2d646c2f
+140005b8:	696c                	flw	fa1,84(a0)
+140005ba:	756e                	flw	fa0,248(sp)
+140005bc:	2d78                	fld	fa4,216(a0)
+140005be:	6972                	flw	fs2,28(sp)
+140005c0:	33766373          	csrrsi	t1,mhpmevent23,12
+140005c4:	2d32                	fld	fs10,264(sp)
+140005c6:	6c69                	lui	s8,0x1a
+140005c8:	3370                	fld	fa2,224(a4)
+140005ca:	2e32                	fld	ft8,264(sp)
+140005cc:	312e6f73          	csrrsi	t5,0x312,28
+	...
+140005f0:	0001                	nop
+140005f2:	0000                	unimp
+140005f4:	0001                	nop
+	...
+140005fe:	0000                	unimp
+14000600:	0001                	nop
+14000602:	0000                	unimp
+14000604:	0001                	nop
+14000606:	0000                	unimp
+14000608:	0001                	nop
+	...
+
+14001000 <secondaryLoop>:
+
+__attribute__ ((section (".page2.secondaryLoop"))) void secondaryLoop ()
+{
+14001000:	ff010113          	addi	sp,sp,-16
+14001004:	00112623          	sw	ra,12(sp)
+14001008:	00812423          	sw	s0,8(sp)
+	uint32_t i = 0;
+1400100c:	00000413          	li	s0,0
+14001010:	0440006f          	j	14001054 <secondaryLoop+0x54>
+	while (1)
+	{
+		if (state == 1)
+		{
+			currentChar = paddingBuffer2[(i + (sizeof (paddingBuffer2) / 2)) % sizeof (paddingBuffer2)];
+14001014:	3fd00593          	li	a1,1021
+14001018:	1fe40513          	addi	a0,s0,510
+1400101c:	d30ff0ef          	jal	ra,1400054c <__umodsi3>
+14001020:	140017b7          	lui	a5,0x14001
+14001024:	07478793          	addi	a5,a5,116 # 14001074 <paddingBuffer2>
+14001028:	00a787b3          	add	a5,a5,a0
+1400102c:	0007c703          	lbu	a4,0(a5)
+14001030:	08e00623          	sb	a4,140(zero) # 8c <currentChar>
+			secondaryTotal += i * i;
+14001034:	00040593          	mv	a1,s0
+14001038:	00040513          	mv	a0,s0
+1400103c:	c9cff0ef          	jal	ra,140004d8 <__mulsi3>
+14001040:	09400793          	li	a5,148
+14001044:	0007a703          	lw	a4,0(a5)
+14001048:	00e50533          	add	a0,a0,a4
+1400104c:	00a7a023          	sw	a0,0(a5)
+			i += 1;
+14001050:	00140413          	addi	s0,s0,1
+		if (state == 1)
+14001054:	09802703          	lw	a4,152(zero) # 98 <state>
+14001058:	00100793          	li	a5,1
+1400105c:	faf70ce3          	beq	a4,a5,14001014 <secondaryLoop+0x14>
+		}
+		else
+		{
+			primaryLoop ();
+14001060:	bfcff0ef          	jal	ra,1400045c <primaryLoop>
+			break;
+		}
+	}
+14001064:	00c12083          	lw	ra,12(sp)
+14001068:	00812403          	lw	s0,8(sp)
+1400106c:	01010113          	addi	sp,sp,16
+14001070:	00008067          	ret
+
+14001074 <paddingBuffer2>:
+14001074:	65726f4c 7069206d 206d7573 6f6c6f64     Lorem ipsum dolo
+14001084:	69732072 6d612074 202c7465 736e6f63     r sit amet, cons
+14001094:	65746365 20727574 70696461 69637369     ectetur adipisci
+140010a4:	6520676e 2e74696c 6e654120 206e6165     ng elit. Aenean 
+140010b4:	73697571 6c657420 2073756c 73697571     quis tellus quis
+140010c4:	73756a20 65206f74 74736567 65207361      justo egestas e
+140010d4:	6669656c 2e646e65 206e4920 2063656e     leifend. In nec 
+140010e4:	6e67616d 696e2061 202e6c73 65746e49     magna nisl. Inte
+140010f4:	20726567 636e6974 6e756469 696e2074     ger tincidunt ni
+14001104:	76206c73 65617469 73696e20 6c62206c     sl vitae nisl bl
+14001114:	69646e61 616d2074 756d6978 43202e73     andit maximus. C
+14001124:	20736172 6e207461 20686269 2e697564     ras at nibh dui.
+14001134:	6f725020 72206e69 75727475 6974206d      Proin rutrum ti
+14001144:	6469636e 20746e75 6862696e 206e6920     ncidunt nibh in 
+14001154:	73656765 2e736174 76695620 73756d61     egestas. Vivamus
+14001164:	6e726f20 20657261 72746c75 73656369      ornare ultrices
+14001174:	2e696d20 6c754e20 206d616c 73206361      mi. Nullam ac s
+14001184:	65706d65 656c2072 73757463 724f202e     emper lectus. Or
+14001194:	76206963 75697261 616e2073 75716f74     ci varius natoqu
+140011a4:	65702065 6974616e 20737562 6d207465     e penatibus et m
+140011b4:	696e6761 69642073 61702073 72757472     agnis dis partur
+140011c4:	746e6569 6e6f6d20 2c736574 73616e20     ient montes, nas
+140011d4:	75746563 69722072 75636964 2073756c     cetur ridiculus 
+140011e4:	2e73756d 746e4920 72656765 696c6120     mus. Integer ali
+140011f4:	74657571 74697620 61206561 20756372     quet vitae arcu 
+14001204:	74656765 62696220 75646e65 53202e6d     eget bibendum. S
+14001214:	65707375 7369646e 76206573 75697261     uspendisse variu
+14001224:	69642073 61206d61 78652074 75656620     s diam at ex feu
+14001234:	74616967 6d657320 2e726570 69754420     giat semper. Dui
+14001244:	69622073 646e6562 76206d75 74756c6f     s bibendum volut
+14001254:	20746170 2c6f656c 20747520 63737573     pat leo, ut susc
+14001264:	74697069 6f656c20 6f616c20 74656572     ipit leo laoreet
+14001274:	62696220 75646e65 45202e6d 6d616974      bibendum. Etiam
+14001284:	20646920 636e6974 6e756469 696c2074      id tincidunt li
+14001294:	6f726562 7250202e 206e696f 6f69646f     bero. Proin odio
+140012a4:	6f656c20 6c61202c 65757169 6e692074      leo, aliquet in
+140012b4:	6f656c20 69757120 61202c73 7571696c      leo quis, aliqu
+140012c4:	76206d61 75697261 726f2073 202e6963     am varius orci. 
+140012d4:	65617250 746e6573 64657320 6d657320     Praesent sed sem
+140012e4:	20726570 75637261 6f44202e 2063656e     per arcu. Donec 
+140012f4:	2063656e 756c6f76 74617074 71656e20     nec volutpat neq
+14001304:	202c6575 61642061 75626970 6f742073     ue, a dapibus to
+14001314:	726f7472 6550202e 6e656c6c 71736574     rtor. Pellentesq
+14001324:	6d206575 61737361 62696c20 2c6f7265     ue massa libero,
+14001334:	74757220 206d7572 2063656e 63737573      rutrum nec susc
+14001344:	74697069 2c6e6920 6e697420 75646963     ipit in, tincidu
+14001354:	6520746e 20746567 7473756a 43202e6f     nt eget justo. C
+14001364:	20736172 616c6c75 726f636d 2c726570     ras ullamcorper,
+14001374:	726f6c20 6e206d65 6c206365 6e696361      lorem nec lacin
+14001384:	63206169 69646e6f 746e656d 202c6d75     ia condimentum, 
+14001394:	636e756e 73756a20 63206f74 75737275     nunc justo cursu
+140013a4:	72612073 202c7563 76207565 75706c75     s arcu, eu vulpu
+140013b4:	65746174 6f656c20 20696d20 74636964     tate leo mi dict
+140013c4:	61206d75 2e756372 76695620 73756d61     um arcu. Vivamus
+140013d4:	706d6920 69647265 73207465 65697061      imperdiet sapie
+140013e4:	6573206e 73202c6d 65706d65 63732072     n sem, semper sc
+140013f4:	72656c65 75717369 646f2065 66206f69     elerisque odio f
+14001404:	62696e69 69207375 4e202e6e 20636e75     inibus in. Nunc 
+14001414:	74736576 6c756269 67206d75 69766172     vestibulum gravi
+14001424:	74206164 756c6c65 75652073 656c6520     da tellus eu ele
+14001434:	746e656d 202e6d75 65746e49 6d756472     mentum. Interdum
+14001444:	20746520 656c616d 64617573 61662061      et malesuada fa
+14001454:	2073656d 61206361 2065746e 75737069     mes ac ante ipsu
+14001464:	7270206d 73696d69 2e696220 00000000     m primis bi.....
