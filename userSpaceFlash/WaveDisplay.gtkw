@@ -1,15 +1,15 @@
 [*]
 [*] GTKWave Analyzer v3.3.100 (w)1999-2019 BSI
-[*] Fri May 19 13:38:50 2023
+[*] Sat May 20 11:01:00 2023
 [*]
 [dumpfile] "F:\WSL\ASIC\ExperiarSoC\verilog\dv\ExperiarSoC_Tests\userSpaceFlash\RTL-userSpaceFlash.vcd"
-[dumpfile_mtime] "Fri May 19 13:22:35 2023"
-[dumpfile_size] 39782
+[dumpfile_mtime] "Fri May 19 23:04:40 2023"
+[dumpfile_size] 1427728
 [savefile] "F:\WSL\ASIC\ExperiarSoC\verilog\dv\ExperiarSoC_Tests\userSpaceFlash\WaveDisplay.gtkw"
-[timestart] 2835000
+[timestart] 0
 [size] 2560 1377
-[pos] -1 -1
-*-18.417549 5555000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[pos] -191 -191
+*-28.105097 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] userSpaceFlash_tb.
 [treeopen] userSpaceFlash_tb.userSpace.
 [treeopen] userSpaceFlash_tb.userSpace.mprj.
@@ -24,8 +24,11 @@ userSpaceFlash_tb.clk
 userSpaceFlash_tb.rst
 userSpaceFlash_tb.succesOutput
 userSpaceFlash_tb.nextTestOutput
+@821
+userSpaceFlash_tb.currentTestName[639:0]
 @22
 userSpaceFlash_tb.testValue[31:0]
+userSpaceFlash_tb.testCompareValue[31:0]
 @28
 userSpaceFlash_tb.user_flash_clk
 userSpaceFlash_tb.user_flash_csb
@@ -44,7 +47,7 @@ userSpaceFlash_tb.userSpace.mprj.caravel_wb_stall_i
 userSpaceFlash_tb.userSpace.mprj.caravel_wb_ack_i
 userSpaceFlash_tb.userSpace.mprj.experiarSoC.flash.qspiDevice.qspi_enable
 userSpaceFlash_tb.userSpace.mprj.experiarSoC.flash.qspiDevice.qspi_changeAddress
-@23
+@22
 userSpaceFlash_tb.userSpace.mprj.experiarSoC.flash.qspiDevice.qspi_address[23:0]
 @28
 userSpaceFlash_tb.userSpace.mprj.experiarSoC.flash.qspiDevice.qspi_requestData

@@ -56,7 +56,7 @@ module userSpaceFlash_tb;
 	initial begin
 		$dumpfile("userSpaceFlash.vcd");
 		$dumpvars(0, userSpaceFlash_tb);
-		`TIMEOUT(100)
+		`TIMEOUT(120)
 		$finish;
 	end
 
@@ -110,7 +110,7 @@ module userSpaceFlash_tb;
 		`TEST_MANUAL_FLASH(32'h0, 32'h13, "Read word 0x13 from page 0")
 
 		// Make sure to wait for the final byte to load
-		`TEST_MANUAL_FLASH(32'h0, 32'hFF, "Read word 0xFF from page 0")
+		`TEST_MANUAL_FLASH(32'h0, 32'h1FF, "Read word 0x1FF from page 0")
 
 		// Check that page loading is complete
 		`TEST_READ(`FLASH_STATUS, `SELECT_WORD, testValue, 32'b01, "Read flash status to check for page loading complete")
@@ -135,7 +135,7 @@ module userSpaceFlash_tb;
 		
 		// Setup the flash for automatic page selection
 		`TEST_WRITE(`FLASH_CONFIG, `SELECT_WORD, testValue, 32'b11, "Set flash config to automatic page selection")
-		`TEST_READ(`FLASH_STATUS, `SELECT_WORD, testValue, 32'b11, "Read flash status after automatic page selection")
+		`TEST_READ(`FLASH_STATUS, `SELECT_WORD, testValue, 32'b01, "Read flash status after automatic page selection")
 		
 		// Read current page address
 		`TEST_READ(`FLASH_CURRENT_PAGE_ADDRESS, `SELECT_WORD, testValue, 32'h00001000, "Read current page address after automatic page selection setup")
@@ -145,7 +145,7 @@ module userSpaceFlash_tb;
 		`TEST_FLASH(32'h001, "Read word 0x001 with automatic page selection")
 		`TEST_FLASH(32'h002, "Read word 0x002 with automatic page selection")
 		`TEST_FLASH(32'h003, "Read word 0x003 with automatic page selection")
-		`TEST_FLASH(32'h00F, "Read word 0x00F with automatic page selection")
+		`TEST_FLASH(32'h0F0, "Read word 0x0F0 with automatic page selection")
 		`TEST_FLASH(32'h0F1, "Read word 0x0F1 with automatic page selection")
 		`TEST_FLASH(32'h0F2, "Read word 0x0F2 with automatic page selection")
 		`TEST_FLASH(32'h0F3, "Read word 0x0F3 with automatic page selection")
@@ -153,26 +153,26 @@ module userSpaceFlash_tb;
 		`TEST_READ(`FLASH_CURRENT_PAGE_ADDRESS, `SELECT_WORD, testValue, 32'h00000000, "Read current page address after automatic page selection page 0")
 
 		// Read from another page
-		`TEST_FLASH(32'hF00, "Read word 0xF00 with automatic page selection")
-		`TEST_FLASH(32'hF01, "Read word 0xF01 with automatic page selection")
-		`TEST_FLASH(32'hF02, "Read word 0xF02 with automatic page selection")
-		`TEST_FLASH(32'hF03, "Read word 0xF03 with automatic page selection")
-		`TEST_FLASH(32'hF0F, "Read word 0xF0F with automatic page selection")
-		`TEST_FLASH(32'hFF1, "Read word 0xFF1 with automatic page selection")
-		`TEST_FLASH(32'hFF2, "Read word 0xFF2 with automatic page selection")
-		`TEST_FLASH(32'hFF3, "Read word 0xFF3 with automatic page selection")
+		`TEST_FLASH(32'h400, "Read word 0x400 with automatic page selection")
+		`TEST_FLASH(32'h401, "Read word 0x401 with automatic page selection")
+		`TEST_FLASH(32'h402, "Read word 0x402 with automatic page selection")
+		`TEST_FLASH(32'h403, "Read word 0x403 with automatic page selection")
+		`TEST_FLASH(32'h4F0, "Read word 0x4F0 with automatic page selection")
+		`TEST_FLASH(32'h4F1, "Read word 0x4F1 with automatic page selection")
+		`TEST_FLASH(32'h4F2, "Read word 0x4F2 with automatic page selection")
+		`TEST_FLASH(32'h4F3, "Read word 0x4F3 with automatic page selection")
 
 		`TEST_READ(`FLASH_CURRENT_PAGE_ADDRESS, `SELECT_WORD, testValue, 32'h00001000, "Read current page address after automatic page selection page 1")
 
 		// Random read between pages
 		`TEST_FLASH(32'h000, "Read word 0x000 with automatic page selection switching pages")
-		`TEST_FLASH(32'hF01, "Read word 0xF01 with automatic page selection switching pages")
+		`TEST_FLASH(32'h401, "Read word 0x401 with automatic page selection switching pages")
 		`TEST_FLASH(32'h002, "Read word 0x002 with automatic page selection switching pages")
-		`TEST_FLASH(32'hF03, "Read word 0xF03 with automatic page selection switching pages")
-		`TEST_FLASH(32'hF0F, "Read word 0xF0F with automatic page selection switching pages")
+		`TEST_FLASH(32'h403, "Read word 0x403 with automatic page selection switching pages")
+		`TEST_FLASH(32'h4F0, "Read word 0x4F0 with automatic page selection switching pages")
 		`TEST_FLASH(32'h0F1, "Read word 0x0F1 with automatic page selection switching pages")
 		`TEST_FLASH(32'h0F2, "Read word 0x0F2 with automatic page selection switching pages")
-		`TEST_FLASH(32'hFF3, "Read word 0xFF3 with automatic page selection switching pages")
+		`TEST_FLASH(32'h4F3, "Read word 0x4F3 with automatic page selection switching pages")
 
 		`TEST_READ(`FLASH_CURRENT_PAGE_ADDRESS, `SELECT_WORD, testValue, 32'h00001000, "Read current page address after automatic page selection switching pages")
 
