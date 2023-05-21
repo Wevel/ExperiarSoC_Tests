@@ -23,7 +23,7 @@ void primaryLoop ()
 	{
 		if (state == 0)
 		{
-			currentChar = paddingBuffer[i % sizeof (paddingBuffer)];
+			currentChar = paddingBuffer[i]; // % sizeof (paddingBuffer)];
 			primaryTotal += i;
 			i += 1;
 		}
@@ -42,8 +42,9 @@ __attribute__ ((section (".page2.secondaryLoop"))) void secondaryLoop ()
 	{
 		if (state == 1)
 		{
-			currentChar = paddingBuffer2[(i + (sizeof (paddingBuffer2) / 2)) % sizeof (paddingBuffer2)];
-			secondaryTotal += i * i;
+			currentChar = paddingBuffer2[(i)]; // + (sizeof (paddingBuffer2) / 2)) % sizeof (paddingBuffer2)];
+			secondaryTotal += i;
+			//*i;
 			i += 1;
 		}
 		else

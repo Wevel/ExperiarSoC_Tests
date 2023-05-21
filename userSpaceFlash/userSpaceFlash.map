@@ -1,25 +1,39 @@
-Archive member included to satisfy reference by file (symbol)
-
-/foss/tools/riscv-gnu-toolchain-rv32i/217e7f3debe424d61374d31e33a091a630535937/lib/gcc/riscv32-unknown-linux-gnu/11.1.0/libgcc.a(muldi3.o)
-                              /tmp/ccGV4487.o (__mulsi3)
-/foss/tools/riscv-gnu-toolchain-rv32i/217e7f3debe424d61374d31e33a091a630535937/lib/gcc/riscv32-unknown-linux-gnu/11.1.0/libgcc.a(div.o)
-                              /tmp/ccGV4487.o (__umodsi3)
 
 Discarded input sections
 
- .text          0x0000000000000000        0x0 /tmp/cc8IlEuA.o
- .data          0x0000000000000000        0x0 /tmp/cc8IlEuA.o
- .bss           0x0000000000000000        0x0 /tmp/cc8IlEuA.o
- .eh_frame      0x0000000000000000       0x2c /tmp/cc8IlEuA.o
- .group         0x0000000000000000        0xc /tmp/ccGV4487.o
- .group         0x0000000000000000        0xc /tmp/ccGV4487.o
- .text          0x0000000000000000        0x0 /tmp/ccGV4487.o
- .data          0x0000000000000000        0x0 /tmp/ccGV4487.o
- .bss           0x0000000000000000        0x0 /tmp/ccGV4487.o
- .data          0x0000000000000000        0x0 /foss/tools/riscv-gnu-toolchain-rv32i/217e7f3debe424d61374d31e33a091a630535937/lib/gcc/riscv32-unknown-linux-gnu/11.1.0/libgcc.a(muldi3.o)
- .bss           0x0000000000000000        0x0 /foss/tools/riscv-gnu-toolchain-rv32i/217e7f3debe424d61374d31e33a091a630535937/lib/gcc/riscv32-unknown-linux-gnu/11.1.0/libgcc.a(muldi3.o)
- .data          0x0000000000000000        0x0 /foss/tools/riscv-gnu-toolchain-rv32i/217e7f3debe424d61374d31e33a091a630535937/lib/gcc/riscv32-unknown-linux-gnu/11.1.0/libgcc.a(div.o)
- .bss           0x0000000000000000        0x0 /foss/tools/riscv-gnu-toolchain-rv32i/217e7f3debe424d61374d31e33a091a630535937/lib/gcc/riscv32-unknown-linux-gnu/11.1.0/libgcc.a(div.o)
+ .text          0x0000000000000000        0x0 /tmp/cc8QQcDe.o
+ .data          0x0000000000000000        0x0 /tmp/cc8QQcDe.o
+ .bss           0x0000000000000000        0x0 /tmp/cc8QQcDe.o
+ .debug_line    0x0000000000000000       0xc2 /tmp/cc8QQcDe.o
+ .debug_line_str
+                0x0000000000000000       0x70 /tmp/cc8QQcDe.o
+ .debug_info    0x0000000000000000       0x24 /tmp/cc8QQcDe.o
+ .debug_abbrev  0x0000000000000000       0x14 /tmp/cc8QQcDe.o
+ .debug_aranges
+                0x0000000000000000       0x20 /tmp/cc8QQcDe.o
+ .debug_str     0x0000000000000000       0x5c /tmp/cc8QQcDe.o
+ .eh_frame      0x0000000000000000       0x2c /tmp/cc8QQcDe.o
+ .group         0x0000000000000000        0xc /tmp/ccot4NDN.o
+ .group         0x0000000000000000        0xc /tmp/ccot4NDN.o
+ .text          0x0000000000000000        0x0 /tmp/ccot4NDN.o
+ .data          0x0000000000000000        0x0 /tmp/ccot4NDN.o
+ .bss           0x0000000000000000        0x0 /tmp/ccot4NDN.o
+ .debug_info    0x0000000000000000      0x173 /tmp/ccot4NDN.o
+ .debug_abbrev  0x0000000000000000       0xbc /tmp/ccot4NDN.o
+ .debug_loclists
+                0x0000000000000000       0x3c /tmp/ccot4NDN.o
+ .debug_aranges
+                0x0000000000000000       0x30 /tmp/ccot4NDN.o
+ .debug_rnglists
+                0x0000000000000000       0x28 /tmp/ccot4NDN.o
+ .debug_macro   0x0000000000000000       0x24 /tmp/ccot4NDN.o
+ .debug_macro   0x0000000000000000      0x76c /tmp/ccot4NDN.o
+ .debug_macro   0x0000000000000000      0x34e /tmp/ccot4NDN.o
+ .debug_line    0x0000000000000000      0x1ad /tmp/ccot4NDN.o
+ .debug_str     0x0000000000000000     0x3059 /tmp/ccot4NDN.o
+ .debug_line_str
+                0x0000000000000000      0x159 /tmp/ccot4NDN.o
+ .debug_frame   0x0000000000000000       0x64 /tmp/ccot4NDN.o
 
 Memory Configuration
 
@@ -30,232 +44,100 @@ RAM              0x0000000000000000 0x0000000000001000 xrw
 
 Linker script and memory map
 
-LOAD /tmp/cc8IlEuA.o
-LOAD /tmp/ccGV4487.o
-LOAD /foss/tools/riscv-gnu-toolchain-rv32i/217e7f3debe424d61374d31e33a091a630535937/lib/gcc/riscv32-unknown-linux-gnu/11.1.0/libgcc.a
-LOAD /foss/tools/riscv-gnu-toolchain-rv32i/217e7f3debe424d61374d31e33a091a630535937/lib/gcc/riscv32-unknown-linux-gnu/11.1.0/../../../../riscv32-unknown-linux-gnu/lib/libgcc_s.so
-START GROUP
-LOAD /foss/tools/riscv-gnu-toolchain-rv32i/217e7f3debe424d61374d31e33a091a630535937/lib/gcc/riscv32-unknown-linux-gnu/11.1.0/../../../../riscv32-unknown-linux-gnu/lib/libgcc_s.so.1
-LOAD /foss/tools/riscv-gnu-toolchain-rv32i/217e7f3debe424d61374d31e33a091a630535937/lib/gcc/riscv32-unknown-linux-gnu/11.1.0/libgcc.a
-END GROUP
-LOAD /foss/tools/riscv-gnu-toolchain-rv32i/217e7f3debe424d61374d31e33a091a630535937/sysroot/usr/lib/libc.so
-START GROUP
-LOAD /foss/tools/riscv-gnu-toolchain-rv32i/217e7f3debe424d61374d31e33a091a630535937/sysroot/lib/libc.so.6
-LOAD /foss/tools/riscv-gnu-toolchain-rv32i/217e7f3debe424d61374d31e33a091a630535937/sysroot/usr/lib/libc_nonshared.a
-LOAD /foss/tools/riscv-gnu-toolchain-rv32i/217e7f3debe424d61374d31e33a091a630535937/sysroot/lib/ld-linux-riscv32-ilp32.so.1
-END GROUP
-LOAD /foss/tools/riscv-gnu-toolchain-rv32i/217e7f3debe424d61374d31e33a091a630535937/lib/gcc/riscv32-unknown-linux-gnu/11.1.0/libgcc.a
-LOAD /foss/tools/riscv-gnu-toolchain-rv32i/217e7f3debe424d61374d31e33a091a630535937/lib/gcc/riscv32-unknown-linux-gnu/11.1.0/../../../../riscv32-unknown-linux-gnu/lib/libgcc_s.so
-START GROUP
-LOAD /foss/tools/riscv-gnu-toolchain-rv32i/217e7f3debe424d61374d31e33a091a630535937/lib/gcc/riscv32-unknown-linux-gnu/11.1.0/../../../../riscv32-unknown-linux-gnu/lib/libgcc_s.so.1
-LOAD /foss/tools/riscv-gnu-toolchain-rv32i/217e7f3debe424d61374d31e33a091a630535937/lib/gcc/riscv32-unknown-linux-gnu/11.1.0/libgcc.a
-END GROUP
                 0x0000000000000200                _stack_size = DEFINED (_stack_size)?_stack_size:0x200
 
-.text           0x0000000014000000     0x1474
+.text           0x0000000014000000     0x1454
                 0x0000000014000000                . = ALIGN (0x4)
                 [!provide]                        PROVIDE (_stext = .)
- *(.vectors .vectors.*)
- .vectors       0x0000000014000000       0x5c /tmp/cc8IlEuA.o
+ *(.vectors*)
+ .vectors       0x0000000014000000       0x60 /tmp/cc8QQcDe.o
                 0x0000000014000000                _start
- *(.rodata .rodata.*)
+ *(.rodata*)
  .rodata.paddingBuffer
-                0x000000001400005c      0x3fd /tmp/ccGV4487.o
-                0x000000001400005c                paddingBuffer
- *(.srodata .srodata.*)
- *(.text .text.*)
- *fill*         0x0000000014000459        0x3 
+                0x0000000014000060      0x3fd /tmp/ccot4NDN.o
+                0x0000000014000060                paddingBuffer
+ *(.srodata*)
+ *(.text*)
+ *fill*         0x000000001400045d        0x3 
  .text.primaryLoop
-                0x000000001400045c       0x64 /tmp/ccGV4487.o
-                0x000000001400045c                primaryLoop
- .text.main     0x00000000140004c0       0x18 /tmp/ccGV4487.o
-                0x00000000140004c0                main
- .text          0x00000000140004d8       0x24 /foss/tools/riscv-gnu-toolchain-rv32i/217e7f3debe424d61374d31e33a091a630535937/lib/gcc/riscv32-unknown-linux-gnu/11.1.0/libgcc.a(muldi3.o)
-                0x00000000140004d8                __mulsi3
- .text          0x00000000140004fc       0xb4 /foss/tools/riscv-gnu-toolchain-rv32i/217e7f3debe424d61374d31e33a091a630535937/lib/gcc/riscv32-unknown-linux-gnu/11.1.0/libgcc.a(div.o)
-                0x00000000140004fc                __divsi3
-                0x0000000014000504                __udivsi3
-                0x000000001400054c                __umodsi3
-                0x0000000014000580                __modsi3
- *(.plt .plt.*)
- .plt           0x00000000140005b0        0x0 /tmp/cc8IlEuA.o
-                0x00000000140005b0                _PROCEDURE_LINKAGE_TABLE_
- *(.interp .interp.*)
- .interp        0x00000000140005b0       0x21 /tmp/cc8IlEuA.o
- *(.dynsym .dynsym.*)
- *fill*         0x00000000140005d1        0x3 
- .dynsym        0x00000000140005d4       0x10 /tmp/cc8IlEuA.o
- *(.dynstr .dynstr.*)
- .dynstr        0x00000000140005e4        0xb /tmp/cc8IlEuA.o
- *(.hash .hash.*)
- *fill*         0x00000000140005ef        0x1 
- .hash          0x00000000140005f0       0x10 /tmp/cc8IlEuA.o
- *(.gnu .gnu.*)
- .gnu.version_d
-                0x0000000014000600        0x0 /tmp/cc8IlEuA.o
- .gnu.version   0x0000000014000600        0x0 /tmp/cc8IlEuA.o
- .gnu.version_r
-                0x0000000014000600        0x0 /tmp/cc8IlEuA.o
- .gnu.hash      0x0000000014000600       0x18 /tmp/cc8IlEuA.o
- *(.eh_frame_hdr .eh_frame_hdr.*)
- .eh_frame_hdr  0x0000000014000618        0x0 /tmp/cc8IlEuA.o
- *(.rela .rela.*)
- .rela.got      0x0000000014000618        0x0 /tmp/cc8IlEuA.o
- .rela.plt      0x0000000014000618        0x0 /tmp/cc8IlEuA.o
- .rela.bss      0x0000000014000618        0x0 /tmp/cc8IlEuA.o
- .rela.data.rel.ro
-                0x0000000014000618        0x0 /tmp/cc8IlEuA.o
- .rela.vectors  0x0000000014000618        0x0 /tmp/cc8IlEuA.o
+                0x0000000014000460       0x50 /tmp/ccot4NDN.o
+                0x0000000014000460                primaryLoop
+ .text.main     0x00000000140004b0       0x18 /tmp/ccot4NDN.o
+                0x00000000140004b0                main
+ *(.plt*)
+ *(.interp*)
+ *(.dynsym*)
+ *(.dynstr*)
+ *(.hash*)
+ *(.gnu*)
+ *(.eh_frame_hdr*)
+ .eh_frame_hdr  0x00000000140004c8        0x0 /tmp/cc8QQcDe.o
+ *(.rela*)
+ .rela.vectors  0x00000000140004c8        0x0 /tmp/cc8QQcDe.o
                 0x0000000014001000                . = ALIGN (0x1000)
- *fill*         0x0000000014000618      0x9e8 
+ *fill*         0x00000000140004c8      0xb38 
  *(.page2*)
  .page2.secondaryLoop
-                0x0000000014001000       0x74 /tmp/ccGV4487.o
+                0x0000000014001000       0x54 /tmp/ccot4NDN.o
                 0x0000000014001000                secondaryLoop
  .page2.paddingBuffer2
-                0x0000000014001074      0x3fd /tmp/ccGV4487.o
-                0x0000000014001074                paddingBuffer2
-                0x0000000014001474                . = ALIGN (0x4)
- *fill*         0x0000000014001471        0x3 
-                0x0000000014001474                _etext = .
-                0x0000000014001474                _sidata = _etext
+                0x0000000014001054      0x3fd /tmp/ccot4NDN.o
+                0x0000000014001054                paddingBuffer2
+                0x0000000014001454                . = ALIGN (0x4)
+ *fill*         0x0000000014001451        0x3 
+                0x0000000014001454                _etext = .
+                0x0000000014001454                _sidata = _etext
 
-.data           0x0000000000000000        0x0 load address 0x0000000014001474
+.data           0x0000000000000000        0x0 load address 0x0000000014001454
                 0x0000000000000000                . = ALIGN (0x4)
                 0x0000000000000000                _sdata = .
                 0x0000000000000800                PROVIDE (_global_pointer$ = (. + 0x800))
  *(.sdata .sdata.*)
  *(.rdata .rdata.*)
  *(.data .data.*)
- .data.rel.ro   0x0000000000000000        0x0 /tmp/cc8IlEuA.o
                 0x0000000000000000                . = ALIGN (0x4)
                 0x0000000000000000                _edata = .
 
-.dynamic        0x0000000000000000       0x88 load address 0x0000000014001474
- .dynamic       0x0000000000000000       0x88 /tmp/cc8IlEuA.o
-                0x0000000000000000                _DYNAMIC
-
-.got            0x0000000000000088        0x4 load address 0x00000000140014fc
- .got           0x0000000000000088        0x4 /tmp/cc8IlEuA.o
-                0x0000000000000088                _GLOBAL_OFFSET_TABLE_
-
-.got.plt        0x000000000000008c        0x0 load address 0x0000000014001500
- .got.plt       0x000000000000008c        0x0 /tmp/cc8IlEuA.o
-
-.tdata.dyn      0x000000000000008c        0x0 load address 0x0000000014001500
- .tdata.dyn     0x000000000000008c        0x0 /tmp/cc8IlEuA.o
-
-.bss            0x000000000000008c       0x10 load address 0x0000000014001500
-                0x000000000000008c                . = ALIGN (0x4)
-                0x000000000000008c                _sbss = .
+.bss            0x0000000000000000       0x10
+                0x0000000000000000                . = ALIGN (0x4)
+                0x0000000000000000                _sbss = .
  *(.sbss .sbss.*)
  .sbss.currentChar
-                0x000000000000008c        0x1 /tmp/ccGV4487.o
-                0x000000000000008c                currentChar
- *fill*         0x000000000000008d        0x3 
+                0x0000000000000000        0x1 /tmp/ccot4NDN.o
+                0x0000000000000000                currentChar
+ *fill*         0x0000000000000001        0x3 
  .sbss.primaryTotal
-                0x0000000000000090        0x4 /tmp/ccGV4487.o
-                0x0000000000000090                primaryTotal
+                0x0000000000000004        0x4 /tmp/ccot4NDN.o
+                0x0000000000000004                primaryTotal
  .sbss.secondaryTotal
-                0x0000000000000094        0x4 /tmp/ccGV4487.o
-                0x0000000000000094                secondaryTotal
- .sbss.state    0x0000000000000098        0x4 /tmp/ccGV4487.o
-                0x0000000000000098                state
+                0x0000000000000008        0x4 /tmp/ccot4NDN.o
+                0x0000000000000008                secondaryTotal
+ .sbss.state    0x000000000000000c        0x4 /tmp/ccot4NDN.o
+                0x000000000000000c                state
  *(.bss .bss.*)
  *(COMMON)
-                0x000000000000009c                . = ALIGN (0x4)
-                0x000000000000009c                _ebss = .
+                0x0000000000000010                . = ALIGN (0x4)
+                0x0000000000000010                _ebss = .
 
-.dynbss         0x000000000000009c        0x0 load address 0x0000000014001510
- .dynbss        0x000000000000009c        0x0 /tmp/cc8IlEuA.o
+.heap           0x0000000000000010        0x0
+                0x0000000000000010                . = ALIGN (0x4)
+                0x0000000000000010                _heap_start = .
 
-.heap           0x000000000000009c        0x0
-                0x000000000000009c                . = ALIGN (0x4)
-                0x000000000000009c                _heap_start = .
-
-.stack          0x0000000000000e00      0x200 load address 0x0000000014002274
+.stack          0x0000000000000e00      0x200
                 [!provide]                        PROVIDE (_heap_end = .)
                 0x0000000000000200                . = _stack_size
  *fill*         0x0000000000000e00      0x200 
                 0x0000000000001000                _stack_top = .
                 [!provide]                        PROVIDE (_end = .)
+LOAD /tmp/cc8QQcDe.o
+LOAD /tmp/ccot4NDN.o
 OUTPUT(userSpaceFlash.elf elf32-littleriscv)
 
-.debug_line     0x0000000000000000      0x44e
- .debug_line    0x0000000000000000       0xbc /tmp/cc8IlEuA.o
- .debug_line    0x00000000000000bc      0x1c5 /tmp/ccGV4487.o
- .debug_line    0x0000000000000281       0x7a /foss/tools/riscv-gnu-toolchain-rv32i/217e7f3debe424d61374d31e33a091a630535937/lib/gcc/riscv32-unknown-linux-gnu/11.1.0/libgcc.a(muldi3.o)
- .debug_line    0x00000000000002fb      0x153 /foss/tools/riscv-gnu-toolchain-rv32i/217e7f3debe424d61374d31e33a091a630535937/lib/gcc/riscv32-unknown-linux-gnu/11.1.0/libgcc.a(div.o)
-
-.debug_line_str
-                0x0000000000000000      0x160
- .debug_line_str
-                0x0000000000000000       0x38 /tmp/cc8IlEuA.o
-                                         0x70 (size before relaxing)
- .debug_line_str
-                0x0000000000000038       0xef /tmp/ccGV4487.o
-                                        0x159 (size before relaxing)
- .debug_line_str
-                0x0000000000000127       0x33 /foss/tools/riscv-gnu-toolchain-rv32i/217e7f3debe424d61374d31e33a091a630535937/lib/gcc/riscv32-unknown-linux-gnu/11.1.0/libgcc.a(muldi3.o)
-                                         0x66 (size before relaxing)
- .debug_line_str
-                0x000000000000015a        0x6 /foss/tools/riscv-gnu-toolchain-rv32i/217e7f3debe424d61374d31e33a091a630535937/lib/gcc/riscv32-unknown-linux-gnu/11.1.0/libgcc.a(div.o)
-                                         0x60 (size before relaxing)
-
-.debug_info     0x0000000000000000      0x210
- .debug_info    0x0000000000000000       0x24 /tmp/cc8IlEuA.o
- .debug_info    0x0000000000000024      0x1a3 /tmp/ccGV4487.o
- .debug_info    0x00000000000001c7       0x24 /foss/tools/riscv-gnu-toolchain-rv32i/217e7f3debe424d61374d31e33a091a630535937/lib/gcc/riscv32-unknown-linux-gnu/11.1.0/libgcc.a(muldi3.o)
- .debug_info    0x00000000000001eb       0x25 /foss/tools/riscv-gnu-toolchain-rv32i/217e7f3debe424d61374d31e33a091a630535937/lib/gcc/riscv32-unknown-linux-gnu/11.1.0/libgcc.a(div.o)
-
-.debug_abbrev   0x0000000000000000       0xee
- .debug_abbrev  0x0000000000000000       0x14 /tmp/cc8IlEuA.o
- .debug_abbrev  0x0000000000000014       0xb2 /tmp/ccGV4487.o
- .debug_abbrev  0x00000000000000c6       0x14 /foss/tools/riscv-gnu-toolchain-rv32i/217e7f3debe424d61374d31e33a091a630535937/lib/gcc/riscv32-unknown-linux-gnu/11.1.0/libgcc.a(muldi3.o)
- .debug_abbrev  0x00000000000000da       0x14 /foss/tools/riscv-gnu-toolchain-rv32i/217e7f3debe424d61374d31e33a091a630535937/lib/gcc/riscv32-unknown-linux-gnu/11.1.0/libgcc.a(div.o)
-
-.debug_aranges  0x0000000000000000       0x90
- .debug_aranges
-                0x0000000000000000       0x20 /tmp/cc8IlEuA.o
- .debug_aranges
-                0x0000000000000020       0x30 /tmp/ccGV4487.o
- .debug_aranges
-                0x0000000000000050       0x20 /foss/tools/riscv-gnu-toolchain-rv32i/217e7f3debe424d61374d31e33a091a630535937/lib/gcc/riscv32-unknown-linux-gnu/11.1.0/libgcc.a(muldi3.o)
- .debug_aranges
-                0x0000000000000070       0x20 /foss/tools/riscv-gnu-toolchain-rv32i/217e7f3debe424d61374d31e33a091a630535937/lib/gcc/riscv32-unknown-linux-gnu/11.1.0/libgcc.a(div.o)
-
-.debug_str      0x0000000000000000     0x2fe3
- .debug_str     0x0000000000000000       0x5c /tmp/cc8IlEuA.o
- .debug_str     0x000000000000005c     0x2f1f /tmp/ccGV4487.o
-                                       0x306c (size before relaxing)
- .debug_str     0x0000000000002f7b       0x62 /foss/tools/riscv-gnu-toolchain-rv32i/217e7f3debe424d61374d31e33a091a630535937/lib/gcc/riscv32-unknown-linux-gnu/11.1.0/libgcc.a(muldi3.o)
-                                         0x6e (size before relaxing)
- .debug_str     0x0000000000002fdd        0x6 /foss/tools/riscv-gnu-toolchain-rv32i/217e7f3debe424d61374d31e33a091a630535937/lib/gcc/riscv32-unknown-linux-gnu/11.1.0/libgcc.a(div.o)
-                                         0x6b (size before relaxing)
-
-.debug_loclists
-                0x0000000000000000       0x3c
- .debug_loclists
-                0x0000000000000000       0x3c /tmp/ccGV4487.o
-
-.debug_rnglists
-                0x0000000000000000       0x28
- .debug_rnglists
-                0x0000000000000000       0x28 /tmp/ccGV4487.o
-
-.debug_macro    0x0000000000000000      0xade
- .debug_macro   0x0000000000000000       0x24 /tmp/ccGV4487.o
- .debug_macro   0x0000000000000024      0x76c /tmp/ccGV4487.o
- .debug_macro   0x0000000000000790      0x34e /tmp/ccGV4487.o
-
 .comment        0x0000000000000000        0xf
- .comment       0x0000000000000000        0xf /tmp/ccGV4487.o
+ .comment       0x0000000000000000        0xf /tmp/ccot4NDN.o
                                          0x10 (size before relaxing)
 
 .note.GNU-stack
                 0x0000000000000000        0x0
  .note.GNU-stack
-                0x0000000000000000        0x0 /tmp/ccGV4487.o
-
-.debug_frame    0x0000000000000000       0x6c
- .debug_frame   0x0000000000000000       0x6c /tmp/ccGV4487.o
+                0x0000000000000000        0x0 /tmp/ccot4NDN.o

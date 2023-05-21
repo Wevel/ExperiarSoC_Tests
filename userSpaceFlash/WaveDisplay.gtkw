@@ -1,22 +1,23 @@
 [*]
 [*] GTKWave Analyzer v3.3.100 (w)1999-2019 BSI
-[*] Sat May 20 11:01:00 2023
+[*] Sat May 20 18:26:17 2023
 [*]
 [dumpfile] "F:\WSL\ASIC\ExperiarSoC\verilog\dv\ExperiarSoC_Tests\userSpaceFlash\RTL-userSpaceFlash.vcd"
-[dumpfile_mtime] "Fri May 19 23:04:40 2023"
-[dumpfile_size] 1427728
+[dumpfile_mtime] "Sat May 20 17:08:50 2023"
+[dumpfile_size] 1923997
 [savefile] "F:\WSL\ASIC\ExperiarSoC\verilog\dv\ExperiarSoC_Tests\userSpaceFlash\WaveDisplay.gtkw"
 [timestart] 0
 [size] 2560 1377
-[pos] -191 -191
-*-28.105097 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[pos] -165 -165
+*-28.336264 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] userSpaceFlash_tb.
 [treeopen] userSpaceFlash_tb.userSpace.
 [treeopen] userSpaceFlash_tb.userSpace.mprj.
 [treeopen] userSpaceFlash_tb.userSpace.mprj.experiarSoC.
+[treeopen] userSpaceFlash_tb.userSpace.mprj.experiarSoC.core0.
 [treeopen] userSpaceFlash_tb.userSpace.mprj.experiarSoC.flash.
 [sst_width] 377
-[signals_width] 262
+[signals_width] 310
 [sst_expanded] 1
 [sst_vpaned_height] 900
 @28
@@ -24,11 +25,13 @@ userSpaceFlash_tb.clk
 userSpaceFlash_tb.rst
 userSpaceFlash_tb.succesOutput
 userSpaceFlash_tb.nextTestOutput
-@821
+@820
 userSpaceFlash_tb.currentTestName[639:0]
 @22
 userSpaceFlash_tb.testValue[31:0]
 userSpaceFlash_tb.testCompareValue[31:0]
+@420
+userSpaceFlash_tb.counter
 @28
 userSpaceFlash_tb.user_flash_clk
 userSpaceFlash_tb.user_flash_csb
@@ -56,5 +59,20 @@ userSpaceFlash_tb.userSpace.mprj.experiarSoC.flash.qspiDevice.qspi_readData[31:0
 @28
 userSpaceFlash_tb.userSpace.mprj.experiarSoC.flash.qspiDevice.qspi_readDataValid
 userSpaceFlash_tb.userSpace.mprj.experiarSoC.flash.qspiDevice.qspi_initialised
+userSpaceFlash_tb.userSpace.mprj.experiarSoC.core0.core.instruction_memoryEnable
+@22
+userSpaceFlash_tb.userSpace.mprj.experiarSoC.core0.core.instruction_memoryAddress[31:0]
+userSpaceFlash_tb.userSpace.mprj.experiarSoC.core0.core.instruction_memoryDataRead[31:0]
+@28
+userSpaceFlash_tb.userSpace.mprj.experiarSoC.core0.core.instruction_memoryBusy
+userSpaceFlash_tb.userSpace.mprj.experiarSoC.core0.core.data_memoryEnable
+userSpaceFlash_tb.userSpace.mprj.experiarSoC.core0.core.data_memoryWriteEnable
+@22
+userSpaceFlash_tb.userSpace.mprj.experiarSoC.core0.core.data_memoryAddress[31:0]
+userSpaceFlash_tb.userSpace.mprj.experiarSoC.core0.core.data_memoryByteSelect[3:0]
+userSpaceFlash_tb.userSpace.mprj.experiarSoC.core0.core.data_memoryDataRead[31:0]
+userSpaceFlash_tb.userSpace.mprj.experiarSoC.core0.core.data_memoryDataWrite[31:0]
+@29
+userSpaceFlash_tb.userSpace.mprj.experiarSoC.core0.core.data_memoryBusy
 [pattern_trace] 1
 [pattern_trace] 0

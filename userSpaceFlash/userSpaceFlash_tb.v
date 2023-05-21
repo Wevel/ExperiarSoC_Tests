@@ -7,6 +7,7 @@
 
 `define FLASH_FILE "userSpaceFlash.hex"
 
+`define FLASH_ADDRESS_CORE 32'h1400_0000
 `define FLASH_ADDRESS 32'h3400_0000
 `define FLASH_CONFIG 32'h3480_0000
 `define FLASH_STATUS 32'h3480_0004
@@ -17,8 +18,8 @@
 
 `define FLASH_WORD(ADDRESS) { flashMemory[{ADDRESS, 2'b00} + 3], flashMemory[{ADDRESS, 2'b00} + 2], flashMemory[{ADDRESS, 2'b00} + 1], flashMemory[{ADDRESS, 2'b00}] }
 
-`define TEST_FLASH(ADDRESS, TEST_NAME) `TEST_READ(`OFFSET_WORD(`FLASH_ADDRESS, ADDRESS), `SELECT_WORD, testValue, `FLASH_WORD((ADDRESS) & 32'h000_ffff), TEST_NAME)
-`define TEST_MANUAL_FLASH(PAGE, ADDRESS, TEST_NAME) `TEST_READ(`OFFSET_WORD(`FLASH_ADDRESS, ADDRESS), `SELECT_WORD, testValue, `FLASH_WORD(((PAGE * `FLASH_PAGE_SIZE_WORDS) + ADDRESS) & 32'h000_ffff), TEST_NAME)
+`define TEST_FLASH(ADDRESS, TEST_NAME) `TEST_READ(`OFFSET_WORD(`FLASH_ADDRESS, ADDRESS), `SELECT_WORD, testValue, testValue == (`FLASH_WORD((ADDRESS) & 32'h000_ffff)), TEST_NAME)
+`define TEST_MANUAL_FLASH(PAGE, ADDRESS, TEST_NAME) `TEST_READ(`OFFSET_WORD(`FLASH_ADDRESS, ADDRESS), `SELECT_WORD, testValue, testValue == (`FLASH_WORD(((PAGE * `FLASH_PAGE_SIZE_WORDS) + ADDRESS) & 32'h000_ffff)), TEST_NAME)
 
 module userSpaceFlash_tb;
 	reg clk;
@@ -56,7 +57,7 @@ module userSpaceFlash_tb;
 	initial begin
 		$dumpfile("userSpaceFlash.vcd");
 		$dumpvars(0, userSpaceFlash_tb);
-		`TIMEOUT(120)
+		`TIMEOUT(250)
 		$finish;
 	end
 
@@ -66,6 +67,7 @@ module userSpaceFlash_tb;
 		$readmemh(`FLASH_FILE, flashMemory);
 	end
 
+	integer counter = 0;
 	reg[31:0] testValue = 32'b0;
 	reg[31:0] testCompareValue = 32'b0;
 	initial begin
@@ -73,22 +75,22 @@ module userSpaceFlash_tb;
 		#100
 
 		// Read the initial flash status
-		`TEST_READ(`FLASH_STATUS, `SELECT_WORD, testValue, 32'b0, "Read initial flash status")
-		`TEST_READ(`FLASH_CONFIG, `SELECT_WORD, testValue, 32'b0, "Read initial flash config")
+		`TEST_READ_EQ(`FLASH_STATUS, `SELECT_WORD, testValue, 32'b0, "Read initial flash status")
+		`TEST_READ_EQ(`FLASH_CONFIG, `SELECT_WORD, testValue, 32'b0, "Read initial flash config")
 
 		// Setup the flash for manual page selection
-		`TEST_WRITE(`FLASH_CONFIG, `SELECT_WORD, testValue, 32'b01, "Set flash config to manual page selection")
-		`TEST_READ(`FLASH_STATUS, `SELECT_WORD, testValue, 32'b00, "Read flash status after manual page selection")
+		`TEST_WRITE_EQ(`FLASH_CONFIG, `SELECT_WORD, testValue, 32'b01, "Set flash config to manual page selection")
+		`TEST_READ_EQ(`FLASH_STATUS, `SELECT_WORD, testValue, 32'b00, "Read flash status after manual page selection")
 
 		// Wait for initialisation to complete
 		#200
-		`TEST_READ(`FLASH_STATUS, `SELECT_WORD, testValue, 32'b01, "Read flash status to check for initialisation complete")
+		`TEST_READ_EQ(`FLASH_STATUS, `SELECT_WORD, testValue, 32'b01, "Read flash status to check for initialisation complete")
 
 		// Write the page address
-		`TEST_WRITE(`FLASH_CURRENT_PAGE_ADDRESS, `SELECT_WORD, testValue, 32'h0, "Write page address to 0")
+		`TEST_WRITE_EQ(`FLASH_CURRENT_PAGE_ADDRESS, `SELECT_WORD, testValue, 32'h0, "Write page address to 0")
 
 		// Check that page loading has started
-		`TEST_READ(`FLASH_STATUS, `SELECT_WORD, testValue, 32'b11, "Read flash status to check for page loading started")
+		`TEST_READ_EQ(`FLASH_STATUS, `SELECT_WORD, testValue, 32'b11, "Read flash status to check for page loading started")
 
 
 		// Read data from the page to test that it is loaded correctly
@@ -113,15 +115,13 @@ module userSpaceFlash_tb;
 		`TEST_MANUAL_FLASH(32'h0, 32'h1FF, "Read word 0x1FF from page 0")
 
 		// Check that page loading is complete
-		`TEST_READ(`FLASH_STATUS, `SELECT_WORD, testValue, 32'b01, "Read flash status to check for page loading complete")
+		`TEST_READ_EQ(`FLASH_STATUS, `SELECT_WORD, testValue, 32'b01, "Read flash status to check for page loading complete")
 
 		// Change to a new page
-		`WB_WRITE(`FLASH_CURRENT_PAGE_ADDRESS, `SELECT_WORD, 32'h2)
-		`WB_READ(`FLASH_CURRENT_PAGE_ADDRESS, `SELECT_WORD, testValue)
-		`TEST_RESULT(testValue == (32'h2 * `FLASH_PAGE_SIZE_BYTES), "Write page address to 2")
+		`TEST_WRITE(`FLASH_CURRENT_PAGE_ADDRESS, `SELECT_WORD, testValue, 32'h2, testValue == (32'h2 * `FLASH_PAGE_SIZE_BYTES), "Write page address to 2")
 
 		// Check that page loading has started
-		`TEST_READ(`FLASH_STATUS, `SELECT_WORD, testValue, 32'b11, "Read flash status to check for page loading started")
+		`TEST_READ_EQ(`FLASH_STATUS, `SELECT_WORD, testValue, 32'b11, "Read flash status to check for page loading started")
 
 		// Read data from the page to test that it is loaded correctly
 		`TEST_MANUAL_FLASH(32'h2, 32'h00, "Read word 0x00 from page 2")
@@ -134,11 +134,11 @@ module userSpaceFlash_tb;
 		`TEST_MANUAL_FLASH(32'h2, 32'h13, "Read word 0x13 from page 2")
 		
 		// Setup the flash for automatic page selection
-		`TEST_WRITE(`FLASH_CONFIG, `SELECT_WORD, testValue, 32'b11, "Set flash config to automatic page selection")
-		`TEST_READ(`FLASH_STATUS, `SELECT_WORD, testValue, 32'b01, "Read flash status after automatic page selection")
+		`TEST_WRITE_EQ(`FLASH_CONFIG, `SELECT_WORD, testValue, 32'b11, "Set flash config to automatic page selection")
+		`TEST_READ_EQ(`FLASH_STATUS, `SELECT_WORD, testValue, 32'b11, "Read flash status after automatic page selection")
 		
 		// Read current page address
-		`TEST_READ(`FLASH_CURRENT_PAGE_ADDRESS, `SELECT_WORD, testValue, 32'h00001000, "Read current page address after automatic page selection setup")
+		`TEST_READ_EQ(`FLASH_CURRENT_PAGE_ADDRESS, `SELECT_WORD, testValue, 32'h00001000, "Read current page address after automatic page selection setup")
 
 		// Read from the first page
 		`TEST_FLASH(32'h000, "Read word 0x000 with automatic page selection")
@@ -150,7 +150,7 @@ module userSpaceFlash_tb;
 		`TEST_FLASH(32'h0F2, "Read word 0x0F2 with automatic page selection")
 		`TEST_FLASH(32'h0F3, "Read word 0x0F3 with automatic page selection")
 
-		`TEST_READ(`FLASH_CURRENT_PAGE_ADDRESS, `SELECT_WORD, testValue, 32'h00000000, "Read current page address after automatic page selection page 0")
+		`TEST_READ_EQ(`FLASH_CURRENT_PAGE_ADDRESS, `SELECT_WORD, testValue, 32'h00000000, "Read current page address after automatic page selection page 0")
 
 		// Read from another page
 		`TEST_FLASH(32'h400, "Read word 0x400 with automatic page selection")
@@ -162,7 +162,7 @@ module userSpaceFlash_tb;
 		`TEST_FLASH(32'h4F2, "Read word 0x4F2 with automatic page selection")
 		`TEST_FLASH(32'h4F3, "Read word 0x4F3 with automatic page selection")
 
-		`TEST_READ(`FLASH_CURRENT_PAGE_ADDRESS, `SELECT_WORD, testValue, 32'h00001000, "Read current page address after automatic page selection page 1")
+		`TEST_READ_EQ(`FLASH_CURRENT_PAGE_ADDRESS, `SELECT_WORD, testValue, 32'h00001000, "Read current page address after automatic page selection page 1")
 
 		// Random read between pages
 		`TEST_FLASH(32'h000, "Read word 0x000 with automatic page selection switching pages")
@@ -174,37 +174,62 @@ module userSpaceFlash_tb;
 		`TEST_FLASH(32'h0F2, "Read word 0x0F2 with automatic page selection switching pages")
 		`TEST_FLASH(32'h4F3, "Read word 0x4F3 with automatic page selection switching pages")
 
-		`TEST_READ(`FLASH_CURRENT_PAGE_ADDRESS, `SELECT_WORD, testValue, 32'h00001000, "Read current page address after automatic page selection switching pages")
+		`TEST_READ_EQ(`FLASH_CURRENT_PAGE_ADDRESS, `SELECT_WORD, testValue, 32'h00001000, "Read current page address after automatic page selection switching pages")
 
 		// Initialise core0
-
-		// Run core0
-
-		// Check that core0 is running
+		`TEST_READ_EQ(`CORE0_CONFIG_ADDR, `SELECT_WORD, testValue, `CORE_HALT, "Read core0 config before initialisation")
+		`TEST_WRITE_EQ(`CORE0_REG_PC_ADDR, `SELECT_WORD, testValue, `FLASH_ADDRESS_CORE, "Write core0 PC start of flash address")
+		`TEST_WRITE_EQ(`CORE0_SRAM_ADDR + 32'h0000_0090, `SELECT_WORD, testValue, 32'b0, "Clear core0 calculation value for primary loop")
+		`TEST_WRITE_EQ(`CORE0_SRAM_ADDR + 32'h0000_0094, `SELECT_WORD, testValue, 32'b0, "Clear core0 calculation value for secondary loop")
+		`TEST_WRITE_EQ(`CORE0_SRAM_ADDR + 32'h0000_0098, `SELECT_WORD, testValue, 32'h0, "Clear core0 state")
 
 		// Initialise core1
+		`TEST_READ_EQ(`CORE1_CONFIG_ADDR, `SELECT_WORD, testValue, `CORE_HALT, "Read core1 config before initialisation")
+		`TEST_WRITE_EQ(`CORE1_REG_PC_ADDR, `SELECT_WORD, testValue, `FLASH_ADDRESS_CORE, "Write core1 PC start of flash address")
+		`TEST_WRITE_EQ(`CORE1_SRAM_ADDR + 32'h0000_0090, `SELECT_WORD, testValue, 32'b0, "Clear core1 calculation value for primary loop")
+		`TEST_WRITE_EQ(`CORE1_SRAM_ADDR + 32'h0000_0094, `SELECT_WORD, testValue, 32'b0, "Clear core1 calculation value for secondary loop")
+		`TEST_WRITE_EQ(`CORE1_SRAM_ADDR + 32'h0000_0098, `SELECT_WORD, testValue, 32'h0, "Clear core1 state")
 
-		// Run core1
-
-		// Check that core1 is running
-
-		// Stop core1
-
-		// Check that core1 has stopped at the correct instruction
-
-		// Switch core0 to require a new page
+		// Run core0
+		`TEST_WRITE_EQ(`CORE0_CONFIG_ADDR, `SELECT_WORD, testValue, `CORE_RUN, "Write core0 config to run")
 		
-		// Check that core0 is running
+		// Test that core0 is running from only the first page
+		`TEST_READ_TIMEOUT(`CORE0_SRAM_ADDR + 32'h0000_0090, `SELECT_WORD, testCompareValue, testCompareValue >= 32'd45, 1000, 1000, "Read core0 calculation value from primary loop")
+
+		// Switch core0 to run from the second page
+		`TEST_WRITE_EQ(`CORE0_SRAM_ADDR + 32'h0000_0098, `SELECT_WORD, testValue, 32'h1, "Write core0 to switch to second state")
+		#1000
+
+		// Test that core0 is running from only the second page
+		`TEST_READ_TIMEOUT(`CORE0_SRAM_ADDR + 32'h0000_0090, `SELECT_WORD, testValue, testCompareValue == testValue, 1000, 100, "Check core0 calculation value from primary loop hasn't changed")
+		`TEST_READ_TIMEOUT(`CORE0_SRAM_ADDR + 32'h0000_0094, `SELECT_WORD, testValue, testValue >= 32'd285, 1000, 100, "Read core0 calculation value from secondary loop")
+
+		// Switch core0 back to the first page
+		`TEST_WRITE_EQ(`CORE0_SRAM_ADDR + 32'h0000_0098, `SELECT_WORD, testValue, 32'h1, "Write core0 to switch to first state")
+		#1000
+
+		// Test that core0 is running from only the first page
+		`TEST_READ_TIMEOUT(`CORE0_SRAM_ADDR + 32'h0000_0090, `SELECT_WORD, testValue, testValue > testCompareValue, 1000, 100, "Check core0 calculation value from primary loop has increased")
 
 		// Run core1
+		`TEST_WRITE_EQ(`CORE1_CONFIG_ADDR, `SELECT_WORD, testValue, `CORE_RUN, "Write core1 config to run")
+		#1000
 
-		// Check that core1 is running
+		// Test that core0 and core1 are running from only the first page
+
+		// Switch core0 to run from the second page
+		`TEST_WRITE_EQ(`CORE0_SRAM_ADDR + 32'h0000_0098, `SELECT_WORD, testValue, 32'h1, "Write core0 to switch to second state with core1 running")
+		#1000
+
+		// Test that core0 is running from onyl the second page and core1 is running from the first page
 
 		// Stop core0
+		`TEST_WRITE_EQ(`CORE0_CONFIG_ADDR, `SELECT_WORD, testValue, `CORE_HALT, "Write core0 config to halt")
 
 		// Check core0 has stopped at the correct instruction
 
 		// Stop core1
+		`TEST_WRITE_EQ(`CORE1_CONFIG_ADDR, `SELECT_WORD, testValue, `CORE_HALT, "Write core1 config to halt")
 
 		// Check core1 has stopped at the correct instruction
 

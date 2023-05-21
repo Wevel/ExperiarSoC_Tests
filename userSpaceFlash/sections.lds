@@ -19,18 +19,18 @@ SECTIONS
 		. = ALIGN(4);
 		PROVIDE (_stext = .);
 
-        KEEP(*(.vectors .vectors.*))
-        *(.rodata .rodata.*)  
-		*(.srodata .srodata.*)		
-		*(.text .text.*)
-		*(.plt .plt.*)
-		*(.interp .interp.*)
-		*(.dynsym .dynsym.*)
-		*(.dynstr .dynstr.*)
-		*(.hash .hash.*)
-		*(.gnu .gnu.*)
-		*(.eh_frame_hdr .eh_frame_hdr.*)
-		*(.rela .rela.*)
+        KEEP(*(.vectors*))
+        *(.rodata*)
+		*(.srodata*)
+		*(.text*)
+		*(.plt*)
+		*(.interp*)
+		*(.dynsym*)
+		*(.dynstr*)
+		*(.hash*)
+		*(.gnu*)
+		*(.eh_frame_hdr*)
+		*(.rela*)
 		
 		. = ALIGN(0x1000);
 		*(.page2*)
