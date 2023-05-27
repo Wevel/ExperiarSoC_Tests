@@ -60,7 +60,8 @@
 	@(posedge clk) \ // Wait for write to complete
 	@(posedge clk) \
 	@(posedge clk) \
-	wait(!wbBusy);
+	wait(!wbBusy); \
+	wbEnable <= 1'b0;
 
 `define WB_READ_RAW(ADDRESS, BYTE_SELECT, DATA) \
 	@(negedge clk) \ // Wait till before clock rising edge
@@ -74,7 +75,8 @@
 	@(posedge clk) \
 	@(posedge clk) \
 	wait(!wbBusy); \
-	DATA <= wbDataRead; // Return data
+	DATA <= wbDataRead; \ // Return data
+	wbEnable <= 1'b0;
 
 `define WB_WRITE(ADDRESS, BYTE_SELECT, DATA) \
 	`WB_WRITE_RAW(32'h30000000, `SELECT_WORD, (ADDRESS) & 32'hFFFF8000) \ // Set top part of address
