@@ -32,7 +32,8 @@ export IVERILOG_DUMPER = fst
 
 GCC_PATH?=/opt/riscv32i/bin
 GCC_PREFIX?=riscv32-unknown-elf
-
+#GCC_PATH?=      $(TOOLS)/bin
+#GCC_PREFIX?=    riscv32-unknown-linux-gnu
 # RTL/GL/GL_SDF
 SIM?=RTL
 
@@ -41,14 +42,11 @@ SIGNATURE_END=$(shell readelf -s coreArch.elf | grep end_signature | awk '{print
 CODE_END=$(shell readelf -s coreArch.elf | grep write_tohost | awk '{print $$2}')
 
 .SUFFIXES:
-all:  ${BLOCKS:=.lst} ${BLOCKS:=.disass} ${BLOCKS:=.vcd}
+all:  ${BLOCKS:=.lst} ${BLOCKS:=.vcd}
 hex:  ${BLOCKS:=.hex}
 
 coreArch.lst: coreArch.elf
 	${GCC_PATH}/${GCC_PREFIX}-objdump -d -S $< > $@
-
-coreArch.disass: coreArch.elf
-	${GCC_PATH}/${GCC_PREFIX}-objdump -D $< > $@
 
 coreArch.hex: coreArch.elf
 	${GCC_PATH}/${GCC_PREFIX}-objcopy -O verilog $< $@ 
@@ -83,11 +81,15 @@ endif
 coreArch.vcd: coreArch.vvp
 ifeq ($(SIM),RTL)
 	vvp  $<
-	 mv $@ RTL-$@
+	cp $@ RTL-$@
+	rm $@
+	rm $<
 endif
 ifeq ($(SIM),GL)
 	vvp  $<
-	 mv $@ GL-$@
+	cp $@ GL-$@
+	rm $@
+	rm $<
 endif
 
 .PHONY: hex

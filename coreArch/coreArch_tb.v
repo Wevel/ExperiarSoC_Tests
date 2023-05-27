@@ -90,6 +90,19 @@ module coreArch_tb;
 
 		$display("Writing memory dump to memory.hex");
 
+		for (i = 32'h`SIGNATURE_START; i < 32'h`SIGNATURE_END; i = i + 32) begin
+			$displayh("0x%h: 0x%h 0x%h 0x%h 0x%h 0x%h 0x%h 0x%h 0x%h", 
+				i,
+				{ memory[i + 3], memory[i + 2], memory[i + 1], memory[i + 0] }, 
+				{ memory[i + 7], memory[i + 6], memory[i + 5], memory[i + 4] }, 
+				{ memory[i + 11], memory[i + 10], memory[i + 9], memory[i + 8] }, 
+				{ memory[i + 15], memory[i + 14], memory[i + 13], memory[i + 12] },
+				{ memory[i + 19], memory[i + 18], memory[i + 17], memory[i + 16] }, 
+				{ memory[i + 23], memory[i + 22], memory[i + 21], memory[i + 20] }, 
+				{ memory[i + 27], memory[i + 26], memory[i + 25], memory[i + 24] }, 
+				{ memory[i + 31], memory[i + 30], memory[i + 29], memory[i + 28] });
+		end
+
 		fd = $fopen("DUT-ExperiarSoC.signature", "w");
 		
 		for (i = 32'h`SIGNATURE_START; i < 32'h`SIGNATURE_END; i = i + 4) begin
@@ -119,6 +132,19 @@ module coreArch_tb;
 		$display("%c[0m",27);
 
 		$display("Writing memory dump to memory.hex");
+
+		for (i = 32'h`SIGNATURE_START; i < 32'h`SIGNATURE_END; i = i + 32) begin
+			$displayh("0x%h: 0x%h 0x%h 0x%h 0x%h 0x%h 0x%h 0x%h 0x%h", 
+				i,
+				{ memory[i + 3], memory[i + 2], memory[i + 1], memory[i + 0] }, 
+				{ memory[i + 7], memory[i + 6], memory[i + 5], memory[i + 4] }, 
+				{ memory[i + 11], memory[i + 10], memory[i + 9], memory[i + 8] }, 
+				{ memory[i + 15], memory[i + 14], memory[i + 13], memory[i + 12] },
+				{ memory[i + 19], memory[i + 18], memory[i + 17], memory[i + 16] }, 
+				{ memory[i + 23], memory[i + 22], memory[i + 21], memory[i + 20] }, 
+				{ memory[i + 27], memory[i + 26], memory[i + 25], memory[i + 24] }, 
+				{ memory[i + 31], memory[i + 30], memory[i + 29], memory[i + 28] });
+		end
 
 		fd = $fopen("DUT-ExperiarSoC.signature", "w");
 		
