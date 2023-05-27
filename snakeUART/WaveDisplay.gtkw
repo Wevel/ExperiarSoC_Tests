@@ -1,0 +1,67 @@
+[*]
+[*] GTKWave Analyzer v3.3.100 (w)1999-2019 BSI
+[*] Wed May 24 14:41:37 2023
+[*]
+[dumpfile] "F:\WSL\ASIC\ExperiarSoC\verilog\dv\ExperiarSoC_Tests\snakeUART\RTL-snakeUART.vcd"
+[dumpfile_mtime] "Wed May 24 14:41:16 2023"
+[dumpfile_size] 151509
+[savefile] "F:\WSL\ASIC\ExperiarSoC\verilog\dv\ExperiarSoC_Tests\snakeUART\WaveDisplay.gtkw"
+[timestart] 0
+[size] 2560 1377
+[pos] -1 -1
+*-23.064880 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] snakeUART_tb.
+[treeopen] snakeUART_tb.userSpace.
+[treeopen] snakeUART_tb.userSpace.mprj.
+[treeopen] snakeUART_tb.userSpace.mprj.experiarSoC.
+[treeopen] snakeUART_tb.userSpace.mprj.experiarSoC.flash.
+[sst_width] 311
+[signals_width] 286
+[sst_expanded] 1
+[sst_vpaned_height] 426
+@28
+snakeUART_tb.clk
+snakeUART_tb.rst
+@820
+snakeUART_tb.currentTestName[639:0]
+@22
+snakeUART_tb.testValue[31:0]
+@28
+snakeUART_tb.nextTestOutput
+snakeUART_tb.succesOutput
+snakeUART_tb.userSpace.mprj.experiarSoC.core0.core.management_run
+snakeUART_tb.userSpace.mprj.experiarSoC.core0.core.instruction_memoryEnable
+@22
+snakeUART_tb.userSpace.mprj.experiarSoC.core0.core.instruction_memoryAddress[31:0]
+snakeUART_tb.userSpace.mprj.experiarSoC.core0.core.instruction_memoryDataRead[31:0]
+@28
+snakeUART_tb.userSpace.mprj.experiarSoC.core0.core.instruction_memoryBusy
+snakeUART_tb.userSpace.mprj.experiarSoC.core0.core.data_memoryEnable
+snakeUART_tb.userSpace.mprj.experiarSoC.core0.core.data_memoryWriteEnable
+@22
+snakeUART_tb.userSpace.mprj.experiarSoC.core0.core.data_memoryAddress[31:0]
+snakeUART_tb.userSpace.mprj.experiarSoC.core0.core.data_memoryByteSelect[3:0]
+snakeUART_tb.userSpace.mprj.experiarSoC.core0.core.data_memoryDataRead[31:0]
+snakeUART_tb.userSpace.mprj.experiarSoC.core0.core.data_memoryDataWrite[31:0]
+@28
+snakeUART_tb.userSpace.mprj.experiarSoC.core0.core.data_memoryBusy
+@22
+snakeUART_tb.userSpace.mprj.experiarSoC.core0.core.fetchProgramCounter[31:0]
+snakeUART_tb.userSpace.mprj.experiarSoC.core0.core.executeProgramCounter[31:0]
+snakeUART_tb.userSpace.mprj.experiarSoC.core0.core.pipe0_currentInstruction[31:0]
+snakeUART_tb.userSpace.mprj.experiarSoC.core0.core.pipe1_currentInstruction[31:0]
+snakeUART_tb.userSpace.mprj.experiarSoC.core0.core.pipe2_currentInstruction[31:0]
+@28
++{snakeUART_tb.userSpace.mprj.experiarSoC.core0.core_wb_cyc_o} snakeUART_tb.userSpace.mprj.experiarSoC.core0.core_wb_cyc_o
+snakeUART_tb.userSpace.mprj.experiarSoC.core0.core_wb_stb_o
+snakeUART_tb.userSpace.mprj.experiarSoC.core0.core_wb_we_o
+@22
+snakeUART_tb.userSpace.mprj.experiarSoC.core0.core_wb_adr_o[27:0]
+snakeUART_tb.userSpace.mprj.experiarSoC.core0.core_wb_sel_o[3:0]
+snakeUART_tb.userSpace.mprj.experiarSoC.core0.core_wb_data_i[31:0]
+snakeUART_tb.userSpace.mprj.experiarSoC.core0.core_wb_data_o[31:0]
+@28
+snakeUART_tb.userSpace.mprj.experiarSoC.core0.core_wb_stall_i
+snakeUART_tb.userSpace.mprj.experiarSoC.core0.core_wb_ack_i
+[pattern_trace] 1
+[pattern_trace] 0

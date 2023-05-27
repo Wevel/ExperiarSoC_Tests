@@ -1,0 +1,565 @@
+Archive member included to satisfy reference by file (symbol)
+
+/foss/tools/riscv-gnu-toolchain-rv32i/217e7f3debe424d61374d31e33a091a630535937/lib/gcc/riscv32-unknown-linux-gnu/11.1.0/libgcc.a(_udivdi3.o)
+                              /tmp/cc4mPbAl.o (__udivdi3)
+/foss/tools/riscv-gnu-toolchain-rv32i/217e7f3debe424d61374d31e33a091a630535937/lib/gcc/riscv32-unknown-linux-gnu/11.1.0/libgcc.a(muldi3.o)
+                              /foss/tools/riscv-gnu-toolchain-rv32i/217e7f3debe424d61374d31e33a091a630535937/lib/gcc/riscv32-unknown-linux-gnu/11.1.0/libgcc.a(_udivdi3.o) (__mulsi3)
+/foss/tools/riscv-gnu-toolchain-rv32i/217e7f3debe424d61374d31e33a091a630535937/lib/gcc/riscv32-unknown-linux-gnu/11.1.0/libgcc.a(div.o)
+                              /tmp/ccOufM0r.o (__udivsi3)
+/foss/tools/riscv-gnu-toolchain-rv32i/217e7f3debe424d61374d31e33a091a630535937/lib/gcc/riscv32-unknown-linux-gnu/11.1.0/libgcc.a(_clz.o)
+                              /foss/tools/riscv-gnu-toolchain-rv32i/217e7f3debe424d61374d31e33a091a630535937/lib/gcc/riscv32-unknown-linux-gnu/11.1.0/libgcc.a(_udivdi3.o) (__clz_tab)
+/foss/tools/riscv-gnu-toolchain-rv32i/217e7f3debe424d61374d31e33a091a630535937/sysroot/usr/lib/libc.a(strlen.o)
+                              /tmp/cctTvHcC.o (strlen)
+
+Discarded input sections
+
+ .group         0x0000000000000000        0xc /tmp/cctTvHcC.o
+ .group         0x0000000000000000        0xc /tmp/cctTvHcC.o
+ .group         0x0000000000000000        0xc /tmp/cctTvHcC.o
+ .group         0x0000000000000000        0xc /tmp/cctTvHcC.o
+ .group         0x0000000000000000        0xc /tmp/cctTvHcC.o
+ .group         0x0000000000000000        0xc /tmp/cctTvHcC.o
+ .group         0x0000000000000000        0xc /tmp/cctTvHcC.o
+ .group         0x0000000000000000        0xc /tmp/cctTvHcC.o
+ .group         0x0000000000000000        0xc /tmp/cctTvHcC.o
+ .group         0x0000000000000000        0xc /tmp/cctTvHcC.o
+ .group         0x0000000000000000        0xc /tmp/cctTvHcC.o
+ .group         0x0000000000000000        0xc /tmp/cctTvHcC.o
+ .group         0x0000000000000000        0xc /tmp/cctTvHcC.o
+ .group         0x0000000000000000        0xc /tmp/cctTvHcC.o
+ .group         0x0000000000000000        0xc /tmp/cctTvHcC.o
+ .group         0x0000000000000000        0xc /tmp/cctTvHcC.o
+ .group         0x0000000000000000        0xc /tmp/cctTvHcC.o
+ .text          0x0000000000000000        0x0 /tmp/cctTvHcC.o
+ .data          0x0000000000000000        0x0 /tmp/cctTvHcC.o
+ .bss           0x0000000000000000        0x0 /tmp/cctTvHcC.o
+ .text.clearDisplayBuffer
+                0x0000000000000000       0x2c /tmp/cctTvHcC.o
+ .text.DisplayInit
+                0x0000000000000000       0x1c /tmp/cctTvHcC.o
+ .text.DisplayClear
+                0x0000000000000000       0x1c /tmp/cctTvHcC.o
+ .text.DisplayDrawSprite
+                0x0000000000000000       0x2c /tmp/cctTvHcC.o
+ .text.DisplayOutput
+                0x0000000000000000       0x6c /tmp/cctTvHcC.o
+ .debug_info    0x0000000000000000      0x69d /tmp/cctTvHcC.o
+ .debug_abbrev  0x0000000000000000      0x2a9 /tmp/cctTvHcC.o
+ .debug_loclists
+                0x0000000000000000      0x27c /tmp/cctTvHcC.o
+ .debug_aranges
+                0x0000000000000000       0x50 /tmp/cctTvHcC.o
+ .debug_rnglists
+                0x0000000000000000       0x5f /tmp/cctTvHcC.o
+ .debug_macro   0x0000000000000000       0xf1 /tmp/cctTvHcC.o
+ .debug_macro   0x0000000000000000      0x76c /tmp/cctTvHcC.o
+ .debug_macro   0x0000000000000000       0x10 /tmp/cctTvHcC.o
+ .debug_macro   0x0000000000000000      0x105 /tmp/cctTvHcC.o
+ .debug_macro   0x0000000000000000       0x10 /tmp/cctTvHcC.o
+ .debug_macro   0x0000000000000000       0x27 /tmp/cctTvHcC.o
+ .debug_macro   0x0000000000000000      0x188 /tmp/cctTvHcC.o
+ .debug_macro   0x0000000000000000       0x1c /tmp/cctTvHcC.o
+ .debug_macro   0x0000000000000000       0x5f /tmp/cctTvHcC.o
+ .debug_macro   0x0000000000000000       0xb2 /tmp/cctTvHcC.o
+ .debug_macro   0x0000000000000000       0x4c /tmp/cctTvHcC.o
+ .debug_macro   0x0000000000000000       0x10 /tmp/cctTvHcC.o
+ .debug_macro   0x0000000000000000       0x97 /tmp/cctTvHcC.o
+ .debug_macro   0x0000000000000000       0x4c /tmp/cctTvHcC.o
+ .debug_macro   0x0000000000000000      0x34e /tmp/cctTvHcC.o
+ .debug_macro   0x0000000000000000       0x58 /tmp/cctTvHcC.o
+ .debug_macro   0x0000000000000000       0x10 /tmp/cctTvHcC.o
+ .debug_macro   0x0000000000000000       0x22 /tmp/cctTvHcC.o
+ .debug_line    0x0000000000000000      0x4e4 /tmp/cctTvHcC.o
+ .debug_str     0x0000000000000000     0x4b07 /tmp/cctTvHcC.o
+ .debug_line_str
+                0x0000000000000000      0x3af /tmp/cctTvHcC.o
+ .debug_frame   0x0000000000000000       0xdc /tmp/cctTvHcC.o
+ .group         0x0000000000000000        0xc /tmp/ccFB1nJy.o
+ .group         0x0000000000000000        0xc /tmp/ccFB1nJy.o
+ .group         0x0000000000000000        0xc /tmp/ccFB1nJy.o
+ .group         0x0000000000000000        0xc /tmp/ccFB1nJy.o
+ .text          0x0000000000000000        0x0 /tmp/ccFB1nJy.o
+ .data          0x0000000000000000        0x0 /tmp/ccFB1nJy.o
+ .bss           0x0000000000000000        0x0 /tmp/ccFB1nJy.o
+ .debug_info    0x0000000000000000      0x2fe /tmp/ccFB1nJy.o
+ .debug_abbrev  0x0000000000000000      0x1eb /tmp/ccFB1nJy.o
+ .debug_loclists
+                0x0000000000000000      0x153 /tmp/ccFB1nJy.o
+ .debug_aranges
+                0x0000000000000000       0x38 /tmp/ccFB1nJy.o
+ .debug_rnglists
+                0x0000000000000000       0x57 /tmp/ccFB1nJy.o
+ .debug_macro   0x0000000000000000       0x50 /tmp/ccFB1nJy.o
+ .debug_macro   0x0000000000000000      0x76c /tmp/ccFB1nJy.o
+ .debug_macro   0x0000000000000000      0x34e /tmp/ccFB1nJy.o
+ .debug_macro   0x0000000000000000       0x4c /tmp/ccFB1nJy.o
+ .debug_macro   0x0000000000000000       0x16 /tmp/ccFB1nJy.o
+ .debug_line    0x0000000000000000      0x491 /tmp/ccFB1nJy.o
+ .debug_str     0x0000000000000000     0x31fb /tmp/ccFB1nJy.o
+ .debug_line_str
+                0x0000000000000000      0x17d /tmp/ccFB1nJy.o
+ .debug_frame   0x0000000000000000       0x84 /tmp/ccFB1nJy.o
+ .group         0x0000000000000000        0xc /tmp/ccIwZtkv.o
+ .group         0x0000000000000000        0xc /tmp/ccIwZtkv.o
+ .group         0x0000000000000000        0xc /tmp/ccIwZtkv.o
+ .group         0x0000000000000000        0xc /tmp/ccIwZtkv.o
+ .text          0x0000000000000000        0x0 /tmp/ccIwZtkv.o
+ .data          0x0000000000000000        0x0 /tmp/ccIwZtkv.o
+ .bss           0x0000000000000000        0x0 /tmp/ccIwZtkv.o
+ .debug_info    0x0000000000000000      0x195 /tmp/ccIwZtkv.o
+ .debug_abbrev  0x0000000000000000      0x12c /tmp/ccIwZtkv.o
+ .debug_loclists
+                0x0000000000000000       0x31 /tmp/ccIwZtkv.o
+ .debug_aranges
+                0x0000000000000000       0x20 /tmp/ccIwZtkv.o
+ .debug_rnglists
+                0x0000000000000000       0x16 /tmp/ccIwZtkv.o
+ .debug_macro   0x0000000000000000       0x59 /tmp/ccIwZtkv.o
+ .debug_macro   0x0000000000000000      0x76c /tmp/ccIwZtkv.o
+ .debug_macro   0x0000000000000000      0x34e /tmp/ccIwZtkv.o
+ .debug_macro   0x0000000000000000       0x4c /tmp/ccIwZtkv.o
+ .debug_macro   0x0000000000000000       0x22 /tmp/ccIwZtkv.o
+ .debug_line    0x0000000000000000      0x123 /tmp/ccIwZtkv.o
+ .debug_str     0x0000000000000000     0x322c /tmp/ccIwZtkv.o
+ .debug_line_str
+                0x0000000000000000      0x181 /tmp/ccIwZtkv.o
+ .debug_frame   0x0000000000000000       0x2c /tmp/ccIwZtkv.o
+ .group         0x0000000000000000        0xc /tmp/ccOufM0r.o
+ .group         0x0000000000000000        0xc /tmp/ccOufM0r.o
+ .group         0x0000000000000000        0xc /tmp/ccOufM0r.o
+ .text          0x0000000000000000        0x0 /tmp/ccOufM0r.o
+ .data          0x0000000000000000        0x0 /tmp/ccOufM0r.o
+ .bss           0x0000000000000000        0x0 /tmp/ccOufM0r.o
+ .debug_info    0x0000000000000000      0x483 /tmp/ccOufM0r.o
+ .debug_abbrev  0x0000000000000000      0x196 /tmp/ccOufM0r.o
+ .debug_loclists
+                0x0000000000000000      0x4fe /tmp/ccOufM0r.o
+ .debug_aranges
+                0x0000000000000000       0x48 /tmp/ccOufM0r.o
+ .debug_rnglists
+                0x0000000000000000       0x5f /tmp/ccOufM0r.o
+ .debug_macro   0x0000000000000000       0x29 /tmp/ccOufM0r.o
+ .debug_macro   0x0000000000000000      0x76c /tmp/ccOufM0r.o
+ .debug_macro   0x0000000000000000       0x58 /tmp/ccOufM0r.o
+ .debug_macro   0x0000000000000000       0x10 /tmp/ccOufM0r.o
+ .debug_line    0x0000000000000000      0x7a2 /tmp/ccOufM0r.o
+ .debug_str     0x0000000000000000     0x2792 /tmp/ccOufM0r.o
+ .debug_line_str
+                0x0000000000000000      0x165 /tmp/ccOufM0r.o
+ .debug_frame   0x0000000000000000       0xc4 /tmp/ccOufM0r.o
+ .group         0x0000000000000000        0xc /tmp/ccW6TNLo.o
+ .group         0x0000000000000000        0xc /tmp/ccW6TNLo.o
+ .group         0x0000000000000000        0xc /tmp/ccW6TNLo.o
+ .group         0x0000000000000000        0xc /tmp/ccW6TNLo.o
+ .text          0x0000000000000000        0x0 /tmp/ccW6TNLo.o
+ .data          0x0000000000000000        0x0 /tmp/ccW6TNLo.o
+ .bss           0x0000000000000000        0x0 /tmp/ccW6TNLo.o
+ .debug_info    0x0000000000000000      0x25c /tmp/ccW6TNLo.o
+ .debug_abbrev  0x0000000000000000      0x178 /tmp/ccW6TNLo.o
+ .debug_loclists
+                0x0000000000000000       0x2e /tmp/ccW6TNLo.o
+ .debug_aranges
+                0x0000000000000000       0x30 /tmp/ccW6TNLo.o
+ .debug_rnglists
+                0x0000000000000000       0x28 /tmp/ccW6TNLo.o
+ .debug_macro   0x0000000000000000       0x64 /tmp/ccW6TNLo.o
+ .debug_macro   0x0000000000000000      0x76c /tmp/ccW6TNLo.o
+ .debug_macro   0x0000000000000000      0x34e /tmp/ccW6TNLo.o
+ .debug_macro   0x0000000000000000       0x4c /tmp/ccW6TNLo.o
+ .debug_macro   0x0000000000000000       0x16 /tmp/ccW6TNLo.o
+ .debug_line    0x0000000000000000      0x11d /tmp/ccW6TNLo.o
+ .debug_str     0x0000000000000000     0x31fc /tmp/ccW6TNLo.o
+ .debug_line_str
+                0x0000000000000000      0x193 /tmp/ccW6TNLo.o
+ .debug_frame   0x0000000000000000       0x6c /tmp/ccW6TNLo.o
+ .group         0x0000000000000000        0xc /tmp/cc4mPbAl.o
+ .group         0x0000000000000000        0xc /tmp/cc4mPbAl.o
+ .group         0x0000000000000000        0xc /tmp/cc4mPbAl.o
+ .text          0x0000000000000000        0x0 /tmp/cc4mPbAl.o
+ .data          0x0000000000000000        0x0 /tmp/cc4mPbAl.o
+ .bss           0x0000000000000000        0x0 /tmp/cc4mPbAl.o
+ .text.GetMillis
+                0x0000000000000000       0x28 /tmp/cc4mPbAl.o
+ .debug_info    0x0000000000000000      0x148 /tmp/cc4mPbAl.o
+ .debug_abbrev  0x0000000000000000       0xc0 /tmp/cc4mPbAl.o
+ .debug_loclists
+                0x0000000000000000       0x41 /tmp/cc4mPbAl.o
+ .debug_aranges
+                0x0000000000000000       0x28 /tmp/cc4mPbAl.o
+ .debug_rnglists
+                0x0000000000000000       0x1f /tmp/cc4mPbAl.o
+ .debug_macro   0x0000000000000000       0x37 /tmp/cc4mPbAl.o
+ .debug_macro   0x0000000000000000      0x76c /tmp/cc4mPbAl.o
+ .debug_macro   0x0000000000000000      0x34e /tmp/cc4mPbAl.o
+ .debug_macro   0x0000000000000000       0x4c /tmp/cc4mPbAl.o
+ .debug_line    0x0000000000000000       0xf8 /tmp/cc4mPbAl.o
+ .debug_str     0x0000000000000000     0x314e /tmp/cc4mPbAl.o
+ .debug_line_str
+                0x0000000000000000      0x16c /tmp/cc4mPbAl.o
+ .debug_frame   0x0000000000000000       0x48 /tmp/cc4mPbAl.o
+ .group         0x0000000000000000        0xc /tmp/ccJGvgsi.o
+ .group         0x0000000000000000        0xc /tmp/ccJGvgsi.o
+ .group         0x0000000000000000        0xc /tmp/ccJGvgsi.o
+ .group         0x0000000000000000        0xc /tmp/ccJGvgsi.o
+ .text          0x0000000000000000        0x0 /tmp/ccJGvgsi.o
+ .data          0x0000000000000000        0x0 /tmp/ccJGvgsi.o
+ .bss           0x0000000000000000        0x0 /tmp/ccJGvgsi.o
+ .text.UARTWrite
+                0x0000000000000000        0x8 /tmp/ccJGvgsi.o
+ .debug_info    0x0000000000000000      0x21a /tmp/ccJGvgsi.o
+ .debug_abbrev  0x0000000000000000      0x16f /tmp/ccJGvgsi.o
+ .debug_loclists
+                0x0000000000000000       0xad /tmp/ccJGvgsi.o
+ .debug_aranges
+                0x0000000000000000       0x38 /tmp/ccJGvgsi.o
+ .debug_rnglists
+                0x0000000000000000       0x31 /tmp/ccJGvgsi.o
+ .debug_macro   0x0000000000000000       0x46 /tmp/ccJGvgsi.o
+ .debug_macro   0x0000000000000000      0x76c /tmp/ccJGvgsi.o
+ .debug_macro   0x0000000000000000      0x34e /tmp/ccJGvgsi.o
+ .debug_macro   0x0000000000000000       0x4c /tmp/ccJGvgsi.o
+ .debug_macro   0x0000000000000000       0x22 /tmp/ccJGvgsi.o
+ .debug_line    0x0000000000000000      0x199 /tmp/ccJGvgsi.o
+ .debug_str     0x0000000000000000     0x3252 /tmp/ccJGvgsi.o
+ .debug_line_str
+                0x0000000000000000      0x173 /tmp/ccJGvgsi.o
+ .debug_frame   0x0000000000000000       0x68 /tmp/ccJGvgsi.o
+ .group         0x0000000000000000        0xc /tmp/ccl7b9mf.o
+ .text          0x0000000000000000        0x0 /tmp/ccl7b9mf.o
+ .data          0x0000000000000000        0x0 /tmp/ccl7b9mf.o
+ .bss           0x0000000000000000        0x0 /tmp/ccl7b9mf.o
+ .text.Vector2Subtract
+                0x0000000000000000       0x34 /tmp/ccl7b9mf.o
+ .debug_info    0x0000000000000000       0xde /tmp/ccl7b9mf.o
+ .debug_abbrev  0x0000000000000000       0xb1 /tmp/ccl7b9mf.o
+ .debug_aranges
+                0x0000000000000000       0x28 /tmp/ccl7b9mf.o
+ .debug_rnglists
+                0x0000000000000000       0x1f /tmp/ccl7b9mf.o
+ .debug_macro   0x0000000000000000       0x1b /tmp/ccl7b9mf.o
+ .debug_macro   0x0000000000000000      0x76c /tmp/ccl7b9mf.o
+ .debug_line    0x0000000000000000       0xe7 /tmp/ccl7b9mf.o
+ .debug_str     0x0000000000000000     0x2571 /tmp/ccl7b9mf.o
+ .debug_line_str
+                0x0000000000000000       0xcc /tmp/ccl7b9mf.o
+ .debug_frame   0x0000000000000000       0x40 /tmp/ccl7b9mf.o
+ .text          0x0000000000000000        0x0 /tmp/ccVcDjic.o
+ .data          0x0000000000000000        0x0 /tmp/ccVcDjic.o
+ .bss           0x0000000000000000        0x0 /tmp/ccVcDjic.o
+ .debug_line    0x0000000000000000       0xc2 /tmp/ccVcDjic.o
+ .debug_line_str
+                0x0000000000000000       0x70 /tmp/ccVcDjic.o
+ .debug_info    0x0000000000000000       0x24 /tmp/ccVcDjic.o
+ .debug_abbrev  0x0000000000000000       0x14 /tmp/ccVcDjic.o
+ .debug_aranges
+                0x0000000000000000       0x20 /tmp/ccVcDjic.o
+ .debug_str     0x0000000000000000       0x57 /tmp/ccVcDjic.o
+ .eh_frame      0x0000000000000000       0x2c /tmp/ccVcDjic.o
+ .group         0x0000000000000000        0xc /tmp/ccrOjwi9.o
+ .group         0x0000000000000000        0xc /tmp/ccrOjwi9.o
+ .group         0x0000000000000000        0xc /tmp/ccrOjwi9.o
+ .group         0x0000000000000000        0xc /tmp/ccrOjwi9.o
+ .group         0x0000000000000000        0xc /tmp/ccrOjwi9.o
+ .text          0x0000000000000000        0x0 /tmp/ccrOjwi9.o
+ .data          0x0000000000000000        0x0 /tmp/ccrOjwi9.o
+ .bss           0x0000000000000000        0x0 /tmp/ccrOjwi9.o
+ .debug_info    0x0000000000000000      0x16f /tmp/ccrOjwi9.o
+ .debug_abbrev  0x0000000000000000      0x12e /tmp/ccrOjwi9.o
+ .debug_aranges
+                0x0000000000000000       0x20 /tmp/ccrOjwi9.o
+ .debug_rnglists
+                0x0000000000000000       0x16 /tmp/ccrOjwi9.o
+ .debug_macro   0x0000000000000000       0x85 /tmp/ccrOjwi9.o
+ .debug_macro   0x0000000000000000      0x76c /tmp/ccrOjwi9.o
+ .debug_macro   0x0000000000000000      0x34e /tmp/ccrOjwi9.o
+ .debug_macro   0x0000000000000000       0x4c /tmp/ccrOjwi9.o
+ .debug_macro   0x0000000000000000       0x16 /tmp/ccrOjwi9.o
+ .debug_macro   0x0000000000000000       0x22 /tmp/ccrOjwi9.o
+ .debug_line    0x0000000000000000       0xdb /tmp/ccrOjwi9.o
+ .debug_str     0x0000000000000000     0x326f /tmp/ccrOjwi9.o
+ .debug_line_str
+                0x0000000000000000      0x19b /tmp/ccrOjwi9.o
+ .debug_frame   0x0000000000000000       0x2c /tmp/ccrOjwi9.o
+ .data          0x0000000000000000        0x0 /foss/tools/riscv-gnu-toolchain-rv32i/217e7f3debe424d61374d31e33a091a630535937/lib/gcc/riscv32-unknown-linux-gnu/11.1.0/libgcc.a(_udivdi3.o)
+ .bss           0x0000000000000000        0x0 /foss/tools/riscv-gnu-toolchain-rv32i/217e7f3debe424d61374d31e33a091a630535937/lib/gcc/riscv32-unknown-linux-gnu/11.1.0/libgcc.a(_udivdi3.o)
+ .debug_info    0x0000000000000000      0x93c /foss/tools/riscv-gnu-toolchain-rv32i/217e7f3debe424d61374d31e33a091a630535937/lib/gcc/riscv32-unknown-linux-gnu/11.1.0/libgcc.a(_udivdi3.o)
+ .debug_abbrev  0x0000000000000000      0x1d0 /foss/tools/riscv-gnu-toolchain-rv32i/217e7f3debe424d61374d31e33a091a630535937/lib/gcc/riscv32-unknown-linux-gnu/11.1.0/libgcc.a(_udivdi3.o)
+ .debug_loclists
+                0x0000000000000000      0xedb /foss/tools/riscv-gnu-toolchain-rv32i/217e7f3debe424d61374d31e33a091a630535937/lib/gcc/riscv32-unknown-linux-gnu/11.1.0/libgcc.a(_udivdi3.o)
+ .debug_aranges
+                0x0000000000000000       0x20 /foss/tools/riscv-gnu-toolchain-rv32i/217e7f3debe424d61374d31e33a091a630535937/lib/gcc/riscv32-unknown-linux-gnu/11.1.0/libgcc.a(_udivdi3.o)
+ .debug_rnglists
+                0x0000000000000000      0x188 /foss/tools/riscv-gnu-toolchain-rv32i/217e7f3debe424d61374d31e33a091a630535937/lib/gcc/riscv32-unknown-linux-gnu/11.1.0/libgcc.a(_udivdi3.o)
+ .debug_line    0x0000000000000000      0x7b3 /foss/tools/riscv-gnu-toolchain-rv32i/217e7f3debe424d61374d31e33a091a630535937/lib/gcc/riscv32-unknown-linux-gnu/11.1.0/libgcc.a(_udivdi3.o)
+ .debug_str     0x0000000000000000      0x276 /foss/tools/riscv-gnu-toolchain-rv32i/217e7f3debe424d61374d31e33a091a630535937/lib/gcc/riscv32-unknown-linux-gnu/11.1.0/libgcc.a(_udivdi3.o)
+ .debug_line_str
+                0x0000000000000000      0x131 /foss/tools/riscv-gnu-toolchain-rv32i/217e7f3debe424d61374d31e33a091a630535937/lib/gcc/riscv32-unknown-linux-gnu/11.1.0/libgcc.a(_udivdi3.o)
+ .eh_frame      0x0000000000000000       0x60 /foss/tools/riscv-gnu-toolchain-rv32i/217e7f3debe424d61374d31e33a091a630535937/lib/gcc/riscv32-unknown-linux-gnu/11.1.0/libgcc.a(_udivdi3.o)
+ .data          0x0000000000000000        0x0 /foss/tools/riscv-gnu-toolchain-rv32i/217e7f3debe424d61374d31e33a091a630535937/lib/gcc/riscv32-unknown-linux-gnu/11.1.0/libgcc.a(muldi3.o)
+ .bss           0x0000000000000000        0x0 /foss/tools/riscv-gnu-toolchain-rv32i/217e7f3debe424d61374d31e33a091a630535937/lib/gcc/riscv32-unknown-linux-gnu/11.1.0/libgcc.a(muldi3.o)
+ .debug_line    0x0000000000000000       0x7a /foss/tools/riscv-gnu-toolchain-rv32i/217e7f3debe424d61374d31e33a091a630535937/lib/gcc/riscv32-unknown-linux-gnu/11.1.0/libgcc.a(muldi3.o)
+ .debug_line_str
+                0x0000000000000000       0x66 /foss/tools/riscv-gnu-toolchain-rv32i/217e7f3debe424d61374d31e33a091a630535937/lib/gcc/riscv32-unknown-linux-gnu/11.1.0/libgcc.a(muldi3.o)
+ .debug_info    0x0000000000000000       0x24 /foss/tools/riscv-gnu-toolchain-rv32i/217e7f3debe424d61374d31e33a091a630535937/lib/gcc/riscv32-unknown-linux-gnu/11.1.0/libgcc.a(muldi3.o)
+ .debug_abbrev  0x0000000000000000       0x14 /foss/tools/riscv-gnu-toolchain-rv32i/217e7f3debe424d61374d31e33a091a630535937/lib/gcc/riscv32-unknown-linux-gnu/11.1.0/libgcc.a(muldi3.o)
+ .debug_aranges
+                0x0000000000000000       0x20 /foss/tools/riscv-gnu-toolchain-rv32i/217e7f3debe424d61374d31e33a091a630535937/lib/gcc/riscv32-unknown-linux-gnu/11.1.0/libgcc.a(muldi3.o)
+ .debug_str     0x0000000000000000       0x6e /foss/tools/riscv-gnu-toolchain-rv32i/217e7f3debe424d61374d31e33a091a630535937/lib/gcc/riscv32-unknown-linux-gnu/11.1.0/libgcc.a(muldi3.o)
+ .data          0x0000000000000000        0x0 /foss/tools/riscv-gnu-toolchain-rv32i/217e7f3debe424d61374d31e33a091a630535937/lib/gcc/riscv32-unknown-linux-gnu/11.1.0/libgcc.a(div.o)
+ .bss           0x0000000000000000        0x0 /foss/tools/riscv-gnu-toolchain-rv32i/217e7f3debe424d61374d31e33a091a630535937/lib/gcc/riscv32-unknown-linux-gnu/11.1.0/libgcc.a(div.o)
+ .debug_line    0x0000000000000000      0x153 /foss/tools/riscv-gnu-toolchain-rv32i/217e7f3debe424d61374d31e33a091a630535937/lib/gcc/riscv32-unknown-linux-gnu/11.1.0/libgcc.a(div.o)
+ .debug_line_str
+                0x0000000000000000       0x60 /foss/tools/riscv-gnu-toolchain-rv32i/217e7f3debe424d61374d31e33a091a630535937/lib/gcc/riscv32-unknown-linux-gnu/11.1.0/libgcc.a(div.o)
+ .debug_info    0x0000000000000000       0x25 /foss/tools/riscv-gnu-toolchain-rv32i/217e7f3debe424d61374d31e33a091a630535937/lib/gcc/riscv32-unknown-linux-gnu/11.1.0/libgcc.a(div.o)
+ .debug_abbrev  0x0000000000000000       0x14 /foss/tools/riscv-gnu-toolchain-rv32i/217e7f3debe424d61374d31e33a091a630535937/lib/gcc/riscv32-unknown-linux-gnu/11.1.0/libgcc.a(div.o)
+ .debug_aranges
+                0x0000000000000000       0x20 /foss/tools/riscv-gnu-toolchain-rv32i/217e7f3debe424d61374d31e33a091a630535937/lib/gcc/riscv32-unknown-linux-gnu/11.1.0/libgcc.a(div.o)
+ .debug_str     0x0000000000000000       0x6b /foss/tools/riscv-gnu-toolchain-rv32i/217e7f3debe424d61374d31e33a091a630535937/lib/gcc/riscv32-unknown-linux-gnu/11.1.0/libgcc.a(div.o)
+ .text          0x0000000000000000        0x0 /foss/tools/riscv-gnu-toolchain-rv32i/217e7f3debe424d61374d31e33a091a630535937/lib/gcc/riscv32-unknown-linux-gnu/11.1.0/libgcc.a(_clz.o)
+ .data          0x0000000000000000        0x0 /foss/tools/riscv-gnu-toolchain-rv32i/217e7f3debe424d61374d31e33a091a630535937/lib/gcc/riscv32-unknown-linux-gnu/11.1.0/libgcc.a(_clz.o)
+ .bss           0x0000000000000000        0x0 /foss/tools/riscv-gnu-toolchain-rv32i/217e7f3debe424d61374d31e33a091a630535937/lib/gcc/riscv32-unknown-linux-gnu/11.1.0/libgcc.a(_clz.o)
+ .debug_info    0x0000000000000000       0xd8 /foss/tools/riscv-gnu-toolchain-rv32i/217e7f3debe424d61374d31e33a091a630535937/lib/gcc/riscv32-unknown-linux-gnu/11.1.0/libgcc.a(_clz.o)
+ .debug_abbrev  0x0000000000000000       0x70 /foss/tools/riscv-gnu-toolchain-rv32i/217e7f3debe424d61374d31e33a091a630535937/lib/gcc/riscv32-unknown-linux-gnu/11.1.0/libgcc.a(_clz.o)
+ .debug_aranges
+                0x0000000000000000       0x18 /foss/tools/riscv-gnu-toolchain-rv32i/217e7f3debe424d61374d31e33a091a630535937/lib/gcc/riscv32-unknown-linux-gnu/11.1.0/libgcc.a(_clz.o)
+ .debug_line    0x0000000000000000       0x3f /foss/tools/riscv-gnu-toolchain-rv32i/217e7f3debe424d61374d31e33a091a630535937/lib/gcc/riscv32-unknown-linux-gnu/11.1.0/libgcc.a(_clz.o)
+ .debug_str     0x0000000000000000      0x19a /foss/tools/riscv-gnu-toolchain-rv32i/217e7f3debe424d61374d31e33a091a630535937/lib/gcc/riscv32-unknown-linux-gnu/11.1.0/libgcc.a(_clz.o)
+ .debug_line_str
+                0x0000000000000000      0x131 /foss/tools/riscv-gnu-toolchain-rv32i/217e7f3debe424d61374d31e33a091a630535937/lib/gcc/riscv32-unknown-linux-gnu/11.1.0/libgcc.a(_clz.o)
+ .data          0x0000000000000000        0x0 /foss/tools/riscv-gnu-toolchain-rv32i/217e7f3debe424d61374d31e33a091a630535937/sysroot/usr/lib/libc.a(strlen.o)
+ .bss           0x0000000000000000        0x0 /foss/tools/riscv-gnu-toolchain-rv32i/217e7f3debe424d61374d31e33a091a630535937/sysroot/usr/lib/libc.a(strlen.o)
+ .debug_info    0x0000000000000000      0x11b /foss/tools/riscv-gnu-toolchain-rv32i/217e7f3debe424d61374d31e33a091a630535937/sysroot/usr/lib/libc.a(strlen.o)
+ .debug_abbrev  0x0000000000000000       0xc4 /foss/tools/riscv-gnu-toolchain-rv32i/217e7f3debe424d61374d31e33a091a630535937/sysroot/usr/lib/libc.a(strlen.o)
+ .debug_loclists
+                0x0000000000000000      0x15f /foss/tools/riscv-gnu-toolchain-rv32i/217e7f3debe424d61374d31e33a091a630535937/sysroot/usr/lib/libc.a(strlen.o)
+ .debug_aranges
+                0x0000000000000000       0x20 /foss/tools/riscv-gnu-toolchain-rv32i/217e7f3debe424d61374d31e33a091a630535937/sysroot/usr/lib/libc.a(strlen.o)
+ .debug_rnglists
+                0x0000000000000000       0x31 /foss/tools/riscv-gnu-toolchain-rv32i/217e7f3debe424d61374d31e33a091a630535937/sysroot/usr/lib/libc.a(strlen.o)
+ .debug_line    0x0000000000000000      0x1fa /foss/tools/riscv-gnu-toolchain-rv32i/217e7f3debe424d61374d31e33a091a630535937/sysroot/usr/lib/libc.a(strlen.o)
+ .debug_str     0x0000000000000000      0x1a9 /foss/tools/riscv-gnu-toolchain-rv32i/217e7f3debe424d61374d31e33a091a630535937/sysroot/usr/lib/libc.a(strlen.o)
+ .debug_line_str
+                0x0000000000000000      0x100 /foss/tools/riscv-gnu-toolchain-rv32i/217e7f3debe424d61374d31e33a091a630535937/sysroot/usr/lib/libc.a(strlen.o)
+ .debug_frame   0x0000000000000000       0x20 /foss/tools/riscv-gnu-toolchain-rv32i/217e7f3debe424d61374d31e33a091a630535937/sysroot/usr/lib/libc.a(strlen.o)
+
+Memory Configuration
+
+Name             Origin             Length             Attributes
+ROM              0x0000000014000000 0x0000000000800000 xr
+RAM              0x0000000000000000 0x0000000000001000 xrw
+*default*        0x0000000000000000 0xffffffffffffffff
+
+Linker script and memory map
+
+                0x0000000000000200                _stack_size = DEFINED (_stack_size)?_stack_size:0x200
+
+.text           0x0000000014000000     0x1474
+                0x0000000014000000                . = ALIGN (0x4)
+                [!provide]                        PROVIDE (_stext = .)
+ *(.vectors*)
+ .vectors       0x0000000014000000       0x68 /tmp/ccVcDjic.o
+                0x0000000014000000                _start
+ *(.rodata*)
+ .rodata.gameOverText
+                0x0000000014000068        0xb /tmp/cctTvHcC.o
+ *fill*         0x0000000014000073        0x1 
+ .rodata.gameWinText
+                0x0000000014000074        0x9 /tmp/cctTvHcC.o
+ *fill*         0x000000001400007d        0x3 
+ .rodata.scoreFormatText
+                0x0000000014000080        0xa /tmp/cctTvHcC.o
+ *fill*         0x000000001400008a        0x2 
+ .rodata.mini_vsnprintf
+                0x000000001400008c       0x84 /tmp/ccOufM0r.o
+ .rodata        0x0000000014000110      0x100 /foss/tools/riscv-gnu-toolchain-rv32i/217e7f3debe424d61374d31e33a091a630535937/lib/gcc/riscv32-unknown-linux-gnu/11.1.0/libgcc.a(_clz.o)
+                0x0000000014000110                __clz_tab
+ *(.srodata*)
+ *(.text*)
+ .text.DrawGameWin
+                0x0000000014000210       0xe8 /tmp/cctTvHcC.o
+                0x0000000014000210                DrawGameWin
+ .text.DrawGameLose
+                0x00000000140002f8       0xe8 /tmp/cctTvHcC.o
+                0x00000000140002f8                DrawGameLose
+ .text.spawnFood
+                0x00000000140003e0       0xd8 /tmp/ccFB1nJy.o
+ .text.GameInit
+                0x00000000140004b8       0x4c /tmp/ccFB1nJy.o
+                0x00000000140004b8                GameInit
+ .text.GameUpdate
+                0x0000000014000504      0x138 /tmp/ccFB1nJy.o
+                0x0000000014000504                GameUpdate
+ .text.GameFinish
+                0x000000001400063c        0x4 /tmp/ccFB1nJy.o
+                0x000000001400063c                GameFinish
+ .text.GetInput
+                0x0000000014000640       0xb0 /tmp/ccIwZtkv.o
+                0x0000000014000640                GetInput
+ .text.mini_strlen
+                0x00000000140006f0       0x20 /tmp/ccOufM0r.o
+ .text.mini_itoa
+                0x0000000014000710      0x164 /tmp/ccOufM0r.o
+ .text._putc    0x0000000014000874       0x3c /tmp/ccOufM0r.o
+ .text._puts    0x00000000140008b0       0x58 /tmp/ccOufM0r.o
+ .text.mini_vsnprintf
+                0x0000000014000908      0x1c8 /tmp/ccOufM0r.o
+                0x0000000014000908                mini_vsnprintf
+ .text.mini_snprintf
+                0x0000000014000ad0       0x34 /tmp/ccOufM0r.o
+                0x0000000014000ad0                mini_snprintf
+ .text.Setup    0x0000000014000b04       0x1c /tmp/ccW6TNLo.o
+                0x0000000014000b04                Setup
+ .text.Loop     0x0000000014000b20       0x74 /tmp/ccW6TNLo.o
+                0x0000000014000b20                Loop
+ .text.Finish   0x0000000014000b94       0x1c /tmp/ccW6TNLo.o
+                0x0000000014000b94                Finish
+ .text.UARTInit
+                0x0000000014000bb0       0x14 /tmp/ccJGvgsi.o
+                0x0000000014000bb0                UARTInit
+ .text.UARTRead
+                0x0000000014000bc4       0x10 /tmp/ccJGvgsi.o
+                0x0000000014000bc4                UARTRead
+ .text.UARTReadWait
+                0x0000000014000bd4       0x64 /tmp/ccJGvgsi.o
+                0x0000000014000bd4                UARTReadWait
+ .text.Vector2Add
+                0x0000000014000c38       0x34 /tmp/ccl7b9mf.o
+                0x0000000014000c38                Vector2Add
+ .text.main     0x0000000014000c6c       0x34 /tmp/ccrOjwi9.o
+                0x0000000014000c6c                main
+ .text          0x0000000014000ca0      0x650 /foss/tools/riscv-gnu-toolchain-rv32i/217e7f3debe424d61374d31e33a091a630535937/lib/gcc/riscv32-unknown-linux-gnu/11.1.0/libgcc.a(_udivdi3.o)
+                0x0000000014000ca0                __udivdi3
+ .text          0x00000000140012f0       0x24 /foss/tools/riscv-gnu-toolchain-rv32i/217e7f3debe424d61374d31e33a091a630535937/lib/gcc/riscv32-unknown-linux-gnu/11.1.0/libgcc.a(muldi3.o)
+                0x00000000140012f0                __mulsi3
+ .text          0x0000000014001314       0xb4 /foss/tools/riscv-gnu-toolchain-rv32i/217e7f3debe424d61374d31e33a091a630535937/lib/gcc/riscv32-unknown-linux-gnu/11.1.0/libgcc.a(div.o)
+                0x0000000014001314                __divsi3
+                0x000000001400131c                __udivsi3
+                0x0000000014001364                __umodsi3
+                0x0000000014001398                __modsi3
+ .text          0x00000000140013c8       0xac /foss/tools/riscv-gnu-toolchain-rv32i/217e7f3debe424d61374d31e33a091a630535937/sysroot/usr/lib/libc.a(strlen.o)
+                0x00000000140013c8                strlen
+ *(.plt*)
+ *(.interp*)
+ *(.dynsym*)
+ *(.dynstr*)
+ *(.hash*)
+ *(.gnu*)
+ *(.eh_frame_hdr*)
+ .eh_frame_hdr  0x0000000014001474        0x0 /tmp/ccVcDjic.o
+ *(.rela*)
+ .rela.vectors  0x0000000014001474        0x0 /tmp/cctTvHcC.o
+ .rela.got      0x0000000014001474        0x0 /tmp/cctTvHcC.o
+                0x0000000014001474                . = ALIGN (0x4)
+                0x0000000014001474                _etext = .
+
+.data           0x0000000000000000       0x78 load address 0x0000000014001474
+                0x0000000000000000                . = ALIGN (0x4)
+                0x0000000000000000                _sdata = .
+                0x0000000000000800                PROVIDE (_global_pointer$ = (. + 0x800))
+ *(.ramtext*)
+ .ramtext       0x0000000000000000       0x74 /tmp/cc4mPbAl.o
+                0x0000000000000000                GetMicros
+ *(.sdata*)
+ .sdata.randomSeed
+                0x0000000000000074        0x4 /tmp/ccFB1nJy.o
+ *(.rdata*)
+ *(.data*)
+                0x0000000000000078                . = ALIGN (0x4)
+                0x0000000000000078                _edata = .
+                0x0000000014001474                _sidata = LOADADDR (.data)
+
+.got            0x0000000000000078        0x8 load address 0x00000000140014ec
+ .got           0x0000000000000078        0x8 /tmp/cctTvHcC.o
+                0x0000000000000078                _GLOBAL_OFFSET_TABLE_
+
+.got.plt        0x0000000000000080        0x8 load address 0x00000000140014f4
+ .got.plt       0x0000000000000080        0x8 /tmp/cctTvHcC.o
+
+.bss            0x0000000000000088      0x2e4 load address 0x00000000140014fc
+                0x0000000000000088                . = ALIGN (0x4)
+                0x0000000000000088                _sbss = .
+ *(.sbss*)
+ *(.bss*)
+ .bss.displayBuffer
+                0x0000000000000088       0xc0 /tmp/cctTvHcC.o
+                0x0000000000000088                displayBuffer
+ .bss.scoreTextBuffer
+                0x0000000000000148       0x10 /tmp/cctTvHcC.o
+                0x0000000000000148                scoreTextBuffer
+ .bss.game      0x0000000000000158      0x214 /tmp/ccW6TNLo.o
+                0x0000000000000158                game
+ *(COMMON)
+                0x000000000000036c                . = ALIGN (0x4)
+                0x000000000000036c                _ebss = .
+
+.heap           0x000000000000036c        0x0 load address 0x00000000140014fc
+                0x000000000000036c                . = ALIGN (0x4)
+                0x000000000000036c                _heap_start = .
+
+.stack          0x0000000000000e00      0x200
+                [!provide]                        PROVIDE (_heap_end = .)
+                0x0000000000000200                . = _stack_size
+ *fill*         0x0000000000000e00      0x200 
+                0x0000000000001000                _stack_top = .
+                [!provide]                        PROVIDE (_end = .)
+LOAD /foss/tools/riscv-gnu-toolchain-rv32i/217e7f3debe424d61374d31e33a091a630535937/sysroot/usr/lib/libc.a
+LOAD /foss/tools/riscv-gnu-toolchain-rv32i/217e7f3debe424d61374d31e33a091a630535937/sysroot/usr/lib/libm.a
+LOAD /tmp/cctTvHcC.o
+LOAD /tmp/ccFB1nJy.o
+LOAD /tmp/ccIwZtkv.o
+LOAD /tmp/ccOufM0r.o
+LOAD /tmp/ccW6TNLo.o
+LOAD /tmp/cc4mPbAl.o
+LOAD /tmp/ccJGvgsi.o
+LOAD /tmp/ccl7b9mf.o
+LOAD /tmp/ccVcDjic.o
+LOAD /tmp/ccrOjwi9.o
+LOAD /foss/tools/riscv-gnu-toolchain-rv32i/217e7f3debe424d61374d31e33a091a630535937/lib/gcc/riscv32-unknown-linux-gnu/11.1.0/libgcc.a
+LOAD /foss/tools/riscv-gnu-toolchain-rv32i/217e7f3debe424d61374d31e33a091a630535937/lib/gcc/riscv32-unknown-linux-gnu/11.1.0/libgcc_eh.a
+LOAD /foss/tools/riscv-gnu-toolchain-rv32i/217e7f3debe424d61374d31e33a091a630535937/sysroot/usr/lib/libc.a
+LOAD /foss/tools/riscv-gnu-toolchain-rv32i/217e7f3debe424d61374d31e33a091a630535937/lib/gcc/riscv32-unknown-linux-gnu/11.1.0/libgcc.a
+LOAD /foss/tools/riscv-gnu-toolchain-rv32i/217e7f3debe424d61374d31e33a091a630535937/lib/gcc/riscv32-unknown-linux-gnu/11.1.0/libgcc_eh.a
+OUTPUT(snakeUART.elf elf32-littleriscv)
+
+.comment        0x0000000000000000       0x21
+ .comment       0x0000000000000000        0xf /tmp/cctTvHcC.o
+                                         0x10 (size before relaxing)
+ .comment       0x000000000000000f       0x10 /tmp/ccFB1nJy.o
+ .comment       0x000000000000000f       0x10 /tmp/ccIwZtkv.o
+ .comment       0x000000000000000f       0x10 /tmp/ccOufM0r.o
+ .comment       0x000000000000000f       0x10 /tmp/ccW6TNLo.o
+ .comment       0x000000000000000f       0x10 /tmp/cc4mPbAl.o
+ .comment       0x000000000000000f       0x10 /tmp/ccJGvgsi.o
+ .comment       0x000000000000000f       0x10 /tmp/ccl7b9mf.o
+ .comment       0x000000000000000f       0x10 /tmp/ccrOjwi9.o
+ .comment       0x000000000000000f       0x10 /foss/tools/riscv-gnu-toolchain-rv32i/217e7f3debe424d61374d31e33a091a630535937/lib/gcc/riscv32-unknown-linux-gnu/11.1.0/libgcc.a(_udivdi3.o)
+ .comment       0x000000000000000f       0x10 /foss/tools/riscv-gnu-toolchain-rv32i/217e7f3debe424d61374d31e33a091a630535937/lib/gcc/riscv32-unknown-linux-gnu/11.1.0/libgcc.a(_clz.o)
+ .comment       0x000000000000000f       0x12 /foss/tools/riscv-gnu-toolchain-rv32i/217e7f3debe424d61374d31e33a091a630535937/sysroot/usr/lib/libc.a(strlen.o)
+                                         0x13 (size before relaxing)
+
+.note.GNU-stack
+                0x0000000000000000        0x0
+ .note.GNU-stack
+                0x0000000000000000        0x0 /tmp/cctTvHcC.o
+ .note.GNU-stack
+                0x0000000000000000        0x0 /tmp/ccFB1nJy.o
+ .note.GNU-stack
+                0x0000000000000000        0x0 /tmp/ccIwZtkv.o
+ .note.GNU-stack
+                0x0000000000000000        0x0 /tmp/ccOufM0r.o
+ .note.GNU-stack
+                0x0000000000000000        0x0 /tmp/ccW6TNLo.o
+ .note.GNU-stack
+                0x0000000000000000        0x0 /tmp/cc4mPbAl.o
+ .note.GNU-stack
+                0x0000000000000000        0x0 /tmp/ccJGvgsi.o
+ .note.GNU-stack
+                0x0000000000000000        0x0 /tmp/ccl7b9mf.o
+ .note.GNU-stack
+                0x0000000000000000        0x0 /tmp/ccrOjwi9.o
+ .note.GNU-stack
+                0x0000000000000000        0x0 /foss/tools/riscv-gnu-toolchain-rv32i/217e7f3debe424d61374d31e33a091a630535937/lib/gcc/riscv32-unknown-linux-gnu/11.1.0/libgcc.a(_udivdi3.o)
+ .note.GNU-stack
+                0x0000000000000000        0x0 /foss/tools/riscv-gnu-toolchain-rv32i/217e7f3debe424d61374d31e33a091a630535937/lib/gcc/riscv32-unknown-linux-gnu/11.1.0/libgcc.a(_clz.o)
+ .note.GNU-stack
+                0x0000000000000000        0x0 /foss/tools/riscv-gnu-toolchain-rv32i/217e7f3debe424d61374d31e33a091a630535937/sysroot/usr/lib/libc.a(strlen.o)
