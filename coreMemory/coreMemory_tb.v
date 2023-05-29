@@ -205,4 +205,3 @@ module coreMemory_tb;
 	);
 
 endmodule
-`default_nettype wire

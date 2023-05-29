@@ -292,4 +292,3 @@ module peripheralsSPI_tb;
 	);
 
 endmodule
-`default_nettype wire

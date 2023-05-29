@@ -140,4 +140,3 @@ module snakeUART_tb;
 	);
 
 endmodule
-`default_nettype wire

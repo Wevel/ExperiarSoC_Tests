@@ -289,4 +289,3 @@ module coreArch_tb;
 	end
 
 endmodule
-`default_nettype wire

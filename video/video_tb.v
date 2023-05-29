@@ -298,4 +298,3 @@ module video_tb;
 	);
 
 endmodule
-`default_nettype wire

@@ -191,4 +191,3 @@ module peripheralsUART_tb;
 	);
 
 endmodule
-`default_nettype wire

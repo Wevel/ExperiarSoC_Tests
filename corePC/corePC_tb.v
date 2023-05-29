@@ -195,4 +195,3 @@ module corePC_tb;
 	);
 
 endmodule
-`default_nettype wire

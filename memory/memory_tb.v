@@ -217,4 +217,3 @@ module memory_tb;
 	);
 
 endmodule
-`default_nettype wire

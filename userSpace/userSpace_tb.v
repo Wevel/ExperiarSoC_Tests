@@ -197,4 +197,3 @@ module userSpace_tb;
 		.nextTestOutput(nextTestOutput));
 
 endmodule
-`default_nettype wire
