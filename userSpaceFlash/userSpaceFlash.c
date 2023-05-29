@@ -23,8 +23,8 @@ void primaryLoop ()
 	{
 		if (state == 0)
 		{
-			currentChar = paddingBuffer[i]; // % sizeof (paddingBuffer)];
-			primaryTotal += i;
+			currentChar = paddingBuffer[i % sizeof (paddingBuffer)];
+			primaryTotal += i * i;
 			i += 1;
 		}
 		else
@@ -35,6 +35,12 @@ void primaryLoop ()
 	}
 }
 
+__attribute__ ((section (".page2.secondaryLoop"))) uint32_t page2Mod (uint32_t a, uint32_t b)
+{
+	while (a > b) a -= b;
+	return a;
+}
+
 __attribute__ ((section (".page2.secondaryLoop"))) void secondaryLoop ()
 {
 	uint32_t i = 0;
@@ -42,9 +48,8 @@ __attribute__ ((section (".page2.secondaryLoop"))) void secondaryLoop ()
 	{
 		if (state == 1)
 		{
-			currentChar = paddingBuffer2[(i)]; // + (sizeof (paddingBuffer2) / 2)) % sizeof (paddingBuffer2)];
+			currentChar = paddingBuffer2[page2Mod (i + (sizeof (paddingBuffer2) / 2), sizeof (paddingBuffer2))];
 			secondaryTotal += i;
-			//*i;
 			i += 1;
 		}
 		else

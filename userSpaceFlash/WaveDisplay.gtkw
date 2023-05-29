@@ -1,23 +1,30 @@
 [*]
 [*] GTKWave Analyzer v3.3.100 (w)1999-2019 BSI
-[*] Sat May 20 18:26:17 2023
+[*] Mon May 29 16:06:27 2023
 [*]
 [dumpfile] "F:\WSL\ASIC\ExperiarSoC\verilog\dv\ExperiarSoC_Tests\userSpaceFlash\RTL-userSpaceFlash.vcd"
-[dumpfile_mtime] "Sat May 20 17:08:50 2023"
-[dumpfile_size] 1923997
+[dumpfile_mtime] "Mon May 29 16:04:40 2023"
+[dumpfile_size] 670656
 [savefile] "F:\WSL\ASIC\ExperiarSoC\verilog\dv\ExperiarSoC_Tests\userSpaceFlash\WaveDisplay.gtkw"
 [timestart] 0
 [size] 2560 1377
-[pos] -165 -165
-*-28.336264 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[pos] -1 -1
+*-26.887806 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] userSpaceFlash_tb.
 [treeopen] userSpaceFlash_tb.userSpace.
 [treeopen] userSpaceFlash_tb.userSpace.mprj.
 [treeopen] userSpaceFlash_tb.userSpace.mprj.experiarSoC.
 [treeopen] userSpaceFlash_tb.userSpace.mprj.experiarSoC.core0.
+[treeopen] userSpaceFlash_tb.userSpace.mprj.experiarSoC.core0.core.
 [treeopen] userSpaceFlash_tb.userSpace.mprj.experiarSoC.flash.
-[sst_width] 377
-[signals_width] 310
+[treeopen] userSpaceFlash_tb.userSpace.mprj.experiarSoC.flash.flashBuffer.
+[treeopen] userSpaceFlash_tb.userSpace.mprj.experiarSoC.flash.flashBuffer.flashCache.
+[treeopen] userSpaceFlash_tb.userSpace.mprj.experiarSoC.flash.flashBuffer.flashCache.binaryTree.genblk1.
+[treeopen] userSpaceFlash_tb.userSpace.mprj.experiarSoC.flash.flashBuffer.flashCache.binaryTree.genblk1.parentLayer.
+[treeopen] userSpaceFlash_tb.userSpace.mprj.experiarSoC.flash.flashBuffer.flashCache.binaryTree.genblk1.parentLayer.genblk1.
+[treeopen] userSpaceFlash_tb.userSpace.mprj.experiarSoC.flash.flashBuffer.flashCache.genblk1[0].
+[sst_width] 406
+[signals_width] 377
 [sst_expanded] 1
 [sst_vpaned_height] 900
 @28
@@ -27,8 +34,44 @@ userSpaceFlash_tb.succesOutput
 userSpaceFlash_tb.nextTestOutput
 @820
 userSpaceFlash_tb.currentTestName[639:0]
-@22
+@c00022
 userSpaceFlash_tb.testValue[31:0]
+@28
+(0)userSpaceFlash_tb.testValue[31:0]
+(1)userSpaceFlash_tb.testValue[31:0]
+(2)userSpaceFlash_tb.testValue[31:0]
+(3)userSpaceFlash_tb.testValue[31:0]
+(4)userSpaceFlash_tb.testValue[31:0]
+(5)userSpaceFlash_tb.testValue[31:0]
+(6)userSpaceFlash_tb.testValue[31:0]
+(7)userSpaceFlash_tb.testValue[31:0]
+(8)userSpaceFlash_tb.testValue[31:0]
+(9)userSpaceFlash_tb.testValue[31:0]
+(10)userSpaceFlash_tb.testValue[31:0]
+(11)userSpaceFlash_tb.testValue[31:0]
+(12)userSpaceFlash_tb.testValue[31:0]
+(13)userSpaceFlash_tb.testValue[31:0]
+(14)userSpaceFlash_tb.testValue[31:0]
+(15)userSpaceFlash_tb.testValue[31:0]
+(16)userSpaceFlash_tb.testValue[31:0]
+(17)userSpaceFlash_tb.testValue[31:0]
+(18)userSpaceFlash_tb.testValue[31:0]
+(19)userSpaceFlash_tb.testValue[31:0]
+(20)userSpaceFlash_tb.testValue[31:0]
+(21)userSpaceFlash_tb.testValue[31:0]
+(22)userSpaceFlash_tb.testValue[31:0]
+(23)userSpaceFlash_tb.testValue[31:0]
+(24)userSpaceFlash_tb.testValue[31:0]
+(25)userSpaceFlash_tb.testValue[31:0]
+(26)userSpaceFlash_tb.testValue[31:0]
+(27)userSpaceFlash_tb.testValue[31:0]
+(28)userSpaceFlash_tb.testValue[31:0]
+(29)userSpaceFlash_tb.testValue[31:0]
+(30)userSpaceFlash_tb.testValue[31:0]
+(31)userSpaceFlash_tb.testValue[31:0]
+@1401200
+-group_end
+@22
 userSpaceFlash_tb.testCompareValue[31:0]
 @420
 userSpaceFlash_tb.counter
@@ -44,7 +87,43 @@ userSpaceFlash_tb.userSpace.mprj.caravel_wb_we_o
 userSpaceFlash_tb.userSpace.mprj.caravel_wb_adr_o[27:0]
 userSpaceFlash_tb.userSpace.mprj.caravel_wb_sel_o[3:0]
 userSpaceFlash_tb.userSpace.mprj.caravel_wb_data_o[31:0]
+@c00022
 userSpaceFlash_tb.userSpace.mprj.caravel_wb_data_i[31:0]
+@28
+(0)userSpaceFlash_tb.userSpace.mprj.caravel_wb_data_i[31:0]
+(1)userSpaceFlash_tb.userSpace.mprj.caravel_wb_data_i[31:0]
+(2)userSpaceFlash_tb.userSpace.mprj.caravel_wb_data_i[31:0]
+(3)userSpaceFlash_tb.userSpace.mprj.caravel_wb_data_i[31:0]
+(4)userSpaceFlash_tb.userSpace.mprj.caravel_wb_data_i[31:0]
+(5)userSpaceFlash_tb.userSpace.mprj.caravel_wb_data_i[31:0]
+(6)userSpaceFlash_tb.userSpace.mprj.caravel_wb_data_i[31:0]
+(7)userSpaceFlash_tb.userSpace.mprj.caravel_wb_data_i[31:0]
+(8)userSpaceFlash_tb.userSpace.mprj.caravel_wb_data_i[31:0]
+(9)userSpaceFlash_tb.userSpace.mprj.caravel_wb_data_i[31:0]
+(10)userSpaceFlash_tb.userSpace.mprj.caravel_wb_data_i[31:0]
+(11)userSpaceFlash_tb.userSpace.mprj.caravel_wb_data_i[31:0]
+(12)userSpaceFlash_tb.userSpace.mprj.caravel_wb_data_i[31:0]
+(13)userSpaceFlash_tb.userSpace.mprj.caravel_wb_data_i[31:0]
+(14)userSpaceFlash_tb.userSpace.mprj.caravel_wb_data_i[31:0]
+(15)userSpaceFlash_tb.userSpace.mprj.caravel_wb_data_i[31:0]
+(16)userSpaceFlash_tb.userSpace.mprj.caravel_wb_data_i[31:0]
+(17)userSpaceFlash_tb.userSpace.mprj.caravel_wb_data_i[31:0]
+(18)userSpaceFlash_tb.userSpace.mprj.caravel_wb_data_i[31:0]
+(19)userSpaceFlash_tb.userSpace.mprj.caravel_wb_data_i[31:0]
+(20)userSpaceFlash_tb.userSpace.mprj.caravel_wb_data_i[31:0]
+(21)userSpaceFlash_tb.userSpace.mprj.caravel_wb_data_i[31:0]
+(22)userSpaceFlash_tb.userSpace.mprj.caravel_wb_data_i[31:0]
+(23)userSpaceFlash_tb.userSpace.mprj.caravel_wb_data_i[31:0]
+(24)userSpaceFlash_tb.userSpace.mprj.caravel_wb_data_i[31:0]
+(25)userSpaceFlash_tb.userSpace.mprj.caravel_wb_data_i[31:0]
+(26)userSpaceFlash_tb.userSpace.mprj.caravel_wb_data_i[31:0]
+(27)userSpaceFlash_tb.userSpace.mprj.caravel_wb_data_i[31:0]
+(28)userSpaceFlash_tb.userSpace.mprj.caravel_wb_data_i[31:0]
+(29)userSpaceFlash_tb.userSpace.mprj.caravel_wb_data_i[31:0]
+(30)userSpaceFlash_tb.userSpace.mprj.caravel_wb_data_i[31:0]
+(31)userSpaceFlash_tb.userSpace.mprj.caravel_wb_data_i[31:0]
+@1401200
+-group_end
 @28
 userSpaceFlash_tb.userSpace.mprj.caravel_wb_stall_i
 userSpaceFlash_tb.userSpace.mprj.caravel_wb_ack_i
@@ -72,7 +151,34 @@ userSpaceFlash_tb.userSpace.mprj.experiarSoC.core0.core.data_memoryAddress[31:0]
 userSpaceFlash_tb.userSpace.mprj.experiarSoC.core0.core.data_memoryByteSelect[3:0]
 userSpaceFlash_tb.userSpace.mprj.experiarSoC.core0.core.data_memoryDataRead[31:0]
 userSpaceFlash_tb.userSpace.mprj.experiarSoC.core0.core.data_memoryDataWrite[31:0]
-@29
+@28
 userSpaceFlash_tb.userSpace.mprj.experiarSoC.core0.core.data_memoryBusy
+userSpaceFlash_tb.userSpace.mprj.experiarSoC.core0.core.stepPipe
+userSpaceFlash_tb.userSpace.mprj.experiarSoC.core0.core.stepBlocked
+userSpaceFlash_tb.userSpace.mprj.experiarSoC.core0.core.stallPipe
+userSpaceFlash_tb.userSpace.mprj.experiarSoC.core0.core.pipe0_stall
+userSpaceFlash_tb.userSpace.mprj.experiarSoC.core0.core.pipe1_stall
+userSpaceFlash_tb.userSpace.mprj.experiarSoC.core0.core.pipe2_stall
+@22
+userSpaceFlash_tb.userSpace.mprj.experiarSoC.core0.core.fetchProgramCounter[31:0]
+userSpaceFlash_tb.userSpace.mprj.experiarSoC.core0.core.nextFetchProgramCounter[31:0]
+userSpaceFlash_tb.userSpace.mprj.experiarSoC.core0.core.executeProgramCounter[31:0]
+userSpaceFlash_tb.userSpace.mprj.experiarSoC.core0.core.pipe0_currentInstruction[31:0]
+userSpaceFlash_tb.userSpace.mprj.experiarSoC.core0.core.pipe1_currentInstruction[31:0]
+userSpaceFlash_tb.userSpace.mprj.experiarSoC.core0.core.pipe2_currentInstruction[31:0]
+@28
+userSpaceFlash_tb.userSpace.mprj.experiarSoC.flash.flashBuffer.flashCache.automaticPaging
+@23
+userSpaceFlash_tb.userSpace.mprj.experiarSoC.flash.flashBuffer.flashCache.pageRequestLoad[15:0]
+@22
+userSpaceFlash_tb.userSpace.mprj.experiarSoC.flash.flashBuffer.flashCache.pageValid[15:0]
+userSpaceFlash_tb.userSpace.mprj.experiarSoC.flash.flashBuffer.flashCache.loadingPageIndex[3:0]
+userSpaceFlash_tb.userSpace.mprj.experiarSoC.flash.flashBuffer.flashCache.activePageIndex[3:0]
+userSpaceFlash_tb.userSpace.mprj.experiarSoC.flash.flashBuffer.flashCache.evictionPageIndex[3:0]
+@28
+userSpaceFlash_tb.userSpace.mprj.experiarSoC.flash.flashBuffer.flashCache.pageHit
+@22
+userSpaceFlash_tb.userSpace.mprj.experiarSoC.flash.flashBuffer.flashCache.genblk1[0].flashPage.targetPageAddress[16:0]
+userSpaceFlash_tb.userSpace.mprj.experiarSoC.flash.flashBuffer.flashCache.genblk1[0].flashPage.targetSubPageAddress[4:0]
 [pattern_trace] 1
 [pattern_trace] 0
