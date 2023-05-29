@@ -190,13 +190,13 @@ module userSpaceFlash_tb;
 		`TEST_FLASH(32'h401, "Read word 0x401 with automatic page selection")
 		`TEST_FLASH(32'h402, "Read word 0x402 with automatic page selection")
 		`TEST_FLASH(32'h403, "Read word 0x403 with automatic page selection")
-		`TEST_FLASH(32'h4F0, "Read word 0x4F0 with automatic page selection")
-		`TEST_FLASH(32'h4F1, "Read word 0x4F1 with automatic page selection")
-		`TEST_FLASH(32'h4F2, "Read word 0x4F2 with automatic page selection")
-		`TEST_FLASH(32'h4F3, "Read word 0x4F3 with automatic page selection")
+		`TEST_FLASH(32'h440, "Read word 0x440 with automatic page selection")
+		`TEST_FLASH(32'h441, "Read word 0x441 with automatic page selection")
+		`TEST_FLASH(32'h442, "Read word 0x442 with automatic page selection")
+		`TEST_FLASH(32'h443, "Read word 0x443 with automatic page selection")
 
-		`TEST_READ_EQ(`FLASH_STATUS, `SELECT_WORD, testValue, 32'b11, "Read flash status after second automatic page use")
-		`TEST_READ_EQ(`FLASH_CACHE_STATUS, `SELECT_WORD, testValue, 32'h0008_0009, "Read flash cache status after second automatic page use")
+		`TEST_READ_EQ(`FLASH_STATUS, `SELECT_WORD, testValue, 32'b01, "Read flash status after second automatic page use")
+		`TEST_READ_EQ(`FLASH_CACHE_STATUS, `SELECT_WORD, testValue, 32'h0000_0105, "Read flash cache status after second automatic page use")
 
 		// Random read between pages
 		`TEST_FLASH(32'h000, "Read word 0x000 with automatic page selection switching pages")
@@ -209,9 +209,7 @@ module userSpaceFlash_tb;
 		`TEST_FLASH(32'h4F3, "Read word 0x4F3 with automatic page selection switching pages")
 
 		`TEST_READ_EQ(`FLASH_STATUS, `SELECT_WORD, testValue, 32'b11, "Read flash status after alternating automatic page use")
-		`TEST_READ_EQ(`FLASH_CACHE_STATUS, `SELECT_WORD, testValue, 32'h0008_0009, "Read flash cache status after alternating automatic page use")
-
-		`TEST_READ_EQ(`FLASH_CURRENT_PAGE_ADDRESS, `SELECT_WORD, testValue, 32'h00001000, "Read current page address after automatic page selection switching pages")
+		`TEST_READ_EQ(`FLASH_CACHE_STATUS, `SELECT_WORD, testValue, 32'h0010_1115, "Read flash cache status after alternating automatic page use")
 
 		// Initialise core0
 		`TEST_READ_EQ(`CORE0_CONFIG_ADDR, `SELECT_WORD, testValue, `CORE_HALT, "Read core0 config before initialisation")

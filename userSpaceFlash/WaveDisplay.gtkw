@@ -1,6 +1,6 @@
 [*]
 [*] GTKWave Analyzer v3.3.100 (w)1999-2019 BSI
-[*] Mon May 29 16:06:27 2023
+[*] Mon May 29 21:38:36 2023
 [*]
 [dumpfile] "F:\WSL\ASIC\ExperiarSoC\verilog\dv\ExperiarSoC_Tests\userSpaceFlash\RTL-userSpaceFlash.vcd"
 [dumpfile_mtime] "Mon May 29 16:04:40 2023"
@@ -9,7 +9,7 @@
 [timestart] 0
 [size] 2560 1377
 [pos] -1 -1
-*-26.887806 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+*-26.887806 1070513600 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] userSpaceFlash_tb.
 [treeopen] userSpaceFlash_tb.userSpace.
 [treeopen] userSpaceFlash_tb.userSpace.mprj.
@@ -168,13 +168,14 @@ userSpaceFlash_tb.userSpace.mprj.experiarSoC.core0.core.pipe1_currentInstruction
 userSpaceFlash_tb.userSpace.mprj.experiarSoC.core0.core.pipe2_currentInstruction[31:0]
 @28
 userSpaceFlash_tb.userSpace.mprj.experiarSoC.flash.flashBuffer.flashCache.automaticPaging
-@23
-userSpaceFlash_tb.userSpace.mprj.experiarSoC.flash.flashBuffer.flashCache.pageRequestLoad[15:0]
 @22
+userSpaceFlash_tb.userSpace.mprj.experiarSoC.flash.flashBuffer.flashCache.pageRequestLoad[15:0]
 userSpaceFlash_tb.userSpace.mprj.experiarSoC.flash.flashBuffer.flashCache.pageValid[15:0]
+userSpaceFlash_tb.userSpace.mprj.experiarSoC.flash.flashBuffer.flashCache.evictionPageIndex[3:0]
 userSpaceFlash_tb.userSpace.mprj.experiarSoC.flash.flashBuffer.flashCache.loadingPageIndex[3:0]
 userSpaceFlash_tb.userSpace.mprj.experiarSoC.flash.flashBuffer.flashCache.activePageIndex[3:0]
-userSpaceFlash_tb.userSpace.mprj.experiarSoC.flash.flashBuffer.flashCache.evictionPageIndex[3:0]
+@23
+userSpaceFlash_tb.userSpace.mprj.experiarSoC.flash.flashBuffer.flashCache.selectedPageIndex[3:0]
 @28
 userSpaceFlash_tb.userSpace.mprj.experiarSoC.flash.flashBuffer.flashCache.pageHit
 @22

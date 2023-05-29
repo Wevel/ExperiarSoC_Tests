@@ -23,7 +23,7 @@ BLOCKS := $(shell basename $(PWDD))
 
 CONFIG = caravel_user_project
 LINKER_SCRIPT?=sections.lds
-PARTIAL_BUILD?=1
+PARTIAL_BUILD?=0
 
 include $(MCW_ROOT)/verilog/dv/make/env.makefile
 include $(TARGET_PATH)/verilog/dv/make/experiarSoC.makefile

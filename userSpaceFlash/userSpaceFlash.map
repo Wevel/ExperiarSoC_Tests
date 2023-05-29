@@ -1,45 +1,45 @@
 Archive member included to satisfy reference by file (symbol)
 
 /foss/tools/riscv-gnu-toolchain-rv32i/217e7f3debe424d61374d31e33a091a630535937/lib/gcc/riscv32-unknown-linux-gnu/11.1.0/libgcc.a(muldi3.o)
-                              /tmp/ccATQLYb.o (__mulsi3)
+                              /tmp/cckEkmMQ.o (__mulsi3)
 /foss/tools/riscv-gnu-toolchain-rv32i/217e7f3debe424d61374d31e33a091a630535937/lib/gcc/riscv32-unknown-linux-gnu/11.1.0/libgcc.a(div.o)
-                              /tmp/ccATQLYb.o (__umodsi3)
+                              /tmp/cckEkmMQ.o (__umodsi3)
 
 Discarded input sections
 
- .text          0x0000000000000000        0x0 /tmp/ccjRPFt2.o
- .data          0x0000000000000000        0x0 /tmp/ccjRPFt2.o
- .bss           0x0000000000000000        0x0 /tmp/ccjRPFt2.o
- .debug_line    0x0000000000000000       0xc2 /tmp/ccjRPFt2.o
+ .text          0x0000000000000000        0x0 /tmp/ccwUUS2k.o
+ .data          0x0000000000000000        0x0 /tmp/ccwUUS2k.o
+ .bss           0x0000000000000000        0x0 /tmp/ccwUUS2k.o
+ .debug_line    0x0000000000000000       0xc2 /tmp/ccwUUS2k.o
  .debug_line_str
-                0x0000000000000000       0x70 /tmp/ccjRPFt2.o
- .debug_info    0x0000000000000000       0x24 /tmp/ccjRPFt2.o
- .debug_abbrev  0x0000000000000000       0x14 /tmp/ccjRPFt2.o
+                0x0000000000000000       0x70 /tmp/ccwUUS2k.o
+ .debug_info    0x0000000000000000       0x24 /tmp/ccwUUS2k.o
+ .debug_abbrev  0x0000000000000000       0x14 /tmp/ccwUUS2k.o
  .debug_aranges
-                0x0000000000000000       0x20 /tmp/ccjRPFt2.o
- .debug_str     0x0000000000000000       0x5c /tmp/ccjRPFt2.o
- .eh_frame      0x0000000000000000       0x2c /tmp/ccjRPFt2.o
- .group         0x0000000000000000        0xc /tmp/ccATQLYb.o
- .group         0x0000000000000000        0xc /tmp/ccATQLYb.o
- .text          0x0000000000000000        0x0 /tmp/ccATQLYb.o
- .data          0x0000000000000000        0x0 /tmp/ccATQLYb.o
- .bss           0x0000000000000000        0x0 /tmp/ccATQLYb.o
- .debug_info    0x0000000000000000      0x1eb /tmp/ccATQLYb.o
- .debug_abbrev  0x0000000000000000      0x105 /tmp/ccATQLYb.o
+                0x0000000000000000       0x20 /tmp/ccwUUS2k.o
+ .debug_str     0x0000000000000000       0x5c /tmp/ccwUUS2k.o
+ .eh_frame      0x0000000000000000       0x2c /tmp/ccwUUS2k.o
+ .group         0x0000000000000000        0xc /tmp/cckEkmMQ.o
+ .group         0x0000000000000000        0xc /tmp/cckEkmMQ.o
+ .text          0x0000000000000000        0x0 /tmp/cckEkmMQ.o
+ .data          0x0000000000000000        0x0 /tmp/cckEkmMQ.o
+ .bss           0x0000000000000000        0x0 /tmp/cckEkmMQ.o
+ .debug_info    0x0000000000000000      0x1eb /tmp/cckEkmMQ.o
+ .debug_abbrev  0x0000000000000000      0x105 /tmp/cckEkmMQ.o
  .debug_loclists
-                0x0000000000000000       0x53 /tmp/ccATQLYb.o
+                0x0000000000000000       0x53 /tmp/cckEkmMQ.o
  .debug_aranges
-                0x0000000000000000       0x38 /tmp/ccATQLYb.o
+                0x0000000000000000       0x38 /tmp/cckEkmMQ.o
  .debug_rnglists
-                0x0000000000000000       0x31 /tmp/ccATQLYb.o
- .debug_macro   0x0000000000000000       0x24 /tmp/ccATQLYb.o
- .debug_macro   0x0000000000000000      0x76c /tmp/ccATQLYb.o
- .debug_macro   0x0000000000000000      0x34e /tmp/ccATQLYb.o
- .debug_line    0x0000000000000000      0x215 /tmp/ccATQLYb.o
- .debug_str     0x0000000000000000     0x306c /tmp/ccATQLYb.o
+                0x0000000000000000       0x31 /tmp/cckEkmMQ.o
+ .debug_macro   0x0000000000000000       0x24 /tmp/cckEkmMQ.o
+ .debug_macro   0x0000000000000000      0x76c /tmp/cckEkmMQ.o
+ .debug_macro   0x0000000000000000      0x34e /tmp/cckEkmMQ.o
+ .debug_line    0x0000000000000000      0x215 /tmp/cckEkmMQ.o
+ .debug_str     0x0000000000000000     0x306c /tmp/cckEkmMQ.o
  .debug_line_str
-                0x0000000000000000      0x159 /tmp/ccATQLYb.o
- .debug_frame   0x0000000000000000       0x7c /tmp/ccATQLYb.o
+                0x0000000000000000      0x159 /tmp/cckEkmMQ.o
+ .debug_frame   0x0000000000000000       0x7c /tmp/cckEkmMQ.o
  .data          0x0000000000000000        0x0 /foss/tools/riscv-gnu-toolchain-rv32i/217e7f3debe424d61374d31e33a091a630535937/lib/gcc/riscv32-unknown-linux-gnu/11.1.0/libgcc.a(muldi3.o)
  .bss           0x0000000000000000        0x0 /foss/tools/riscv-gnu-toolchain-rv32i/217e7f3debe424d61374d31e33a091a630535937/lib/gcc/riscv32-unknown-linux-gnu/11.1.0/libgcc.a(muldi3.o)
  .debug_line    0x0000000000000000       0x7a /foss/tools/riscv-gnu-toolchain-rv32i/217e7f3debe424d61374d31e33a091a630535937/lib/gcc/riscv32-unknown-linux-gnu/11.1.0/libgcc.a(muldi3.o)
@@ -76,19 +76,19 @@ Linker script and memory map
                 0x0000000014000000                . = ALIGN (0x4)
                 [!provide]                        PROVIDE (_stext = .)
  *(.vectors*)
- .vectors       0x0000000014000000       0x60 /tmp/ccjRPFt2.o
+ .vectors       0x0000000014000000       0x60 /tmp/ccwUUS2k.o
                 0x0000000014000000                _start
  *(.rodata*)
  .rodata.paddingBuffer
-                0x0000000014000060      0x3fd /tmp/ccATQLYb.o
+                0x0000000014000060      0x3fd /tmp/cckEkmMQ.o
                 0x0000000014000060                paddingBuffer
  *(.srodata*)
  *(.text*)
  *fill*         0x000000001400045d        0x3 
  .text.primaryLoop
-                0x0000000014000460       0x70 /tmp/ccATQLYb.o
+                0x0000000014000460       0x70 /tmp/cckEkmMQ.o
                 0x0000000014000460                primaryLoop
- .text.main     0x00000000140004d0       0x18 /tmp/ccATQLYb.o
+ .text.main     0x00000000140004d0       0x18 /tmp/cckEkmMQ.o
                 0x00000000140004d0                main
  .text          0x00000000140004e8       0x24 /foss/tools/riscv-gnu-toolchain-rv32i/217e7f3debe424d61374d31e33a091a630535937/lib/gcc/riscv32-unknown-linux-gnu/11.1.0/libgcc.a(muldi3.o)
                 0x00000000140004e8                __mulsi3
@@ -104,18 +104,18 @@ Linker script and memory map
  *(.hash*)
  *(.gnu*)
  *(.eh_frame_hdr*)
- .eh_frame_hdr  0x00000000140005c0        0x0 /tmp/ccjRPFt2.o
+ .eh_frame_hdr  0x00000000140005c0        0x0 /tmp/ccwUUS2k.o
  *(.rela*)
- .rela.vectors  0x00000000140005c0        0x0 /tmp/ccjRPFt2.o
+ .rela.vectors  0x00000000140005c0        0x0 /tmp/ccwUUS2k.o
                 0x0000000014001000                . = ALIGN (0x1000)
  *fill*         0x00000000140005c0      0xa40 
  *(.page2*)
  .page2.secondaryLoop
-                0x0000000014001000       0x78 /tmp/ccATQLYb.o
+                0x0000000014001000       0x78 /tmp/cckEkmMQ.o
                 0x0000000014001000                page2Mod
                 0x0000000014001010                secondaryLoop
  .page2.paddingBuffer2
-                0x0000000014001078      0x3fd /tmp/ccATQLYb.o
+                0x0000000014001078      0x3fd /tmp/cckEkmMQ.o
                 0x0000000014001078                paddingBuffer2
                 0x0000000014001478                . = ALIGN (0x4)
  *fill*         0x0000000014001475        0x3 
@@ -137,16 +137,16 @@ Linker script and memory map
                 0x0000000000000000                _sbss = .
  *(.sbss .sbss.*)
  .sbss.currentChar
-                0x0000000000000000        0x1 /tmp/ccATQLYb.o
+                0x0000000000000000        0x1 /tmp/cckEkmMQ.o
                 0x0000000000000000                currentChar
  *fill*         0x0000000000000001        0x3 
  .sbss.primaryTotal
-                0x0000000000000004        0x4 /tmp/ccATQLYb.o
+                0x0000000000000004        0x4 /tmp/cckEkmMQ.o
                 0x0000000000000004                primaryTotal
  .sbss.secondaryTotal
-                0x0000000000000008        0x4 /tmp/ccATQLYb.o
+                0x0000000000000008        0x4 /tmp/cckEkmMQ.o
                 0x0000000000000008                secondaryTotal
- .sbss.state    0x000000000000000c        0x4 /tmp/ccATQLYb.o
+ .sbss.state    0x000000000000000c        0x4 /tmp/cckEkmMQ.o
                 0x000000000000000c                state
  *(.bss .bss.*)
  *(COMMON)
@@ -165,8 +165,8 @@ Linker script and memory map
                 [!provide]                        PROVIDE (_end = .)
 LOAD /foss/tools/riscv-gnu-toolchain-rv32i/217e7f3debe424d61374d31e33a091a630535937/sysroot/usr/lib/libc.a
 LOAD /foss/tools/riscv-gnu-toolchain-rv32i/217e7f3debe424d61374d31e33a091a630535937/sysroot/usr/lib/libm.a
-LOAD /tmp/ccjRPFt2.o
-LOAD /tmp/ccATQLYb.o
+LOAD /tmp/ccwUUS2k.o
+LOAD /tmp/cckEkmMQ.o
 LOAD /foss/tools/riscv-gnu-toolchain-rv32i/217e7f3debe424d61374d31e33a091a630535937/lib/gcc/riscv32-unknown-linux-gnu/11.1.0/libgcc.a
 LOAD /foss/tools/riscv-gnu-toolchain-rv32i/217e7f3debe424d61374d31e33a091a630535937/lib/gcc/riscv32-unknown-linux-gnu/11.1.0/libgcc_eh.a
 LOAD /foss/tools/riscv-gnu-toolchain-rv32i/217e7f3debe424d61374d31e33a091a630535937/sysroot/usr/lib/libc.a
@@ -175,10 +175,10 @@ LOAD /foss/tools/riscv-gnu-toolchain-rv32i/217e7f3debe424d61374d31e33a091a630535
 OUTPUT(userSpaceFlash.elf elf32-littleriscv)
 
 .comment        0x0000000000000000        0xf
- .comment       0x0000000000000000        0xf /tmp/ccATQLYb.o
+ .comment       0x0000000000000000        0xf /tmp/cckEkmMQ.o
                                          0x10 (size before relaxing)
 
 .note.GNU-stack
                 0x0000000000000000        0x0
  .note.GNU-stack
-                0x0000000000000000        0x0 /tmp/ccATQLYb.o
+                0x0000000000000000        0x0 /tmp/cckEkmMQ.o
