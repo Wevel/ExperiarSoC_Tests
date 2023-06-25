@@ -30,10 +30,8 @@ export CARAVEL_ROOT ?= /mnt/f/WSL/ASIC/ExperiarSoC/caravel
 export IVERILOG_DUMPER = fst
 
 
-GCC_PATH?=/opt/riscv32i/bin
-GCC_PREFIX?=riscv32-unknown-elf
-#GCC_PATH?=      $(TOOLS)/bin
-#GCC_PREFIX?=    riscv32-unknown-linux-gnu
+GCC_PATH?=      $(TOOLS)/bin
+GCC_PREFIX?=    riscv32-unknown-linux-gnu
 # RTL/GL/GL_SDF
 SIM?=RTL
 
@@ -112,7 +110,7 @@ endif
 #			riscof --verbose info arch-test --clone
 # 			riscof validateyaml --config=config.ini
 #			riscof testlist --config=config.ini --suite=riscv-arch-test/riscv-test-suite/ --env=riscv-arch-test/riscv-test-suite/env
-#			riscof run --config=config.ini --suite=riscv-arch-test/riscv-test-suite/ --env=riscv-arch-test/riscv-test-suite/env
+#			riscof run --config=config.ini --suite=riscv-arch-test/riscv-test-suite/ --env=riscv-arch-test/riscv-test-suite/env --no-browser
 #		# I think this is the old way
 #		   export RISCV_ARCH_TESTS=$PWD/riscv-arch-test # 
 #          git clone https://github.com/riscv-non-isa/riscv-arch-test.git          

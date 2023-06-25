@@ -48,7 +48,7 @@ __attribute__ ((section (".page2.secondaryLoop"))) void secondaryLoop ()
 	{
 		if (state == 1)
 		{
-			currentChar = paddingBuffer2[page2Mod (i + (sizeof (paddingBuffer2) / 2), sizeof (paddingBuffer2))];
+			currentChar = paddingBuffer2[page2Mod (i + (1 << (i >> 1)), sizeof (paddingBuffer2))];
 			secondaryTotal += i;
 			i += 1;
 		}

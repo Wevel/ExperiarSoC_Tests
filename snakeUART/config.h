@@ -1,8 +1,8 @@
 #define CPU_FREQUENCY 40000000 // Hz
 #define CPU_CLOCK_PERIOD (1000000000 / CPU_FREQUENCY) // ns
 
-#define UART0_ENABLE
-#define UART0_BAUD_RATE 921600 // This is way too high to actually used, but need so simulation doesn't take forever
+#define UART1_ENABLE
+#define UART1_BAUD_RATE 921600 // This is way too high to actually used, but need so simulation doesn't take forever
 
 #define USE_UART_INPUT 1
 #define USE_UART_OUTPUT 1

@@ -1,3 +1,4 @@
+`default_nettype none
 `timescale 1 ns / 1 ps
 
 `define TEST_NAME_LENGTH 128

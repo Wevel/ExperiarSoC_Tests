@@ -7,7 +7,7 @@
 Vector2 GetInput (uint32_t timeout)
 {
 	char input = 0;
-	if (UARTReadWait (UART0, &input, timeout))
+	if (UARTReadWait (UART1, &input, timeout))
 	{
 		switch (input)
 		{

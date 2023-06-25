@@ -1,3 +1,5 @@
+`default_nettype none
+
 `define RV32I_X0  5'h00
 `define RV32I_X1  5'h01
 `define RV32I_X2  5'h02

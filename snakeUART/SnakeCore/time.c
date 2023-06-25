@@ -33,7 +33,8 @@ static inline uint64_t readCycles ()
 	return (uint64_t)cycleLow | ((uint64_t)cycleHigh << 32);
 }
 
-__attribute__ ((section (".ramtext"))) uint32_t GetMicros ()
+//__attribute__ ((section (".ramtext")))
+uint32_t GetMicros ()
 {
 	uint64_t cycles = readCycles ();
 	return (uint32_t)((cycles * CPU_CLOCK_PERIOD) / 1000);

@@ -1,31 +1,25 @@
 [*]
 [*] GTKWave Analyzer v3.3.100 (w)1999-2019 BSI
-[*] Wed May 24 18:15:11 2023
+[*] Sun Jun 11 19:35:15 2023
 [*]
 [dumpfile] "F:\WSL\ASIC\ExperiarSoC\verilog\dv\ExperiarSoC_Tests\coreArch\RTL-coreArch.vcd"
-[dumpfile_mtime] "Wed May 24 17:39:44 2023"
-[dumpfile_size] 172015
+[dumpfile_mtime] "Sun Jun 11 19:34:00 2023"
+[dumpfile_size] 257044
 [savefile] "F:\WSL\ASIC\ExperiarSoC\verilog\dv\ExperiarSoC_Tests\coreArch\WaveDisplay.gtkw"
-[timestart] 3588000
+[timestart] 0
 [size] 2560 1377
-[pos] -1 -1
-*-16.067577 3809800 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[pos] -139 -139
+*-23.787668 2038366 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] coreArch_tb.
 [treeopen] coreArch_tb.core.
+[treeopen] coreArch_tb.core.pipe1_operation.
 [sst_width] 290
 [signals_width] 286
 [sst_expanded] 1
-[sst_vpaned_height] 811
+[sst_vpaned_height] 900
 @28
 coreArch_tb.core.clk
 coreArch_tb.core.rst
-@22
-coreArch_tb.core.fetchProgramCounter[31:0]
-coreArch_tb.core.executeProgramCounter[31:0]
-@28
-coreArch_tb.core.pipe1_isJump
-coreArch_tb.core.pipe1_jumpEnable
-coreArch_tb.core.pipe1_failedBranch
 @22
 coreArch_tb.core.instruction_memoryAddress[31:0]
 coreArch_tb.core.instruction_memoryDataRead[31:0]
@@ -51,6 +45,7 @@ coreArch_tb.core.data_memoryDataWrite[31:0]
 coreArch_tb.core.data_memoryBusy
 coreArch_tb.core.data_memoryAccessFault
 @22
+coreArch_tb.core.nextFetchProgramCounter[31:0]
 coreArch_tb.core.fetchProgramCounter[31:0]
 coreArch_tb.core.executeProgramCounter[31:0]
 @28
@@ -76,13 +71,9 @@ coreArch_tb.core.pipe1_rs1Address[4:0]
 coreArch_tb.core.pipe1_rs2Address[4:0]
 coreArch_tb.core.pipe1_rs1Data[31:0]
 coreArch_tb.core.pipe1_rs2Data[31:0]
-coreArch_tb.core.pipe1_operation.inputA[31:0]
-coreArch_tb.core.pipe1_operation.inputB[31:0]
 @28
-coreArch_tb.core.pipe1_operation.aluAEqualsB
+coreArch_tb.core.inTrap
 @22
-coreArch_tb.core.pipe1_operation.nextProgramCounterOffset[31:0]
-@28
-coreArch_tb.core.pipe1_operation.isBranch
+coreArch_tb.core.csr.traps.trapCause[30:0]
 [pattern_trace] 1
 [pattern_trace] 0

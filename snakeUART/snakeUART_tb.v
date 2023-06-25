@@ -4,6 +4,7 @@
 
 `include "../RV32I.v"
 `include "../UserSpace.v"
+`include "../FastUART.v"
 
 `define FLASH_FILE "snakeUART.hex"
 
@@ -15,6 +16,9 @@
 `define FLASH_LOAD_ADDRESS 32'h3480_000C
 `define FLASH_PAGE_SIZE_WORDS 32'd512
 `define FLASH_PAGE_SIZE_BYTES `FLASH_PAGE_SIZE_WORDS * 4
+
+`define CPU_FREQUENCY 40000000 // Hz
+`define UART1_BAUD_RATE 921600
 
 module snakeUART_tb;
 	reg clk;
@@ -43,6 +47,17 @@ module snakeUART_tb;
 	wire[31:0] wbDataRead;
 	wire wbBusy;
 
+	reg uart_txEnable = 1'b0;
+	reg[7:0] uart_txData = 8'b0;
+	wire uart_txBusy;
+	wire uart_rx = user_io_out[6];
+	wire uart_tx;
+	assign user_io_in[5] = uart_tx;
+	wire uart_rxDataAvailable;
+	wire[7:0] uart_rxData;
+
+	pullup(uart_rx);
+
 	reg succesOutput = 1'b1;
 	reg nextTestOutput = 1'b0;
 	reg[(`TEST_NAME_LENGTH*5)-1:0] currentTestName = "";
@@ -52,11 +67,12 @@ module snakeUART_tb;
 	initial begin
 		$dumpfile("snakeUART.vcd");
 		$dumpvars(0, snakeUART_tb);
-		`TIMEOUT(250)
+		`TIMEOUT(50)
 		$finish;
 	end
 
 	reg[31:0] testValue = 32'b0;
+	reg[7:0] testChar = 8'b0;
 	initial begin
 		@(negedge rst);
 		#100
@@ -85,14 +101,23 @@ module snakeUART_tb;
 		// Run core0
 		`TEST_WRITE_EQ(`CORE0_CONFIG_ADDR, `SELECT_WORD, testValue, `CORE_RUN, "Write core0 config to run")
 
+		@(posedge uart_rx);
+
+		// Wait for core0 to finish initialisation and print the welcome message
+		`TEST_RX(testChar, testChar == "H", "Check for 'H' from UART")
+		`TEST_RX(testChar, testChar == "e", "Check for 'e' from UART")
+		`TEST_RX(testChar, testChar == "l", "Check for 'l' from UART")
+		`TEST_RX(testChar, testChar == "l", "Check for 'l' from UART")
+		`TEST_RX(testChar, testChar == "o", "Check for 'o' from UART")
+
 		// TODO: Player inputs
 
 		// TODO: Check output
 
-		#100000
+		#1000000
 		
 		`TESTS_COMPLETED
-	    $finish;
+		$finish;
 	end
 
 	// External clock is used by default.  Make this artificially fast for the
@@ -136,7 +161,20 @@ module snakeUART_tb;
 		.io0(user_flash_io0),
 		.io1(user_flash_io1),
 		.io2(),			// not used
-		.io3()			// not used
-	);
+		.io3());		// not used
+	
+	FastUART #(
+		.CLK_FREQ(`CPU_FREQUENCY),
+		.BAUD(`UART1_BAUD_RATE)) 
+	uart (
+		.clk(clk),
+		.rst(rst),
+		.txEnable(uart_txEnable),
+		.txData(uart_txData),
+		.txBusy(uart_txBusy),
+		.rxDataAvailable(uart_rxDataAvailable),
+		.rxData(uart_rxData),
+		.rx(uart_rx),
+		.tx(uart_tx));
 
 endmodule

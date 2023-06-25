@@ -67,7 +67,7 @@ void DisplayOutput ()
 	{
 		for (int y = MAP_HEIGHT - 1; y >= 0; y--)
 		{
-			UARTWrite (UART0, displayBuffer[(y * MAP_WIDTH) + x]);
+			UARTWrite (UART1, displayBuffer[(y * MAP_WIDTH) + x]);
 		}
 	}
 }

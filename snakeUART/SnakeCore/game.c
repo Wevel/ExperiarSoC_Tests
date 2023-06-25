@@ -13,7 +13,6 @@ static inline uint32_t random (uint32_t min, uint32_t max)
 
 static void spawnFood (Game* game)
 {
-	// TODO Make sure food doesn't spawn on the snake
 	uint32_t index = random (0, MAP_SIZE - game->tailLength);
 
 	uint8_t x = 0;
@@ -46,7 +45,7 @@ static void spawnFood (Game* game)
 
 void GameInit (Game* game)
 {
-	randomSeed = 123456789;
+	randomSeed = random (0, -1);
 	//+GetMicros ();
 
 	game->score = 0;
