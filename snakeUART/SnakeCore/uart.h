@@ -61,9 +61,20 @@ static volatile UARTDevice* const UART2 = (UARTDevice*)0x13003000;
 static volatile UARTDevice* const UART3 = (UARTDevice*)0x13004000;
 #endif // UART3_ENABLE
 
+inline void UARTWriteChar (volatile UARTDevice* device, char data)
+{
+	device->tx = data;
+}
+
+inline int UARTRead (volatile UARTDevice* device, char* data)
+{
+	uint32_t receiveValue = device->rx;
+	*data = receiveValue;
+	return receiveValue & 0x100;
+}
+
 void UARTInit (volatile UARTDevice* device, uint32_t config);
-void UARTWrite (volatile UARTDevice* device, char data);
-int UARTRead (volatile UARTDevice* device, char* data);
+void UARTWrite (volatile UARTDevice* device, char* data);
 int UARTReadWait (volatile UARTDevice* device, char* data, uint32_t timeout);
 
 #endif // !UART_H

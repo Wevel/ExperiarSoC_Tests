@@ -24,6 +24,8 @@
 
 `define CORE0_SRAM_ADDR 32'h30000000
 `define CORE0_CONFIG_ADDR 32'h30800000
+`define CORE0_INSTRUCTION_BREAKPOINT_ADDR 32'h30800004
+`define CORE0_DATA_BREAKPOINT_ADDR 32'h30800008
 `define CORE0_REG_PC_ADDR 32'h30810000
 `define CORE0_REG_JUMP_ADDR 32'h30810004
 `define CORE0_REG_STEP_ADDR 32'h30810008
@@ -33,6 +35,8 @@
 
 `define CORE1_SRAM_ADDR 32'h31000000
 `define CORE1_CONFIG_ADDR 32'h31800000
+`define CORE1_INSTRUCTION_BREAKPOINT_ADDR 32'h31800004
+`define CORE1_DATA_BREAKPOINT_ADDR 32'h31800008
 `define CORE1_REG_PC_ADDR 32'h31810000
 `define CORE1_REG_JUMP_ADDR 32'h31810004
 `define CORE1_REG_STEP_ADDR 32'h31810008
@@ -40,8 +44,11 @@
 `define CORE1_REG_IREG_ADDR 32'h31814000
 `define CORE1_CSR_ADDR 32'h31818000
 
-`define CORE_RUN 32'h1
 `define CORE_HALT 32'h0
+`define CORE_RUN 32'b00001
+`define CORE_ENABLE_INTERRUPTS 32'b00010
+`define CORE_ENABLE_INSTRUCTION_BREAKPOINT 32'b00100
+`define CORE_ENABLE_DATA_BREAKPOINT 32'b01000
 
 `define SELECT_WORD 4'b1111
 `define SELECT_HALF 4'b0011
@@ -49,10 +56,10 @@
 
 `define OFFSET_WORD(BASE_ADDRESS, OFFSET) (BASE_ADDRESS) + {(OFFSET), 2'b00}
 
+	//wait(!wbBusy); \ // Wait for bus to be free
 `define WB_WRITE_RAW(ADDRESS, BYTE_SELECT, DATA) \
 	@(negedge clk) \ // Wait till before clock rising edge
 	#1 \
-	wait(!wbBusy); \ // Wait for bus to be free
 	wbAddress <= ADDRESS; \ // Setup write
 	wbByteSelect <= BYTE_SELECT; \
 	wbWriteEnable <= 1'b1; \
@@ -64,10 +71,10 @@
 	wait(!wbBusy); \
 	wbEnable <= 1'b0;
 
+	//wait(!wbBusy); \ // Wait for bus to be free
 `define WB_READ_RAW(ADDRESS, BYTE_SELECT, DATA) \
 	@(negedge clk) \ // Wait till before clock rising edge
 	#1 \
-	wait(!wbBusy); \ // Wait for bus to be free
 	wbAddress <= ADDRESS; \ // Setup read
 	wbByteSelect <= BYTE_SELECT; \
 	wbWriteEnable <= 1'b0; \

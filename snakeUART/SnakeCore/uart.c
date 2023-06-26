@@ -8,16 +8,13 @@ void UARTInit (volatile UARTDevice* device, uint32_t config)
 	device->config = config; // Set the config
 }
 
-void UARTWrite (volatile UARTDevice* device, char data)
+void UARTWrite (volatile UARTDevice* device, char* data)
 {
-	device->tx = data;
-}
-
-int UARTRead (volatile UARTDevice* device, char* data)
-{
-	uint32_t receiveValue = device->rx;
-	*data = receiveValue;
-	return receiveValue & 0x100;
+	while (*data != '\0')
+	{
+		device->tx = *data;
+		data++;
+	}
 }
 
 int UARTReadWait (volatile UARTDevice* device, char* data, uint32_t timeout)

@@ -51,8 +51,10 @@ module FastUART #(
 		.dataOut(rxData),
     	.dataAvailable(rxDataAvailable));
 
-	always @(posedge clk) begin
-		if (rxDataAvailable) $display(rxData);
+	always @(negedge clk) begin
+		if (!rst) begin
+			if (rxDataAvailable) $write("%c", rxData);
+		end
 	end
 
 	UART_tx txPort(

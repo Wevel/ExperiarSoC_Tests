@@ -18,7 +18,7 @@
 `define FLASH_PAGE_SIZE_BYTES `FLASH_PAGE_SIZE_WORDS * 4
 
 `define CPU_FREQUENCY 40000000 // Hz
-`define UART1_BAUD_RATE 921600
+`define UART1_BAUD_RATE 9216000
 
 module snakeUART_tb;
 	reg clk;
@@ -67,10 +67,11 @@ module snakeUART_tb;
 	initial begin
 		$dumpfile("snakeUART.vcd");
 		$dumpvars(0, snakeUART_tb);
-		`TIMEOUT(50)
+		`TIMEOUT(10)
 		$finish;
 	end
 
+	integer counter = 0;
 	reg[31:0] testValue = 32'b0;
 	reg[7:0] testChar = 8'b0;
 	initial begin
@@ -98,10 +99,13 @@ module snakeUART_tb;
 		`TEST_READ_EQ(`CORE0_CONFIG_ADDR, `SELECT_WORD, testValue, `CORE_HALT, "Read core0 config before initialisation")
 		`TEST_WRITE_EQ(`CORE0_REG_PC_ADDR, `SELECT_WORD, testValue, `FLASH_ADDRESS_CORE, "Write core0 PC start of flash address")
 		
-		// Run core0
-		`TEST_WRITE_EQ(`CORE0_CONFIG_ADDR, `SELECT_WORD, testValue, `CORE_RUN, "Write core0 config to run")
+		// Setup core0 instruction breakpoint
+		`TEST_WRITE_EQ(`CORE0_INSTRUCTION_BREAKPOINT_ADDR, `SELECT_WORD, testValue, `BREAKPOINT, "Write core0 instruction breakpoint address")
 
-		@(posedge uart_rx);
+		// Run core0
+		`TEST_WRITE_EQ(`CORE0_CONFIG_ADDR, `SELECT_WORD, testValue, `CORE_RUN | `CORE_ENABLE_INSTRUCTION_BREAKPOINT, "Write core0 config to run")
+
+		// @(posedge uart_rx);
 
 		// Wait for core0 to finish initialisation and print the welcome message
 		`TEST_RX(testChar, testChar == "H", "Check for 'H' from UART")
@@ -114,7 +118,10 @@ module snakeUART_tb;
 
 		// TODO: Check output
 
-		#1000000
+		// Wait for core to halt at breakpoint
+		`TEST_READ_TIMEOUT(`CORE0_CONFIG_ADDR, `SELECT_WORD, testValue, testValue == `CORE_ENABLE_INSTRUCTION_BREAKPOINT, 10000, 10000, "Core0 halts at end of program")
+
+		#100
 		
 		`TESTS_COMPLETED
 		$finish;
