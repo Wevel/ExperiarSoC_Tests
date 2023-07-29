@@ -1,6 +1,8 @@
 #include "uart.h"
 #include "time.h"
 
+#include "mini-printf.h"
+
 void UARTInit (volatile UARTDevice* device, uint32_t config)
 {
 	device->config = 0; // Ensure the device is disabled
@@ -15,6 +17,13 @@ void UARTWrite (volatile UARTDevice* device, char* data)
 		device->tx = *data;
 		data++;
 	}
+}
+
+void UARTWriteInt (volatile UARTDevice* device, int data)
+{
+	char buffer[12];
+	int length = mini_snprintf (buffer, sizeof (buffer), "%d", data);
+	UARTWrite (device, buffer);
 }
 
 int UARTReadWait (volatile UARTDevice* device, char* data, uint32_t timeout)

@@ -6,13 +6,15 @@ Game game;
 
 void Setup ()
 {
+	DisplayInit ();
+	DisplayOutput ();
+
 	GameInit (&game);
 }
 
 int Loop ()
 {
 	int gameState = GameUpdate (&game, GetInput (MOVE_TIMEOUT));
-	// DrawGame (&game);
 
 	if (gameState == GAME_STATE_WON)
 		DrawGameWin (game.score);

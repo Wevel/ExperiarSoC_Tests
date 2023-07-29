@@ -17,13 +17,24 @@ char scoreTextBuffer[16];
 
 static void clearDisplayBuffer ()
 {
-	for (int i = 0; i < MAP_SIZE; i++) displayBuffer[i] = ' ';
+	for (int i = 0; i < MAP_SIZE; i++) displayBuffer[i] = '.';
 }
 
 static inline void drawText (const char* text, int length, uint8_t x, uint8_t y)
 {
+	// Set cursor location
+	UARTWrite (UART1, "\x1b[");
+	UARTWriteInt (UART1, y + 1);
+	UARTWriteChar (UART1, ';');
+	UARTWriteInt (UART1, x + 1);
+	UARTWriteChar (UART1, 'H');
+
 	int baseIndex = (y * MAP_WIDTH) + x;
-	for (int i = 0; i < length; i++) displayBuffer[baseIndex + i] = text[i];
+	for (int i = 0; i < length; i++)
+	{
+		displayBuffer[baseIndex + i] = text[i];
+		UARTWriteChar (UART1, text[i]);
+	}
 }
 
 static inline void drawTextCentred (const char* text, uint8_t y)
@@ -45,6 +56,13 @@ void DisplayClear ()
 void DisplayDrawSprite (Vector2 position, uint8_t sprite)
 {
 	displayBuffer[(position.y * MAP_WIDTH) + position.x] = sprite;
+
+	UARTWrite (UART1, "\x1b[");
+	UARTWriteInt (UART1, position.y + 1);
+	UARTWriteChar (UART1, ';');
+	UARTWriteInt (UART1, position.x + 1);
+	UARTWriteChar (UART1, 'H');
+	UARTWriteChar (UART1, sprite);
 }
 
 void DrawGameWin (uint8_t score)
@@ -63,12 +81,17 @@ void DrawGameLose (uint8_t score)
 
 void DisplayOutput ()
 {
+	UARTWrite (UART1, "\x1b[2J");
+	UARTWrite (UART1, "\x1b[H");
+
+	// Draw map
 	for (int x = 0; x < MAP_WIDTH; x++)
 	{
 		for (int y = MAP_HEIGHT - 1; y >= 0; y--)
 		{
 			UARTWriteChar (UART1, displayBuffer[(y * MAP_WIDTH) + x]);
 		}
+		UARTWriteChar (UART1, '\n');
 	}
 }
 

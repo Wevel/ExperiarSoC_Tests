@@ -75,6 +75,7 @@ inline int UARTRead (volatile UARTDevice* device, char* data)
 
 void UARTInit (volatile UARTDevice* device, uint32_t config);
 void UARTWrite (volatile UARTDevice* device, char* data);
+void UARTWriteInt (volatile UARTDevice* device, int data);
 int UARTReadWait (volatile UARTDevice* device, char* data, uint32_t timeout);
 
 #endif // !UART_H

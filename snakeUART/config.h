@@ -15,3 +15,6 @@
 #define MAP_SIZE (MAP_WIDTH * MAP_HEIGHT)
 
 #define MOVE_TIMEOUT 100 // us
+
+#define FOOD_SPRITE '*'
+#define SNAKE_SPRITE '#'

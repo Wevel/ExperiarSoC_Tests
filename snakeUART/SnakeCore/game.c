@@ -1,6 +1,8 @@
 #include "game.h"
 #include "time.h"
 
+#include "display.h"
+
 static uint32_t randomSeed = 123456789;
 
 static inline uint32_t random (uint32_t min, uint32_t max)
@@ -52,15 +54,17 @@ void GameInit (Game* game)
 	game->tailLength = 1;
 	game->headIndex = 0;
 	game->tailPositions[0] = (Vector2){ .x = MAP_WIDTH / 2, .y = MAP_HEIGHT / 2 };
-	game->direction = (Vector2){ .x = 0, .x = 0 };
+
+	DisplayDrawSprite (game->tailPositions[0], SNAKE_SPRITE);
 
 	spawnFood (game);
+	DisplayDrawSprite (game->food, FOOD_SPRITE);
 }
 
 int GameUpdate (Game* game, Vector2 input)
 {
 	// Get new head position
-	Vector2 newLocation = Vector2Add (game->tailPositions[game->headIndex], game->direction);
+	Vector2 newLocation = Vector2Add (game->tailPositions[game->headIndex], input);
 	newLocation.x = (newLocation.x + MAP_WIDTH) % MAP_WIDTH;
 	newLocation.y = (newLocation.y + MAP_HEIGHT) % MAP_HEIGHT;
 
@@ -89,11 +93,13 @@ int GameUpdate (Game* game, Vector2 input)
 
 		// Spawn new food
 		spawnFood (game);
+		DisplayDrawSprite (game->food, FOOD_SPRITE);
 	}
 
 	// Move tail
 	game->headIndex = (game->headIndex + 1) % 64;
 	game->tailPositions[game->headIndex] = newLocation;
+	DisplayDrawSprite (newLocation, SNAKE_SPRITE);
 
 	// Return that the game is still running
 	return GAME_STATE_PLAYING;

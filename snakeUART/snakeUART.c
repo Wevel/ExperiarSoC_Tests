@@ -12,7 +12,7 @@ void main ()
 	UARTWriteChar (UART1, 'o');
 	UARTWrite (UART1, "Hello World!\n");
 
-	// Setup ();
-	// while (Loop () == GAME_STATE_PLAYING) {}
-	// Finish ();
+	Setup ();
+	while (Loop () == GAME_STATE_PLAYING) {}
+	Finish ();
 }
