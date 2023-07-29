@@ -1,2 +1,9 @@
 .vscode
 .vvp.v
+.hex
+.hexe
+.lst
+.map
+.vcd
+.gtkw
+.signature
