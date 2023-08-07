@@ -61,13 +61,15 @@ module snakeUART_tb;
 	reg succesOutput = 1'b1;
 	reg nextTestOutput = 1'b0;
 	reg[(`TEST_NAME_LENGTH*5)-1:0] currentTestName = "";
+	wire[31:0] testNumber;
 
 	wire [2:0]   user_irq_core;
 
 	initial begin
 		$dumpfile("snakeUART.vcd");
 		$dumpvars(0, snakeUART_tb);
-		`TIMEOUT(10)
+		//`TIMEOUT(2000)
+		`TIMEOUT(200)
 		$finish;
 	end
 
@@ -114,15 +116,50 @@ module snakeUART_tb;
 		`TEST_RX(testChar, testChar == "l", "Check for 'l' from UART")
 		`TEST_RX(testChar, testChar == "o", "Check for 'o' from UART")
 
-		// TODO: Player inputs
+		// Play the game for a bit
+		// Get first food
+		`TEST_TX("s", "Send 's' to UART")
+		`TEST_TX("s", "Send 's' to UART")
+		`TEST_TX("a", "Send 'a' to UART")
 
-		// TODO: Check output
+		// Wait for score to increase
+
+		// Get Second food
+		`TEST_TX("w", "Send 'w' to UART")
+		`TEST_TX("w", "Send 'w' to UART")
+		`TEST_TX("w", "Send 'w' to UART")
+		`TEST_TX("w", "Send 'w' to UART")
+		`TEST_TX("w", "Send 'w' to UART")
+		// `TEST_TX("d", "Send 'd' to UART")
+
+		// Wait for score to increase
+
+		// Get Third food
+		`TEST_TX("d", "Send 'd' to UART")
+		`TEST_TX("s", "Send 's' to UART")
+		`TEST_TX("s", "Send 's' to UART")
+		`TEST_TX("s", "Send 's' to UART")
+		`TEST_TX("s", "Send 's' to UART")
+
+		// Wait for score to increase
+
+		// Run back into self
+		`TEST_TX("a", "Send 'a' to UART")
+		`TEST_TX("w", "Send 'w' to UART")
+		`TEST_TX("d", "Send 'd' to UART")
+
+		// Make sure the game ended
 
 		// Wait for core to halt at breakpoint
 		`TEST_READ_TIMEOUT(`CORE0_CONFIG_ADDR, `SELECT_WORD, testValue, testValue == `CORE_ENABLE_INSTRUCTION_BREAKPOINT, 10000, 10000, "Core0 halts at end of program")
 
+		// Make sure the core has halted
+		`TEST_READ_EQ(`CORE0_CONFIG_ADDR, `SELECT_WORD, testValue, `CORE_HALT, "Read core0 config after halt")
+
+		// TODO: Check game variables
+
 		#100
-		
+
 		`TESTS_COMPLETED
 		$finish;
 	end
@@ -158,7 +195,8 @@ module snakeUART_tb;
 		.wbBusy(wbBusy),
 		.succesOutput(succesOutput),
 		.nextTestOutput(nextTestOutput),
-		.currentTestName(currentTestName));
+		.currentTestName(currentTestName),
+		.testNumber(testNumber));
 
 	spiflash #(
 		.FILENAME(`FLASH_FILE)

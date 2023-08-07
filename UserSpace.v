@@ -139,7 +139,8 @@
 	`else \
 		$display ("Monitor: Timeout, Core PC Test (RTL) Failed"); \
 	`endif \
-	$display("%c[0m",27);
+	$display("%c[0m",27); \
+	$fflush();
 
 `define TESTS_COMPLETED \
 	#100 \
@@ -159,7 +160,8 @@
 			$display ("Monitor: Core PC Test (RTL) Failed"); \
 		`endif \
 		$display("%c[0m",27); \
-	end
+	end \
+	$fflush();
 
 module UserSpace(
 		input wire clk,
@@ -186,23 +188,29 @@ module UserSpace(
 
 		input wire succesOutput,
 		input wire nextTestOutput,
-		input wire[(`TEST_NAME_LENGTH*5)-1:0] currentTestName 
+		input wire[(`TEST_NAME_LENGTH*5)-1:0] currentTestName,
+
+		output reg[31:0] testNumber
 	);
 
+	initial begin
+		testNumber = 0;
+	end
+
 	// Dispaly message with result of each test, ending the simulation if a test fails
-	reg[31:0] testCounter = 0;
 	always @(succesOutput, nextTestOutput) begin
 		#1
 		if (nextTestOutput) begin
 			if (succesOutput) begin
-				$display("%c[1;92mPassed test: %d %s%c[0m", 27, testCounter, currentTestName, 27);
+				$display("%c[1;92mPassed test: %d %s%c[0m", 27, testNumber, currentTestName, 27);
 			end	else begin
-				$display("%c[1;31mFailed test: %d %s%c[0m", 27, testCounter, currentTestName, 27);
+				$display("%c[1;31mFailed test: %d %s%c[0m", 27, testNumber, currentTestName, 27);
 				#500
 				$finish;
 			end
-			testCounter <= testCounter + 1;
+			testNumber <= testNumber + 1;
 		end
+		$fflush();
 	end
 
 	reg power1, power2;

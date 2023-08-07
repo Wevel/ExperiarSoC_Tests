@@ -8,13 +8,14 @@
 #define USE_UART_OUTPUT 1
 #define USER_UART_INTERRUPT 0
 
-#define MAP_WIDTH 16
-#define MAP_HEIGHT 12
+#define MAP_WIDTH 12
+#define MAP_HEIGHT 8
 #define MAX_TAIL_LENGTH 64
 
 #define MAP_SIZE (MAP_WIDTH * MAP_HEIGHT)
 
 #define MOVE_TIMEOUT 100 // us
 
+#define MAP_SPRITE '.'
 #define FOOD_SPRITE '*'
 #define SNAKE_SPRITE '#'

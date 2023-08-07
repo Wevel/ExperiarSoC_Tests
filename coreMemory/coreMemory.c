@@ -1,216 +1,273 @@
-/*
- * SPDX-FileCopyrightText: 2020 Efabless Corporation
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- * SPDX-License-Identifier: Apache-2.0
- */
+#include <stdint.h>
 
-// This include is relative to $CARAVEL_PATH (see Makefile)
-#include <defs.h>
-#include <stub.c>
+// GPIO
+#define GPIO0_OE_WRITE_ADDR ((uint32_t*)0x1031000)
+#define GPIO0_OE_SET_ADDR ((uint32_t*)0x13031004)
+#define GPIO0_OE_CLEAR_ADDR ((uint32_t*)0x13031008)
+#define GPIO0_OE_TOGGLE_ADDR ((uint32_t*)0x1303100C)
+#define GPIO0_OUTPUT_WRITE_ADDR ((uint32_t*)0x13031010)
+#define GPIO0_OUTPUT_SET_ADDR ((uint32_t*)0x13031014)
+#define GPIO0_OUTPUT_CLEAR_ADDR ((uint32_t*)0x13031018)
+#define GPIO0_OUTPUT_TOGGLE_ADDR ((uint32_t*)0x1303101C)
+#define GPIO0_INPUT_ADDR ((uint32_t*)0x13031020)
+#define GPIO1_OE_WRITE_ADDR ((uint32_t*)0x13032000)
+#define GPIO1_OE_SET_ADDR ((uint32_t*)0x13032004)
+#define GPIO1_OE_CLEAR_ADDR ((uint32_t*)0x13032008)
+#define GPIO1_OE_TOGGLE_ADDR ((uint32_t*)0x1303200C)
+#define GPIO1_OUTPUT_WRITE_ADDR ((uint32_t*)0x13032010)
+#define GPIO1_OUTPUT_SET_ADDR ((uint32_t*)0x13032014)
+#define GPIO1_OUTPUT_CLEAR_ADDR ((uint32_t*)0x13032018)
+#define GPIO1_OUTPUT_TOGGLE_ADDR ((uint32_t*)0x1303201C)
+#define GPIO1_INPUT_ADDR ((uint32_t*)0x13032020)
 
-#define GPIO0_OE_WRITE_ADDR ((uint32_t*)0x33031000)
-#define GPIO0_OE_SET_ADDR ((uint32_t*)0x33031004)
-#define GPIO0_OE_CLEAR_ADDR ((uint32_t*)0x33031008)
-#define GPIO0_OE_TOGGLE_ADDR ((uint32_t*)0x3303100C)
-#define GPIO0_OUTPUT_WRITE_ADDR ((uint32_t*)0x33031010)
-#define GPIO0_OUTPUT_SET_ADDR ((uint32_t*)0x33031014)
-#define GPIO0_OUTPUT_CLEAR_ADDR ((uint32_t*)0x33031018)
-#define GPIO0_OUTPUT_TOGGLE_ADDR ((uint32_t*)0x3303101C)
-#define GPIO0_INPUT_ADDR ((uint32_t*)0x33031020)
-#define GPIO1_OE_WRITE_ADDR ((uint32_t*)0x33032000)
-#define GPIO1_OE_SET_ADDR ((uint32_t*)0x33032004)
-#define GPIO1_OE_CLEAR_ADDR ((uint32_t*)0x33032008)
-#define GPIO1_OE_TOGGLE_ADDR ((uint32_t*)0x3303200C)
-#define GPIO1_OUTPUT_WRITE_ADDR ((uint32_t*)0x33032010)
-#define GPIO1_OUTPUT_SET_ADDR ((uint32_t*)0x33032014)
-#define GPIO1_OUTPUT_CLEAR_ADDR ((uint32_t*)0x33032018)
-#define GPIO1_OUTPUT_TOGGLE_ADDR ((uint32_t*)0x3303201C)
-#define GPIO1_INPUT_ADDR ((uint32_t*)0x33032020)
+// Reference data
+#define UINT32_DATA_0 0x12345678
+#define UINT32_DATA_1 0xDEADBEEF
+#define UINT32_DATA_2 0xABCDEF01
+#define UINT32_DATA_3 0x0F1E2D3C
+#define UINT16_DATA_0 0x5678
+#define UINT16_DATA_1 0x1234
+#define UINT16_DATA_2 0xBEEF
+#define UINT16_DATA_3 0xDEAD
+#define INT16_DATA_0 0x00005678
+#define INT16_DATA_1 0x00001234
+#define INT16_DATA_2 0xFFFFBEEF
+#define INT16_DATA_3 0xFFFFDEAD
 
-#define CORE0_CONFIG_ADDR ((uint32_t*)0x30800000)
-#define CORE0_STATUS_ADDR ((uint32_t*)0x30800004)
-#define CORE0_REG_PC_ADDR ((uint32_t*)0x30810000)
-#define CORE0_REG_JUMP_ADDR ((uint32_t*)0x30810004)
-#define CORE0_REG_STEP_ADDR ((uint32_t*)0x30810008)
-#define CORE0_REG_INSTR_ADDR ((uint32_t*)0x30810010)
-#define CORE0_REG_IREG_ADDR ((uint32_t*)0x30811000)
+#define UINT16_OFFSET_DATA_0 0x3456
+#define UINT16_OFFSET_DATA_1 0xEF12
+#define UINT16_OFFSET_DATA_2 0xADBE
+#define UINT16_OFFSET_DATA_3 0x01DE
 
-#define CORE0_SRAM ((uint32_t*)0x30000000)
-#define CORE1_SRAM ((uint32_t*)0x31000000)
-#define VGA_SRAM ((uint32_t*)0x32000000)
-#define SRAM_BANK_SIZE 0x200
+#define UINT32_DATA_COUNT 4
+#define UINT16_DATA_COUNT 8
+#define UINT8_DATA_COUNT 12
 
-#define FLASH_DATA ((uint32_t*)0x34000000)
-#define FLASH_CONFIGURATION ((uint32_t*)0x34001000)
-#define FLASH_BASE_ADDRESS ((uint32_t*)0x34001004)
-#define FLASH_CACHED_ADDRESS ((uint32_t*)0x34001008)
+// Flash test data
+const uint32_t flashData[4] = { UINT32_DATA_0, UINT32_DATA_1, UINT32_DATA_2, UINT32_DATA_3 };
+const char flashString[] = "Hello world!";
 
-#define MPRJ_WB_ADDRESS (*(volatile uint32_t*)0x30000000)
-#define MPRJ_WB_DATA_LOCATION 0x30008000
+// SRAM test data
+volatile uint32_t sramData[4] = { UINT32_DATA_0, UINT32_DATA_1, UINT32_DATA_2, UINT32_DATA_3 };
+volatile char sramString[] = "Hello world!";
 
-void wbWrite (uint32_t* location, uint32_t value)
+void digitalWrite (uint32_t* location, uint32_t value)
 {
-	// Write the address
-	uint32_t locationData = (uint32_t)location;
-	MPRJ_WB_ADDRESS = locationData & 0xFFFF8000;
-
-	// Write the data
-	uint32_t writeAddress = (locationData & 0x00007FFF) | MPRJ_WB_DATA_LOCATION;
-	*((volatile uint32_t*)writeAddress) = value;
+	*((volatile uint32_t*)location) = value;
 }
 
-uint32_t wbRead (uint32_t* location)
+void setupTests ()
 {
-	// Write the address
-	uint32_t locationData = (uint32_t)location;
-	MPRJ_WB_ADDRESS = locationData & 0xFFFF8000;
-
-	// Write the data
-	uint32_t writeAddress = (locationData & 0x00007FFF) | MPRJ_WB_DATA_LOCATION;
-	return *((volatile uint32_t*)writeAddress);
+	digitalWrite (GPIO0_OUTPUT_WRITE_ADDR, 0x01000);
 }
 
-void nextTest (bool testPassing)
+void testPass ()
 {
-	if (testPassing)
-	{
-		wbWrite (GPIO0_OUTPUT_SET_ADDR, 0x03000);
-	}
+	digitalWrite (GPIO0_OUTPUT_SET_ADDR, 0x03000);
+	digitalWrite (GPIO0_OUTPUT_CLEAR_ADDR, 0x02000);
+}
+
+void testFail ()
+{
+	digitalWrite (GPIO0_OUTPUT_CLEAR_ADDR, 0x01000);
+	digitalWrite (GPIO0_OUTPUT_SET_ADDR, 0x02000);
+
+	while (1) {}
+}
+
+void assert (int condition)
+{
+	if (condition)
+		testPass ();
 	else
-	{
-		wbWrite (GPIO0_OUTPUT_CLEAR_ADDR, 0x01000);
-		wbWrite (GPIO0_OUTPUT_SET_ADDR, 0x02000);
-	}
-
-	wbWrite (GPIO0_OUTPUT_CLEAR_ADDR, 0x02000);
+		testFail ();
 }
 
-bool testMemory (uint32_t address, uint32_t loadAddressInstruction, uint32_t data)
+void testInstructionsInFlash ()
 {
-	wbWrite ((uint32_t*)address, data);
-	wbWrite (CORE0_SRAM + 2, loadAddressInstruction);
-	wbWrite (CORE0_REG_PC_ADDR, 0x8);
-	wbWrite (CORE0_REG_STEP_ADDR, 0x0);
-	wbWrite (CORE0_REG_STEP_ADDR, 0x0);
-	wbWrite (CORE0_REG_STEP_ADDR, 0x0);
-	return wbRead ((uint32_t*)(address + 4)) == data;
+	// Make local copies of the data
+	volatile uint32_t flashDataCopy[UINT32_DATA_COUNT];
+	volatile char flashStringCopy[UINT8_DATA_COUNT];
+
+	for (int i = 0; i < UINT32_DATA_COUNT; i++)
+		flashDataCopy[i] = flashData[i];
+
+	for (int i = 0; i < UINT8_DATA_COUNT; i++)
+		flashStringCopy[i] = flashString[i];
+
+	// Check reading data from flash is correct
+	volatile uint16_t* flashData16Copy = (uint16_t*)flashDataCopy;
+	volatile int16_t* flashData16CopySigned = (int16_t*)flashDataCopy;
+	volatile uint16_t* flashData16CopyOffset = (uint16_t*)((uint8_t*)flashDataCopy + 1);
+
+	// UINT32
+	assert (flashDataCopy[0] == UINT32_DATA_0);
+	assert (flashDataCopy[1] == UINT32_DATA_1);
+	assert (flashDataCopy[2] == UINT32_DATA_2);
+	assert (flashDataCopy[3] == UINT32_DATA_3);
+
+	// UINT16
+	assert (flashData16Copy[0] == UINT16_DATA_0);
+	assert (flashData16Copy[1] == UINT16_DATA_1);
+	assert (flashData16Copy[2] == UINT16_DATA_2);
+	assert (flashData16Copy[3] == UINT16_DATA_3);
+	assert (flashData16CopySigned[0] == INT16_DATA_0);
+	assert (flashData16CopySigned[1] == INT16_DATA_1);
+	assert (flashData16CopySigned[2] == INT16_DATA_2);
+	assert (flashData16CopySigned[3] == INT16_DATA_3);
+	assert (flashData16CopyOffset[0] == UINT16_OFFSET_DATA_0);
+	assert (flashData16CopyOffset[1] == UINT16_OFFSET_DATA_1);
+	assert (flashData16CopyOffset[2] == UINT16_OFFSET_DATA_2);
+	assert (flashData16CopyOffset[3] == UINT16_OFFSET_DATA_3);
+
+	// UINT8
+	assert (flashStringCopy[0] == 'H');
+	assert (flashStringCopy[1] == 'e');
+	assert (flashStringCopy[2] == 'l');
+	assert (flashStringCopy[4] == 'o');
+	assert (flashStringCopy[6] == 'w');
+	assert (flashStringCopy[7] == 'o');
+	assert (flashStringCopy[9] == 'l');
+	assert (flashStringCopy[11] == '!');
+
+	// Check reading data from sram is correct
+	volatile uint16_t* sramData16 = (uint16_t*)sramData;
+	volatile int16_t* sramData16Signed = (int16_t*)sramData;
+	volatile uint16_t* sramData16Offset = (uint16_t*)((uint8_t*)sramData + 1);
+
+	// UINT32
+	assert (sramData[0] == UINT32_DATA_0);
+	assert (sramData[1] == UINT32_DATA_1);
+	assert (sramData[2] == UINT32_DATA_2);
+	assert (sramData[3] == UINT32_DATA_3);
+
+	// UINT16
+	assert (sramData16[0] == UINT16_DATA_0);
+	assert (sramData16[1] == UINT16_DATA_1);
+	assert (sramData16[2] == UINT16_DATA_2);
+	assert (sramData16[3] == UINT16_DATA_3);
+	assert (sramData16Signed[0] == INT16_DATA_0);
+	assert (sramData16Signed[1] == INT16_DATA_1);
+	assert (sramData16Signed[2] == INT16_DATA_2);
+	assert (sramData16Signed[3] == INT16_DATA_3);
+	assert (sramData16Offset[0] == UINT16_OFFSET_DATA_0);
+	assert (sramData16Offset[1] == UINT16_OFFSET_DATA_1);
+	assert (sramData16Offset[2] == UINT16_OFFSET_DATA_2);
+	assert (sramData16Offset[3] == UINT16_OFFSET_DATA_3);
+
+	// UINT8
+	assert (sramString[0] == 'H');
+	assert (sramString[1] == 'e');
+	assert (sramString[2] == 'l');
+	assert (sramString[4] == 'o');
+	assert (sramString[6] == 'w');
+	assert (sramString[7] == 'o');
+	assert (sramString[9] == 'l');
+	assert (sramString[11] == '!');
+}
+
+__attribute__ ((section (".ramtext"))) void testInstructionsInSRAM ()
+{
+	// Make local copies of the flash data so it can't be optimised away
+	volatile uint32_t flashDataCopy[UINT32_DATA_COUNT];
+	volatile char flashStringCopy[UINT8_DATA_COUNT];
+
+	for (int i = 0; i < UINT32_DATA_COUNT; i++)
+		flashDataCopy[i] = flashData[i];
+
+	for (int i = 0; i < UINT8_DATA_COUNT; i++)
+		flashStringCopy[i] = flashString[i];
+
+	// Check reading data from flash is correct
+	volatile uint16_t* flashData16Copy = (uint16_t*)flashDataCopy;
+	volatile int16_t* flashData16CopySigned = (int16_t*)flashDataCopy;
+	volatile uint16_t* flashData16CopyOffset = (uint16_t*)((uint8_t*)flashDataCopy + 1);
+
+	// UINT32
+	assert (flashDataCopy[0] == UINT32_DATA_0);
+	assert (flashDataCopy[1] == UINT32_DATA_1);
+	assert (flashDataCopy[2] == UINT32_DATA_2);
+	assert (flashDataCopy[3] == UINT32_DATA_3);
+
+	// UINT16
+	assert (flashData16Copy[0] == UINT16_DATA_0);
+	assert (flashData16Copy[1] == UINT16_DATA_1);
+	assert (flashData16Copy[2] == UINT16_DATA_2);
+	assert (flashData16Copy[3] == UINT16_DATA_3);
+	assert (flashData16CopySigned[0] == INT16_DATA_0);
+	assert (flashData16CopySigned[1] == INT16_DATA_1);
+	assert (flashData16CopySigned[2] == INT16_DATA_2);
+	assert (flashData16CopySigned[3] == INT16_DATA_3);
+	assert (flashData16CopyOffset[0] == UINT16_OFFSET_DATA_0);
+	assert (flashData16CopyOffset[1] == UINT16_OFFSET_DATA_1);
+	assert (flashData16CopyOffset[2] == UINT16_OFFSET_DATA_2);
+	assert (flashData16CopyOffset[3] == UINT16_OFFSET_DATA_3);
+
+	// UINT8
+	assert (flashStringCopy[0] == 'H');
+	assert (flashStringCopy[1] == 'e');
+	assert (flashStringCopy[2] == 'l');
+	assert (flashStringCopy[4] == 'o');
+	assert (flashStringCopy[6] == 'w');
+	assert (flashStringCopy[7] == 'o');
+	assert (flashStringCopy[9] == 'l');
+	assert (flashStringCopy[11] == '!');
+
+	// Check reading data from sram is correct
+	volatile uint16_t* sramData16 = (uint16_t*)sramData;
+	volatile int16_t* sramData16Signed = (int16_t*)sramData;
+	volatile uint16_t* sramData16Offset = (uint16_t*)((uint8_t*)sramData + 1);
+
+	// UINT32
+	assert (sramData[0] == UINT32_DATA_0);
+	assert (sramData[1] == UINT32_DATA_1);
+	assert (sramData[2] == UINT32_DATA_2);
+	assert (sramData[3] == UINT32_DATA_3);
+
+	// UINT16
+	assert (sramData16[0] == UINT16_DATA_0);
+	assert (sramData16[1] == UINT16_DATA_1);
+	assert (sramData16[2] == UINT16_DATA_2);
+	assert (sramData16[3] == UINT16_DATA_3);
+	assert (sramData16Signed[0] == INT16_DATA_0);
+	assert (sramData16Signed[1] == INT16_DATA_1);
+	assert (sramData16Signed[2] == INT16_DATA_2);
+	assert (sramData16Signed[3] == INT16_DATA_3);
+	assert (sramData16Offset[0] == UINT16_OFFSET_DATA_0);
+	assert (sramData16Offset[1] == UINT16_OFFSET_DATA_1);
+	assert (sramData16Offset[2] == UINT16_OFFSET_DATA_2);
+	assert (sramData16Offset[3] == UINT16_OFFSET_DATA_3);
+
+	// UINT8
+	assert (sramString[0] == 'H');
+	assert (sramString[1] == 'e');
+	assert (sramString[2] == 'l');
+	assert (sramString[4] == 'o');
+	assert (sramString[6] == 'w');
+	assert (sramString[7] == 'o');
+	assert (sramString[9] == 'l');
+	assert (sramString[11] == '!');
 }
 
 void main ()
 {
-	/*
-	IO Control Registers
-	| DM     | VTRIP | SLOW  | AN_POL | AN_SEL | AN_EN | MOD_SEL | INP_DIS | HOLDH | OEB_N | MGMT_EN |
-	| 3-bits | 1-bit | 1-bit | 1-bit  | 1-bit  | 1-bit | 1-bit   | 1-bit   | 1-bit | 1-bit | 1-bit   |
+	setupTests ();
+	testInstructionsInFlash ();
+	testInstructionsInSRAM ();
 
-	Output: 0000_0110_0000_1110  (0x1808) = GPIO_MODE_USER_STD_OUTPUT
-	| DM     | VTRIP | SLOW  | AN_POL | AN_SEL | AN_EN | MOD_SEL | INP_DIS | HOLDH | OEB_N | MGMT_EN |
-	| 110    | 0     | 0     | 0      | 0      | 0     | 0       | 1       | 0     | 0     | 0       |
+	// Compare data in flash and sram
+	// This is mostly to make sure the values don't get optimised away
+	// UINT32
+	for (int i = 0; i < UINT32_DATA_COUNT; i++)
+		assert (flashData[i] == sramData[i]);
 
+	// UINT16
+	volatile uint16_t* flashData16 = (uint16_t*)flashData;
+	volatile uint16_t* sramData16 = (uint16_t*)sramData;
+	for (int i = 0; i < UINT16_DATA_COUNT; i++)
+		assert (flashData16[i] == sramData16[i]);
 
-	Input: 0000_0001_0000_1111 (0x0402) = GPIO_MODE_USER_STD_INPUT_NOPULL
-	| DM     | VTRIP | SLOW  | AN_POL | AN_SEL | AN_EN | MOD_SEL | INP_DIS | HOLDH | OEB_N | MGMT_EN |
-	| 001    | 0     | 0     | 0      | 0      | 0     | 0       | 0       | 0     | 1     | 0       |
-
-	*/
-
-	/* Set up the housekeeping SPI to be connected internally so	*/
-	/* that external pin changes don't affect it.			*/
-
-	// Connect the housekeeping SPI to the SPI master
-	// so that the CSB line is not left floating.  This allows
-	// all of the GPIO pins to be used for user functions.
-
-	// https://github.com/efabless/caravel/blob/main/docs/other/gpio.txt
-
-	// Enable the wishbone bus
-	reg_wb_enable = 1;
-
-	// Enable GPIO
-	// Flash interface
-	reg_mprj_io_8 = GPIO_MODE_USER_STD_OUTPUT;
-	reg_mprj_io_9 = GPIO_MODE_USER_STD_OUTPUT;
-	reg_mprj_io_10 = GPIO_MODE_USER_STD_OUTPUT;
-	reg_mprj_io_11 = GPIO_MODE_USER_STD_INPUT_NOPULL;
-
-	// Test control signals
-	reg_mprj_io_12 = GPIO_MODE_USER_STD_OUTPUT;
-	reg_mprj_io_13 = GPIO_MODE_USER_STD_OUTPUT;
-
-	// Peripheral test output
-	reg_mprj_io_14 = GPIO_MODE_USER_STD_OUTPUT;
-
-	/* Apply configuration */
-	reg_mprj_xfer = 1;
-	while (reg_mprj_xfer == 1) {}
-
-	// Setup test output
-	bool testPass = true;
-	wbWrite (GPIO0_OUTPUT_WRITE_ADDR, 0x01000);
-	wbWrite (GPIO0_OE_WRITE_ADDR, ~0x07000);
-
-	// Enable flash for later test
-	wbWrite (FLASH_CONFIGURATION, 0x1);
-	if (wbRead (FLASH_CONFIGURATION) != 0x1) testPass = false;
-
-	// Set the base address
-	// This will probably be the default value
-	wbWrite (FLASH_BASE_ADDRESS, 0x0);
-	if (wbRead (FLASH_BASE_ADDRESS) != 0x0) testPass = false;
-
-	// Setup for sram tests
-	wbWrite (CORE0_SRAM + 3, 0x0000a183);
-	wbWrite (CORE0_SRAM + 4, 0x0030a223);
-
-	// Test core local sram
-	if (!testMemory (0x30000000, 0x000000b7, 0x12345678)) testPass = false;
-	nextTest (testPass);
-
-	// Test core0 sram via wishbone bus
-	if (!testMemory (0x30000000, 0x100000b7, 0x9ABCDEF0)) testPass = false;
-	nextTest (testPass);
-
-	// Test core1 sram
-	if (!testMemory (0x31000000, 0x110000b7, 0x849A5C12)) testPass = false;
-	nextTest (testPass);
-
-	// Test video sram
-	if (!testMemory (0x32000000, 0x120000b7, 0xBE091D57)) testPass = false;
-	nextTest (testPass);
-
-	// Test flash
-	wbWrite (CORE0_SRAM + 2, 0x000000b7);
-	wbWrite (CORE0_SRAM + 3, 0x14000137);
-	wbWrite (CORE0_SRAM + 4, 0x00012183);
-	wbWrite (CORE0_SRAM + 5, 0x0030a023);
-	wbWrite (CORE0_REG_PC_ADDR, 0x8);
-	wbWrite (CORE0_REG_STEP_ADDR, 0x0);
-	wbWrite (CORE0_REG_STEP_ADDR, 0x0);
-	wbWrite (CORE0_REG_STEP_ADDR, 0x0);
-	wbWrite (CORE0_REG_STEP_ADDR, 0x0);
-	if (wbRead ((uint32_t*)(0x30000000)) != 0x03020100) testPass = false;
-	nextTest (testPass);
-
-	// Test peripheral by performing gpio write
-	wbWrite (CORE0_SRAM + 2, 0x130310b7);
-	wbWrite (CORE0_SRAM + 3, 0x000041b7);
-	wbWrite (CORE0_SRAM + 4, 0x0030a223);
-	wbWrite (CORE0_REG_PC_ADDR, 0x8);
-	wbWrite (CORE0_REG_STEP_ADDR, 0x0);
-	wbWrite (CORE0_REG_STEP_ADDR, 0x0);
-	wbWrite (CORE0_REG_STEP_ADDR, 0x0);
-
-	// Finish test
-	nextTest (testPass);
+	// UINT8
+	for (int i = 0; i < UINT8_DATA_COUNT; i++)
+		assert (flashString[i] == sramString[i]);
 }

@@ -23,10 +23,13 @@ BLOCKS := $(shell basename $(PWDD))
 
 CONFIG = caravel_user_project
 
+HEADER_FILES += \
+
+SOURCE_FILES += \
+
 
 include $(MCW_ROOT)/verilog/dv/make/env.makefile
-include $(MCW_ROOT)/verilog/dv/make/var.makefile
-include $(MCW_ROOT)/verilog/dv/make/cpu.makefile
-include $(TARGET_PATH)/verilog/dv/make/sim.makefile
+include $(TARGET_PATH)/verilog/dv/make/experiarSoC.makefile
+include $(TARGET_PATH)/verilog/dv/make/user_sim.makefile
 
 

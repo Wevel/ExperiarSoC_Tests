@@ -56,6 +56,7 @@ module userSpaceFlash_tb;
 	reg succesOutput = 1'b1;
 	reg nextTestOutput = 1'b0;
 	reg[(`TEST_NAME_LENGTH*5)-1:0] currentTestName = "";
+	wire[31:0] testNumber;
 
 	wire [2:0]   user_irq_core;
 
@@ -303,7 +304,8 @@ module userSpaceFlash_tb;
 		.wbBusy(wbBusy),
 		.succesOutput(succesOutput),
 		.nextTestOutput(nextTestOutput),
-		.currentTestName(currentTestName));
+		.currentTestName(currentTestName),
+		.testNumber(testNumber));
 
 	spiflash #(
 		.FILENAME(`FLASH_FILE)

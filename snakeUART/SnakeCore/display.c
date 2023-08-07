@@ -11,23 +11,21 @@
 static const char gameWinText[] = "You Win!";
 static const char gameOverText[] = "Game Over!";
 static const char scoreFormatText[] = "Score: %d";
+static const char cursorPositionFormatText[] = "\x1b[%d;%dH";
 
 char displayBuffer[MAP_SIZE];
-char scoreTextBuffer[16];
+char textBuffer[16];
 
 static void clearDisplayBuffer ()
 {
-	for (int i = 0; i < MAP_SIZE; i++) displayBuffer[i] = '.';
+	for (int i = 0; i < MAP_SIZE; i++) displayBuffer[i] = MAP_SPRITE;
 }
 
 static inline void drawText (const char* text, int length, uint8_t x, uint8_t y)
 {
 	// Set cursor location
-	UARTWrite (UART1, "\x1b[");
-	UARTWriteInt (UART1, y + 1);
-	UARTWriteChar (UART1, ';');
-	UARTWriteInt (UART1, x + 1);
-	UARTWriteChar (UART1, 'H');
+	mini_snprintf (textBuffer, sizeof (textBuffer), cursorPositionFormatText, y + 1, x + 1);
+	UARTWrite (UART1, textBuffer);
 
 	int baseIndex = (y * MAP_WIDTH) + x;
 	for (int i = 0; i < length; i++)
@@ -40,12 +38,18 @@ static inline void drawText (const char* text, int length, uint8_t x, uint8_t y)
 static inline void drawTextCentred (const char* text, uint8_t y)
 {
 	int length = strlen (text);
-	drawText (text, length, (MAP_WIDTH - length) / 2, y);
+	drawText (text, length, (MAP_WIDTH - length - 1) / 2, y);
 }
 
 void DisplayInit ()
 {
 	clearDisplayBuffer ();
+}
+
+void DisplayFinish ()
+{
+	UARTWrite (UART1, "\x1b[2J");
+	UARTWrite (UART1, "\x1b[H");
 }
 
 void DisplayClear ()
@@ -57,26 +61,23 @@ void DisplayDrawSprite (Vector2 position, uint8_t sprite)
 {
 	displayBuffer[(position.y * MAP_WIDTH) + position.x] = sprite;
 
-	UARTWrite (UART1, "\x1b[");
-	UARTWriteInt (UART1, position.y + 1);
-	UARTWriteChar (UART1, ';');
-	UARTWriteInt (UART1, position.x + 1);
-	UARTWriteChar (UART1, 'H');
+	mini_snprintf (textBuffer, sizeof (textBuffer), cursorPositionFormatText, position.y + 1, position.x + 1);
+	UARTWrite (UART1, textBuffer);
 	UARTWriteChar (UART1, sprite);
 }
 
 void DrawGameWin (uint8_t score)
 {
 	drawTextCentred (gameWinText, MAP_HEIGHT / 2);
-	snprintf (scoreTextBuffer, sizeof (scoreTextBuffer), scoreFormatText, score);
-	drawTextCentred (scoreTextBuffer, (MAP_HEIGHT / 2) - 1);
+	mini_snprintf (textBuffer, sizeof (textBuffer), scoreFormatText, score);
+	drawTextCentred (textBuffer, (MAP_HEIGHT / 2) - 1);
 }
 
 void DrawGameLose (uint8_t score)
 {
 	drawTextCentred (gameOverText, MAP_HEIGHT / 2);
-	snprintf (scoreTextBuffer, sizeof (scoreTextBuffer), scoreFormatText, score);
-	drawTextCentred (scoreTextBuffer, (MAP_HEIGHT / 2) - 1);
+	mini_snprintf (textBuffer, sizeof (textBuffer), scoreFormatText, score);
+	drawTextCentred (textBuffer, (MAP_HEIGHT / 2) - 1);
 }
 
 void DisplayOutput ()
@@ -85,9 +86,9 @@ void DisplayOutput ()
 	UARTWrite (UART1, "\x1b[H");
 
 	// Draw map
-	for (int x = 0; x < MAP_WIDTH; x++)
+	for (int y = MAP_HEIGHT - 1; y >= 0; y--)
 	{
-		for (int y = MAP_HEIGHT - 1; y >= 0; y--)
+		for (int x = 0; x < MAP_WIDTH; x++)
 		{
 			UARTWriteChar (UART1, displayBuffer[(y * MAP_WIDTH) + x]);
 		}

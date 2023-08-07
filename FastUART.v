@@ -20,6 +20,10 @@
 	`UART_RX(DATA) \
 	`TEST_RESULT(RESULT_COMPARISON, TEST_NAME)
 
+`define TEST_TX(DATA, TEST_NAME) \
+	`UART_TX(DATA) \
+	`TEST_RESULT(1'b1, TEST_NAME)
+
 module FastUART #(
 		parameter CLOCK_SCALE_BITS = 16,
 		parameter CLK_FREQ = 100000000,
@@ -53,7 +57,10 @@ module FastUART #(
 
 	always @(negedge clk) begin
 		if (!rst) begin
-			if (rxDataAvailable) $write("%c", rxData);
+			if (rxDataAvailable) begin
+				$write("%c", rxData);
+				$fflush();
+			end
 		end
 	end
 

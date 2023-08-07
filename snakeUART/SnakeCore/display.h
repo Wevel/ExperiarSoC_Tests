@@ -6,6 +6,7 @@
 #include "vector2.h"
 
 void DisplayInit ();
+void DisplayFinish ();
 void DisplayClear ();
 void DisplayDrawSprite (Vector2 position, uint8_t sprite);
 void DrawGameWin (uint8_t score);

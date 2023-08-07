@@ -1,207 +1,155 @@
-// SPDX-FileCopyrightText: 2020 Efabless Corporation
-//
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-//      http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
-// SPDX-License-Identifier: Apache-2.0
-
 `default_nettype none
 
 `timescale 1 ns / 1 ps
 
+`include "../RV32I.v"
+`include "../UserSpace.v"
+`include "../FastUART.v"
+
+`define FLASH_FILE "coreMemory.hex"
+
+`define FLASH_ADDRESS_CORE 32'h1400_0000
+`define FLASH_ADDRESS 32'h3400_0000
+`define FLASH_CONFIG 32'h3480_0000
+`define FLASH_STATUS 32'h3480_0004
+`define FLASH_CURRENT_PAGE_ADDRESS 32'h3480_0008
+`define FLASH_LOAD_ADDRESS 32'h3480_000C
+`define FLASH_PAGE_SIZE_WORDS 32'd512
+`define FLASH_PAGE_SIZE_BYTES `FLASH_PAGE_SIZE_WORDS * 4
+
+`define CPU_FREQUENCY 40000000 // Hz
+`define UART1_BAUD_RATE 9216000
+
 module coreMemory_tb;
-	reg clock;
-	reg RSTB;
-	reg CSB;
-	reg power1, power2;
-	reg power3, power4;
+	reg clk;
+	reg rst;
 
-	wire gpio;
-	wire [37:0] mprj_io;
+	reg [127:0] la_data_in_user = 128'b0;  // From CPU to MPRJ
+	wire [127:0] la_data_out_user; // From MPRJ to CPU
+	reg [127:0] la_oenb_user = ~128'b0;	 // From CPU to MPRJ
 
-	wire succesOutput = mprj_io[12];
-	wire nextTestOutput = mprj_io[13];
-	wire gpioTestOutput = mprj_io[14];
+	wire [`MPRJ_IO_PADS-1:0] user_io_oeb;
+	wire [`MPRJ_IO_PADS-1:0] user_io_in;
+	wire [`MPRJ_IO_PADS-1:0] user_io_out;
+	wire [`MPRJ_IO_PADS-10:0] mprj_analog_io;
 
-	wire user_flash_csb = mprj_io[8];
-	wire user_flash_clk = mprj_io[9];
-	wire user_flash_io0 = mprj_io[10];
+	wire user_flash_csb = user_io_out[8];
+	wire user_flash_clk = user_io_out[9];
+	wire user_flash_io0 = user_io_out[10];
 	wire user_flash_io1;
-	assign mprj_io[11] = user_flash_io1;
+	assign user_io_in[11] = user_flash_io1;
 
-	pullup(mprj_io[3]);
-	assign mprj_io[3] = (CSB == 1'b1) ? 1'b1 : 1'bz;
+	wire succesOutput = user_io_out[12];
+	wire nextTestOutput = user_io_out[13];
+	reg[(`TEST_NAME_LENGTH*5)-1:0] currentTestName = "";
+	wire[31:0] testNumber;
 
-	// External clock is used by default.  Make this artificially fast for the
-	// simulation.  Normally this would be a slow clock and the digital PLL
-	// would be the fast clock.
-	always #12.5 clock <= (clock === 1'b0);
+	reg[31:0] wbAddress = 32'b0;
+	reg[3:0] wbByteSelect = 4'b0;
+	reg wbEnable = 1'b0;
+	reg wbWriteEnable = 1'b0;
+	reg[31:0] wbDataWrite = 32'b0;
+	wire[31:0] wbDataRead;
+	wire wbBusy;
 
-	// Need to add pulls (can be up or down) to all unsed io so that input data is known
-	assign mprj_io[2:0] = 3'b0;
-	assign mprj_io[7:4] = 4'b0;
-	assign mprj_io[37:15] = 23'b0;
 
-	initial begin
-		clock = 0;
-	end
+	wire [2:0] user_irq_core;
 
 	initial begin
 		$dumpfile("coreMemory.vcd");
-
-`ifdef SIM
 		$dumpvars(0, coreMemory_tb);
-`else
-		$dumpvars(1, coreMemory_tb);
-		$dumpvars(2, coreMemory_tb.uut.mprj);
-`endif
-
-		// Repeat cycles of 1000 clock edges as needed to complete testbench
-		repeat (600) begin
-			repeat (1000) @(posedge clock);
-			//$display("+1000 cycles");
-		end
-		$display("%c[1;35m",27);
-		`ifdef GL
-			$display ("Monitor: Timeout, Core Memory Test (GL) Failed");
-		`else
-			$display ("Monitor: Timeout, Core Memory Test (RTL) Failed");
-		`endif
-		$display("%c[0m",27);
+		`TIMEOUT(200)
 		$finish;
 	end
 
 	initial begin
-		// Wait for tests
-		@(posedge nextTestOutput);
-		@(posedge nextTestOutput);
-		@(posedge nextTestOutput);
-		@(posedge nextTestOutput);
-		@(posedge nextTestOutput);
+		@(negedge rst);
+		#100
 
-		@(posedge gpioTestOutput);
+		// Setup output registers
+		`WB_WRITE(`GPIO0_OUTPUT_WRITE_ADDR, `SELECT_WORD, 32'h01000)
+		`WB_WRITE(`GPIO0_OE_WRITE_ADDR, `SELECT_WORD, 32'h01000)
 
-		// Wait for management core to output a output test result
-		@(posedge nextTestOutput);
-		
-		if (succesOutput) begin
-			$display("%c[1;92m",27);
-			`ifdef GL
-				$display("Monitor: Core Memory Test (GL) Passed");
-			`else
-				$display("Monitor: Core Memory Test (RTL) Passed");
-			`endif
-			$display("%c[0m",27);
-		end else begin
-			$display("%c[1;31m",27);
-			`ifdef GL
-				$display ("Monitor: Core Memory Test (GL) Failed");
-			`else
-				$display ("Monitor: Core Memory Test (RTL) Failed");
-			`endif
-			$display("%c[0m",27);
-		end
-	    $finish;
+		// Setup flash
+		`WB_WRITE(`FLASH_CONFIG, `SELECT_WORD, 32'b01)
+
+		// Wait for initialisation to complete
+		#1000
+
+		// Write the page address
+		`WB_WRITE(`FLASH_CURRENT_PAGE_ADDRESS, `SELECT_WORD, 32'h0)
+
+		// Setup the flash for automatic page selection
+		`WB_WRITE(`FLASH_CONFIG, `SELECT_WORD, 32'b11)
+
+		// Setup core0
+		`WB_WRITE(`CORE0_REG_PC_ADDR, `SELECT_WORD, `FLASH_ADDRESS_CORE)
+		`WB_WRITE(`CORE0_INSTRUCTION_BREAKPOINT_ADDR, `SELECT_WORD, `BREAKPOINT)
+
+		// Run core0
+		`WB_WRITE(`CORE0_CONFIG_ADDR, `SELECT_WORD, `CORE_RUN | `CORE_ENABLE_INSTRUCTION_BREAKPOINT)
+
+		$display("Testing flash instructions, flash data");
+		wait(testNumber == 24);
+
+		$display("Testing flash instructions, SRAM data");
+		wait(testNumber == 48);
+
+		$display("Testing SRAM instructions, flash data");
+		wait(testNumber == 72);
+
+		$display("Testing SRAM instructions, SRAM data");
+		wait(testNumber == 96);
+
+		$display("Testing flash and SRAM data");
+		wait(testNumber == 120);
+
+		`TESTS_COMPLETED
+		$finish;
 	end
+
+	// External clock is used by default.  Make this artificially fast for the
+	// simulation.  Normally this would be a slow clock and the digital PLL
+	// would be the fast clock.
+	always #12.5 clk <= (clk === 1'b0);
 
 	initial begin
-		RSTB <= 1'b0;
-		CSB  <= 1'b1;		// Force CSB high
+		rst <= 1'b1;
 		#2000;
-		RSTB <= 1'b1;	    	// Release reset
-		#300000;
-		CSB = 1'b0;		// CSB can be released
+		rst <= 1'b0; // Release reset
 	end
 
-	initial begin		// Power-up sequence
-		power1 <= 1'b0;
-		power2 <= 1'b0;
-		power3 <= 1'b0;
-		power4 <= 1'b0;
-		#100;
-		power1 <= 1'b1;
-		#100;
-		power2 <= 1'b1;
-		#100;
-		power3 <= 1'b1;
-		#100;
-		power4 <= 1'b1;
-	end
-
-	always @(succesOutput, nextTestOutput) begin
-		#1 $display("Success:0b%b Next test:0b%b", succesOutput, nextTestOutput);
-	end
-
-	wire flash_csb;
-	wire flash_clk;
-	wire flash_io0;
-	wire flash_io1;
-
-	wire VDD3V3;
-	wire VDD1V8;
-	wire VSS;
-	
-	assign VDD3V3 = power1;
-	assign VDD1V8 = power2;
-	assign VSS = 1'b0;
-
-	caravel uut (
-		.vddio	  (VDD3V3),
-		.vddio_2  (VDD3V3),
-		.vssio	  (VSS),
-		.vssio_2  (VSS),
-		.vdda	  (VDD3V3),
-		.vssa	  (VSS),
-		.vccd	  (VDD1V8),
-		.vssd	  (VSS),
-		.vdda1    (VDD3V3),
-		.vdda1_2  (VDD3V3),
-		.vdda2    (VDD3V3),
-		.vssa1	  (VSS),
-		.vssa1_2  (VSS),
-		.vssa2	  (VSS),
-		.vccd1	  (VDD1V8),
-		.vccd2	  (VDD1V8),
-		.vssd1	  (VSS),
-		.vssd2	  (VSS),
-		.clock    (clock),
-		.gpio     (gpio),
-		.mprj_io  (mprj_io),
-		.flash_csb(flash_csb),
-		.flash_clk(flash_clk),
-		.flash_io0(flash_io0),
-		.flash_io1(flash_io1),
-		.resetb	  (RSTB)
-	);
+	UserSpace userSpace(
+		.clk(clk),
+		.rst(rst),
+		.la_data_in_user(la_data_in_user),
+		.la_data_out_user(la_data_out_user),
+		.la_oenb_user(la_oenb_user),
+		.user_io_oeb(user_io_oeb),
+		.user_io_in(user_io_in),
+		.user_io_out(user_io_out),
+		.mprj_analog_io(mprj_analog_io),
+		.user_irq_core(user_irq_core),
+		.wbAddress(wbAddress),
+		.wbByteSelect(wbByteSelect),
+		.wbEnable(wbEnable),
+		.wbWriteEnable(wbWriteEnable),
+		.wbDataWrite(wbDataWrite),
+		.wbDataRead(wbDataRead),
+		.wbBusy(wbBusy),
+		.succesOutput(succesOutput),
+		.nextTestOutput(nextTestOutput),
+		.currentTestName(currentTestName),
+		.testNumber(testNumber));
 
 	spiflash #(
-		.FILENAME("coreMemory.hex")
-	) spiflash (
-		.csb(flash_csb),
-		.clk(flash_clk),
-		.io0(flash_io0),
-		.io1(flash_io1),
-		.io2(),			// not used
-		.io3()			// not used
-	);
-
-	spiflash #(
-		.FILENAME("test.hex")
+		.FILENAME(`FLASH_FILE)
 	) testflash (
 		.csb(user_flash_csb),
 		.clk(user_flash_clk),
 		.io0(user_flash_io0),
 		.io1(user_flash_io1),
 		.io2(),			// not used
-		.io3()			// not used
-	);
-
+		.io3());		// not used
+	
 endmodule

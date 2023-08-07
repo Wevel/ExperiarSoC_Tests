@@ -3,6 +3,13 @@
 
 #include "display.h"
 
+#include "uart.h"
+
+// Move draw cursor to end of screen based on MAP_HEIGHT
+#define STR(s) #s
+#define XSTR(s) STR (s)
+#define MOVE_CURSOR ("\x1b[" XSTR (MAP_HEIGHT) ";1H\n")
+
 static uint32_t randomSeed = 123456789;
 
 static inline uint32_t random (uint32_t min, uint32_t max)
@@ -54,6 +61,7 @@ void GameInit (Game* game)
 	game->tailLength = 1;
 	game->headIndex = 0;
 	game->tailPositions[0] = (Vector2){ .x = MAP_WIDTH / 2, .y = MAP_HEIGHT / 2 };
+	game->direction = (Vector2){ .x = 0, .y = 1 };
 
 	DisplayDrawSprite (game->tailPositions[0], SNAKE_SPRITE);
 
@@ -64,7 +72,9 @@ void GameInit (Game* game)
 int GameUpdate (Game* game, Vector2 input)
 {
 	// Get new head position
-	Vector2 newLocation = Vector2Add (game->tailPositions[game->headIndex], input);
+	if (input.x != 0 || input.y != 0) game->direction = input;
+
+	Vector2 newLocation = Vector2Add (game->tailPositions[game->headIndex], game->direction);
 	newLocation.x = (newLocation.x + MAP_WIDTH) % MAP_WIDTH;
 	newLocation.y = (newLocation.y + MAP_HEIGHT) % MAP_HEIGHT;
 
@@ -84,23 +94,30 @@ int GameUpdate (Game* game, Vector2 input)
 		// Increase score
 		game->score++;
 
+		// Increase tail length
+		game->tailLength++;
+
 		// Check if tail is too long
 		// If it is, then the player won the game
 		if (game->tailLength >= MAX_TAIL_LENGTH) return GAME_STATE_WON;
-
-		// Increase tail length
-		game->tailLength++;
 
 		// Spawn new food
 		spawnFood (game);
 		DisplayDrawSprite (game->food, FOOD_SPRITE);
 	}
+	else
+	{
+		// Move tail
+		DisplayDrawSprite (game->tailPositions[(game->headIndex + 1 - game->tailLength + MAX_TAIL_LENGTH) % MAX_TAIL_LENGTH], MAP_SPRITE);
+	}
 
-	// Move tail
+	// Move head
 	game->headIndex = (game->headIndex + 1) % 64;
 	game->tailPositions[game->headIndex] = newLocation;
 	DisplayDrawSprite (newLocation, SNAKE_SPRITE);
 
+	UARTWrite (UART1, MOVE_CURSOR);
+	UARTWriteInt (UART1, game->score);
 	// Return that the game is still running
 	return GAME_STATE_PLAYING;
 }

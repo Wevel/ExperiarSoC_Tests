@@ -17,6 +17,7 @@ typedef struct Game
 	uint8_t tailLength;
 	uint8_t headIndex;
 	Vector2 tailPositions[MAX_TAIL_LENGTH];
+	Vector2 direction;
 } Game;
 
 void GameInit (Game* game);
