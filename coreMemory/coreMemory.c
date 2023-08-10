@@ -83,8 +83,49 @@ void assert (int condition)
 		testFail ();
 }
 
+void completeTestSection ()
+{
+	digitalWrite (GPIO0_OUTPUT_SET_ADDR, 0x04000);
+	digitalWrite (GPIO0_OUTPUT_CLEAR_ADDR, 0x04000);
+}
+
 void testInstructionsInFlash ()
 {
+	// Check reading data from sram is correct
+	volatile uint16_t* sramData16 = (uint16_t*)sramData;
+	volatile int16_t* sramData16Signed = (int16_t*)sramData;
+	volatile uint16_t* sramData16Offset = (uint16_t*)((uint8_t*)sramData + 1);
+
+	// UINT32
+	assert (sramData[0] == UINT32_DATA_0);
+	assert (sramData[1] == UINT32_DATA_1);
+	assert (sramData[2] == UINT32_DATA_2);
+	assert (sramData[3] == UINT32_DATA_3);
+
+	// UINT16
+	assert (sramData16[0] == UINT16_DATA_0);
+	assert (sramData16[1] == UINT16_DATA_1);
+	assert (sramData16[2] == UINT16_DATA_2);
+	assert (sramData16[3] == UINT16_DATA_3);
+	assert (sramData16Signed[0] == INT16_DATA_0);
+	assert (sramData16Signed[1] == INT16_DATA_1);
+	assert (sramData16Signed[2] == INT16_DATA_2);
+	assert (sramData16Signed[3] == INT16_DATA_3);
+	assert (sramData16Offset[0] == UINT16_OFFSET_DATA_0);
+	assert (sramData16Offset[1] == UINT16_OFFSET_DATA_1);
+	assert (sramData16Offset[2] == UINT16_OFFSET_DATA_2);
+	assert (sramData16Offset[3] == UINT16_OFFSET_DATA_3);
+
+	// UINT8
+	assert (sramString[0] == 'H');
+	assert (sramString[1] == 'e');
+	assert (sramString[2] == 'l');
+	assert (sramString[4] == 'o');
+	assert (sramString[6] == 'w');
+	assert (sramString[7] == 'o');
+	assert (sramString[9] == 'l');
+	assert (sramString[11] == '!');
+
 	// Make local copies of the data
 	volatile uint32_t flashDataCopy[UINT32_DATA_COUNT];
 	volatile char flashStringCopy[UINT8_DATA_COUNT];
@@ -129,7 +170,10 @@ void testInstructionsInFlash ()
 	assert (flashStringCopy[7] == 'o');
 	assert (flashStringCopy[9] == 'l');
 	assert (flashStringCopy[11] == '!');
+}
 
+__attribute__ ((section (".ramtext"))) void testInstructionsInSRAM ()
+{
 	// Check reading data from sram is correct
 	volatile uint16_t* sramData16 = (uint16_t*)sramData;
 	volatile int16_t* sramData16Signed = (int16_t*)sramData;
@@ -164,10 +208,7 @@ void testInstructionsInFlash ()
 	assert (sramString[7] == 'o');
 	assert (sramString[9] == 'l');
 	assert (sramString[11] == '!');
-}
 
-__attribute__ ((section (".ramtext"))) void testInstructionsInSRAM ()
-{
 	// Make local copies of the flash data so it can't be optimised away
 	volatile uint32_t flashDataCopy[UINT32_DATA_COUNT];
 	volatile char flashStringCopy[UINT8_DATA_COUNT];
@@ -212,48 +253,17 @@ __attribute__ ((section (".ramtext"))) void testInstructionsInSRAM ()
 	assert (flashStringCopy[7] == 'o');
 	assert (flashStringCopy[9] == 'l');
 	assert (flashStringCopy[11] == '!');
-
-	// Check reading data from sram is correct
-	volatile uint16_t* sramData16 = (uint16_t*)sramData;
-	volatile int16_t* sramData16Signed = (int16_t*)sramData;
-	volatile uint16_t* sramData16Offset = (uint16_t*)((uint8_t*)sramData + 1);
-
-	// UINT32
-	assert (sramData[0] == UINT32_DATA_0);
-	assert (sramData[1] == UINT32_DATA_1);
-	assert (sramData[2] == UINT32_DATA_2);
-	assert (sramData[3] == UINT32_DATA_3);
-
-	// UINT16
-	assert (sramData16[0] == UINT16_DATA_0);
-	assert (sramData16[1] == UINT16_DATA_1);
-	assert (sramData16[2] == UINT16_DATA_2);
-	assert (sramData16[3] == UINT16_DATA_3);
-	assert (sramData16Signed[0] == INT16_DATA_0);
-	assert (sramData16Signed[1] == INT16_DATA_1);
-	assert (sramData16Signed[2] == INT16_DATA_2);
-	assert (sramData16Signed[3] == INT16_DATA_3);
-	assert (sramData16Offset[0] == UINT16_OFFSET_DATA_0);
-	assert (sramData16Offset[1] == UINT16_OFFSET_DATA_1);
-	assert (sramData16Offset[2] == UINT16_OFFSET_DATA_2);
-	assert (sramData16Offset[3] == UINT16_OFFSET_DATA_3);
-
-	// UINT8
-	assert (sramString[0] == 'H');
-	assert (sramString[1] == 'e');
-	assert (sramString[2] == 'l');
-	assert (sramString[4] == 'o');
-	assert (sramString[6] == 'w');
-	assert (sramString[7] == 'o');
-	assert (sramString[9] == 'l');
-	assert (sramString[11] == '!');
 }
 
 void main ()
 {
 	setupTests ();
-	testInstructionsInFlash ();
+
 	testInstructionsInSRAM ();
+	completeTestSection ();
+
+	testInstructionsInFlash ();
+	completeTestSection ();
 
 	// Compare data in flash and sram
 	// This is mostly to make sure the values don't get optimised away
@@ -270,4 +280,6 @@ void main ()
 	// UINT8
 	for (int i = 0; i < UINT8_DATA_COUNT; i++)
 		assert (flashString[i] == sramString[i]);
+
+	completeTestSection ();
 }

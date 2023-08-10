@@ -20,6 +20,8 @@
 `define CPU_FREQUENCY 40000000 // Hz
 `define UART1_BAUD_RATE 9216000
 
+`define MAX_TEST_COUNT 120
+
 module coreMemory_tb;
 	reg clk;
 	reg rst;
@@ -41,6 +43,7 @@ module coreMemory_tb;
 
 	wire succesOutput = user_io_out[12];
 	wire nextTestOutput = user_io_out[13];
+	wire completeTestSection = user_io_out[14];
 	reg[(`TEST_NAME_LENGTH*5)-1:0] currentTestName = "";
 	wire[31:0] testNumber;
 
@@ -68,7 +71,7 @@ module coreMemory_tb;
 
 		// Setup output registers
 		`WB_WRITE(`GPIO0_OUTPUT_WRITE_ADDR, `SELECT_WORD, 32'h01000)
-		`WB_WRITE(`GPIO0_OE_WRITE_ADDR, `SELECT_WORD, 32'h01000)
+		`WB_WRITE(`GPIO0_OE_WRITE_ADDR, `SELECT_WORD, 32'h07000)
 
 		// Setup flash
 		`WB_WRITE(`FLASH_CONFIG, `SELECT_WORD, 32'b01)
@@ -89,22 +92,38 @@ module coreMemory_tb;
 		// Run core0
 		`WB_WRITE(`CORE0_CONFIG_ADDR, `SELECT_WORD, `CORE_RUN | `CORE_ENABLE_INSTRUCTION_BREAKPOINT)
 
-		$display("Testing flash instructions, flash data");
+		$display("Testing SRAM instructions, SRAM data");
 		wait(testNumber == 24);
 
-		$display("Testing flash instructions, SRAM data");
+		$display("Testing SRAM instructions, flash data");
 		wait(testNumber == 48);
 
-		$display("Testing SRAM instructions, flash data");
+		@(posedge completeTestSection)
+
+		$display("Testing flash instructions, SRAM data");
 		wait(testNumber == 72);
 
-		$display("Testing SRAM instructions, SRAM data");
+		$display("Testing flash instructions, flash data");
 		wait(testNumber == 96);
 
-		$display("Testing flash and SRAM data");
+		@(posedge completeTestSection)
+
+		$display("Comparing flash and SRAM data");
 		wait(testNumber == 120);
 
+		@(posedge completeTestSection)
+
+		// Halt core0
+		`WB_WRITE(`CORE0_CONFIG_ADDR, `SELECT_WORD, `CORE_HALT)
+
 		`TESTS_COMPLETED
+		$finish;
+	end
+
+	initial begin
+		wait(testNumber > `MAX_TEST_COUNT);
+		$display("%c[1;31mExceeded expected test count %d (reached %d)%c[0m", 27, `MAX_TEST_COUNT, testNumber, 27);
+		`TESTS_FAIL
 		$finish;
 	end
 

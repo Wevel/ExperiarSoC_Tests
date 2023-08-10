@@ -163,6 +163,17 @@
 	end \
 	$fflush();
 
+`define TESTS_FAIL \
+	#100 \
+	$display("%c[1;31m",27); \
+	`ifdef GL \
+		$display ("Monitor: Core PC Test (GL) Failed"); \
+	`else \
+		$display ("Monitor: Core PC Test (RTL) Failed"); \
+	`endif \
+	$display("%c[0m",27); \
+	$fflush();
+
 module UserSpace(
 		input wire clk,
 		input wire rst,
