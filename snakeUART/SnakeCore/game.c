@@ -26,13 +26,15 @@ static void spawnFood (Game* game)
 
 	uint8_t x = 0;
 	uint8_t y = 0;
+	uint8_t tailIndex;
 
 	for (uint32_t i = 0; i < index; i++)
 	{
 		// Check if food spawns on the snake
 		for (uint8_t j = 0; j < game->tailLength; j++)
 		{
-			if (x == game->tailPositions[j].x && y == game->tailPositions[j].y)
+			tailIndex = (game->headIndex + 1 - j + MAX_TAIL_LENGTH) % MAX_TAIL_LENGTH;
+			if (x == game->tailPositions[tailIndex].x && y == game->tailPositions[tailIndex].y)
 			{
 				// If it does move to the next position, but undo the increment
 				i--;
@@ -67,10 +69,16 @@ void GameInit (Game* game)
 
 	spawnFood (game);
 	DisplayDrawSprite (game->food, FOOD_SPRITE);
+
+	UARTWrite (UART1, MOVE_CURSOR);
+	UARTWriteInt (UART1, game->score);
+	UARTWriteChar (UART1, ' ');
 }
 
-int GameUpdate (Game* game, Vector2 input)
+__attribute__ ((section (".ramtext"))) int GameUpdate (Game* game, Vector2 input, char inputChar)
 {
+	UARTWriteChar (UART1, inputChar);
+
 	// Get new head position
 	if (input.x != 0 || input.y != 0) game->direction = input;
 
@@ -80,9 +88,11 @@ int GameUpdate (Game* game, Vector2 input)
 
 	// Check if snake eats itself
 	// If it does, then the player lost the game
+	uint8_t tailIndex;
 	for (uint8_t i = 0; i < game->tailLength; i++)
 	{
-		if (newLocation.x == game->tailPositions[i].x && newLocation.y == game->tailPositions[i].y)
+		tailIndex = (game->headIndex + 1 - i + MAX_TAIL_LENGTH) % MAX_TAIL_LENGTH;
+		if (newLocation.x == game->tailPositions[tailIndex].x && newLocation.y == game->tailPositions[tailIndex].y)
 		{
 			return GAME_STATE_LOST;
 		}
@@ -118,6 +128,8 @@ int GameUpdate (Game* game, Vector2 input)
 
 	UARTWrite (UART1, MOVE_CURSOR);
 	UARTWriteInt (UART1, game->score);
+	UARTWriteChar (UART1, ' ');
+
 	// Return that the game is still running
 	return GAME_STATE_PLAYING;
 }

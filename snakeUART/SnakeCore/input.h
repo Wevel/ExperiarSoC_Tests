@@ -5,6 +5,6 @@
 
 #include "vector2.h"
 
-Vector2 GetInput (uint32_t timeout);
+Vector2 GetInput (uint32_t timeout, char* input);
 
 #endif // !INPUT_H

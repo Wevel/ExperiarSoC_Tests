@@ -21,7 +21,7 @@ typedef struct Game
 } Game;
 
 void GameInit (Game* game);
-int GameUpdate (Game* game, Vector2 input);
+int GameUpdate (Game* game, Vector2 input, char inputChar);
 void GameFinish (Game* game);
 
 #endif // !GAME_H

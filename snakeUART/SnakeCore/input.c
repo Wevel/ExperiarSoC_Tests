@@ -4,12 +4,12 @@
 
 #if USE_UART_INPUT
 
-Vector2 GetInput (uint32_t timeout)
+Vector2 GetInput (uint32_t timeout, char* input)
 {
-	char input = 0;
-	if (UARTReadWait (UART1, &input, timeout))
+	*input = '-';
+	if (UARTReadWait (UART1, input, timeout))
 	{
-		switch (input)
+		switch (*input)
 		{
 			case 'w':
 				return (Vector2){ 0, -1 };

@@ -68,16 +68,16 @@ void DisplayDrawSprite (Vector2 position, uint8_t sprite)
 
 void DrawGameWin (uint8_t score)
 {
-	drawTextCentred (gameWinText, MAP_HEIGHT / 2);
+	drawTextCentred (gameWinText, MAP_HEIGHT);
 	mini_snprintf (textBuffer, sizeof (textBuffer), scoreFormatText, score);
-	drawTextCentred (textBuffer, (MAP_HEIGHT / 2) - 1);
+	drawTextCentred (textBuffer, MAP_HEIGHT - 1);
 }
 
 void DrawGameLose (uint8_t score)
 {
-	drawTextCentred (gameOverText, MAP_HEIGHT / 2);
+	drawTextCentred (gameOverText, MAP_HEIGHT);
 	mini_snprintf (textBuffer, sizeof (textBuffer), scoreFormatText, score);
-	drawTextCentred (textBuffer, (MAP_HEIGHT / 2) - 1);
+	drawTextCentred (textBuffer, MAP_HEIGHT - 1);
 }
 
 void DisplayOutput ()

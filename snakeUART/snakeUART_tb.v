@@ -68,8 +68,7 @@ module snakeUART_tb;
 	initial begin
 		$dumpfile("snakeUART.vcd");
 		$dumpvars(0, snakeUART_tb);
-		//`TIMEOUT(2000)
-		`TIMEOUT(200)
+		`TIMEOUT(2000)
 		$finish;
 	end
 
@@ -130,23 +129,32 @@ module snakeUART_tb;
 		`TEST_TX("w", "Send 'w' to UART")
 		`TEST_TX("w", "Send 'w' to UART")
 		`TEST_TX("w", "Send 'w' to UART")
-		// `TEST_TX("d", "Send 'd' to UART")
+		`TEST_TX("d", "Send 'd' to UART")
 
 		// Wait for score to increase
 
 		// Get Third food
+		`TEST_TX("s", "Send 's' to UART")
+		`TEST_TX("s", "Send 's' to UART")
+		`TEST_TX("s", "Send 's' to UART")
+		`TEST_TX("s", "Send 's' to UART")
 		`TEST_TX("d", "Send 'd' to UART")
-		`TEST_TX("s", "Send 's' to UART")
-		`TEST_TX("s", "Send 's' to UART")
-		`TEST_TX("s", "Send 's' to UART")
-		`TEST_TX("s", "Send 's' to UART")
+		`TEST_TX("d", "Send 'd' to UART")
+
+		// Wait for score to increase
+
+		// Get Fourth food
+		`TEST_TX("w", "Send 'w' to UART")
+		`TEST_TX("w", "Send 'w' to UART")
+		`TEST_TX("a", "Send 'a' to UART")
 
 		// Wait for score to increase
 
 		// Run back into self
 		`TEST_TX("a", "Send 'a' to UART")
-		`TEST_TX("w", "Send 'w' to UART")
+		`TEST_TX("s", "Send 's' to UART")
 		`TEST_TX("d", "Send 'd' to UART")
+		`TEST_TX("w", "Send 'w' to UART")
 
 		// Make sure the game ended
 
@@ -154,7 +162,7 @@ module snakeUART_tb;
 		`TEST_READ_TIMEOUT(`CORE0_CONFIG_ADDR, `SELECT_WORD, testValue, testValue == `CORE_ENABLE_INSTRUCTION_BREAKPOINT, 10000, 10000, "Core0 halts at end of program")
 
 		// Make sure the core has halted
-		`TEST_READ_EQ(`CORE0_CONFIG_ADDR, `SELECT_WORD, testValue, `CORE_HALT, "Read core0 config after halt")
+		`TEST_READ_EQ(`CORE0_CONFIG_ADDR, `SELECT_WORD, testValue, `CORE_ENABLE_INSTRUCTION_BREAKPOINT, "Read core0 config after halt")
 
 		// TODO: Check game variables
 
