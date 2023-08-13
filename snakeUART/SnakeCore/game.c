@@ -94,6 +94,7 @@ __attribute__ ((section (".ramtext"))) int GameUpdate (Game* game, Vector2 input
 		tailIndex = (game->headIndex + 1 - i + MAX_TAIL_LENGTH) % MAX_TAIL_LENGTH;
 		if (newLocation.x == game->tailPositions[tailIndex].x && newLocation.y == game->tailPositions[tailIndex].y)
 		{
+			DisplayDrawSprite (newLocation, SNAKE_DEAD_SPRITE);
 			return GAME_STATE_LOST;
 		}
 	}

@@ -19,3 +19,4 @@
 #define MAP_SPRITE '.'
 #define FOOD_SPRITE '*'
 #define SNAKE_SPRITE '#'
+#define SNAKE_DEAD_SPRITE 'X'

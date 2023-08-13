@@ -70,14 +70,16 @@ void DrawGameWin (uint8_t score)
 {
 	drawTextCentred (gameWinText, MAP_HEIGHT);
 	mini_snprintf (textBuffer, sizeof (textBuffer), scoreFormatText, score);
-	drawTextCentred (textBuffer, MAP_HEIGHT - 1);
+	UARTWriteChar (UART1, '\n');
+	UARTWrite (UART1, textBuffer);
 }
 
 void DrawGameLose (uint8_t score)
 {
 	drawTextCentred (gameOverText, MAP_HEIGHT);
 	mini_snprintf (textBuffer, sizeof (textBuffer), scoreFormatText, score);
-	drawTextCentred (textBuffer, MAP_HEIGHT - 1);
+	UARTWriteChar (UART1, '\n');
+	UARTWrite (UART1, textBuffer);
 }
 
 void DisplayOutput ()
