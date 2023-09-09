@@ -24,7 +24,7 @@ BLOCKS := $(shell basename $(PWDD))
 CONFIG = caravel_user_project
 LINKER_SCRIPT = sections.lds
 PARTIAL_BUILD = 0
-SIM_DEFINES = -DDEBUG_FLASH 
+SIM_DEFINES = -DDEBUG_FLASH -DDEBUG_CACHED_MEMORY
 
 include $(MCW_ROOT)/verilog/dv/make/env.makefile
 include $(TARGET_PATH)/verilog/dv/make/experiarSoC.makefile

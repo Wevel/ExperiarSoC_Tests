@@ -24,9 +24,8 @@ BLOCKS := $(shell basename $(PWDD))
 CONFIG = caravel_user_project
 
 HEADER_FILES += \
-
 SOURCE_FILES += \
-
+SIM_DEFINES = -DDEBUG_FLASH -DDEBUG_CACHED_MEMORY
 
 include $(MCW_ROOT)/verilog/dv/make/env.makefile
 include $(TARGET_PATH)/verilog/dv/make/experiarSoC.makefile

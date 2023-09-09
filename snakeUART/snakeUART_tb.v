@@ -2,10 +2,6 @@
 
 `timescale 1 ns / 1 ps
 
-`include "../RV32I.v"
-`include "../UserSpace.v"
-`include "../FastUART.v"
-
 `define FLASH_FILE "snakeUART.hex"
 
 `define FLASH_ADDRESS_CORE 32'h1400_0000

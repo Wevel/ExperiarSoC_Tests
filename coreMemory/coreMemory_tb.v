@@ -2,20 +2,27 @@
 
 `timescale 1 ns / 1 ps
 
-`include "../RV32I.v"
-`include "../UserSpace.v"
-`include "../FastUART.v"
-
 `define FLASH_FILE "coreMemory.hex"
 
-`define FLASH_ADDRESS_CORE 32'h1400_0000
-`define FLASH_ADDRESS 32'h3400_0000
-`define FLASH_CONFIG 32'h3480_0000
-`define FLASH_STATUS 32'h3480_0004
-`define FLASH_CURRENT_PAGE_ADDRESS 32'h3480_0008
-`define FLASH_LOAD_ADDRESS 32'h3480_000C
-`define FLASH_PAGE_SIZE_WORDS 32'd512
-`define FLASH_PAGE_SIZE_BYTES `FLASH_PAGE_SIZE_WORDS * 4
+`define SPI_MEMORY0_ADDRESS_CORE 32'h1400_0000
+`define SPI_MEMORY0_ADDRESS 32'h3400_0000
+`define SPI_MEMORY0_CONFIG 32'h3480_0000
+`define SPI_MEMORY0_STATUS 32'h3480_0004
+`define SPI_MEMORY0_CURRENT_PAGE_ADDRESS 32'h3480_0008
+`define SPI_MEMORY0_LOAD_ADDRESS 32'h3480_000C
+
+`define SPI_MEMORY1_ADDRESS_CORE 32'h1500_0000
+`define SPI_MEMORY1_ADDRESS 32'h3500_0000
+`define SPI_MEMORY1_CONFIG 32'h3580_0000
+`define SPI_MEMORY1_STATUS 32'h3580_0004
+`define SPI_MEMORY1_CURRENT_PAGE_ADDRESS 32'h3580_0008
+`define SPI_MEMORY1_LOAD_ADDRESS 32'h3580_000C
+
+`define SPI_MEMORY_PAGE_SIZE_WORDS 32'd512
+`define SPI_MEMORY_PAGE_SIZE_BYTES `SPI_MEMORY_PAGE_SIZE_WORDS * 4
+`define SPI_MEMORY_ENABLE 3'b001
+`define SPI_MEMORY_AUTOMATIC_MODE 3'b010
+`define SPI_MEMORY_WRITE_ENABLE 3'b100
 
 `define CPU_FREQUENCY 40000000 // Hz
 `define UART1_BAUD_RATE 9216000
@@ -41,9 +48,15 @@ module coreMemory_tb;
 	wire user_flash_io1;
 	assign user_io_in[11] = user_flash_io1;
 
-	wire succesOutput = user_io_out[12];
-	wire nextTestOutput = user_io_out[13];
-	wire completeTestSection = user_io_out[14];
+	wire user_ram_csb = user_io_out[12];
+	wire user_ram_clk = user_io_out[13];
+	wire user_ram_io0 = user_io_out[14];
+	wire user_ram_io1;
+	assign user_io_in[15] = user_ram_io1;
+
+	wire succesOutput = user_io_out[16];
+	wire nextTestOutput = user_io_out[17];
+	wire completeTestSection = user_io_out[18];
 	reg[(`TEST_NAME_LENGTH*5)-1:0] currentTestName = "";
 	wire[31:0] testNumber;
 
@@ -73,20 +86,23 @@ module coreMemory_tb;
 		`WB_WRITE(`GPIO0_OUTPUT_WRITE_ADDR, `SELECT_WORD, 32'h01000)
 		`WB_WRITE(`GPIO0_OE_WRITE_ADDR, `SELECT_WORD, 32'h07000)
 
-		// Setup flash
-		`WB_WRITE(`FLASH_CONFIG, `SELECT_WORD, 32'b01)
+		// Setup flash and spi ram
+		`WB_WRITE(`SPI_MEMORY0_CONFIG, `SELECT_WORD, `SPI_MEMORY_ENABLE)
+		`WB_WRITE(`SPI_MEMORY1_CONFIG, `SELECT_WORD, `SPI_MEMORY_ENABLE | `SPI_MEMORY_WRITE_ENABLE)
 
 		// Wait for initialisation to complete
 		#1000
 
 		// Write the page address
-		`WB_WRITE(`FLASH_CURRENT_PAGE_ADDRESS, `SELECT_WORD, 32'h0)
+		`WB_WRITE(`SPI_MEMORY0_CURRENT_PAGE_ADDRESS, `SELECT_WORD, 32'h0)
+		`WB_WRITE(`SPI_MEMORY1_CURRENT_PAGE_ADDRESS, `SELECT_WORD, 32'h0)
 
 		// Setup the flash for automatic page selection
-		`WB_WRITE(`FLASH_CONFIG, `SELECT_WORD, 32'b11)
+		`WB_WRITE(`SPI_MEMORY0_CONFIG, `SELECT_WORD, `SPI_MEMORY_AUTOMATIC_MODE | `SPI_MEMORY_ENABLE)
+		`WB_WRITE(`SPI_MEMORY1_CONFIG, `SELECT_WORD, `SPI_MEMORY_AUTOMATIC_MODE | `SPI_MEMORY_ENABLE | `SPI_MEMORY_WRITE_ENABLE)
 
 		// Setup core0
-		`WB_WRITE(`CORE0_REG_PC_ADDR, `SELECT_WORD, `FLASH_ADDRESS_CORE)
+		`WB_WRITE(`CORE0_REG_PC_ADDR, `SELECT_WORD, `SPI_MEMORY0_ADDRESS_CORE)
 		`WB_WRITE(`CORE0_INSTRUCTION_BREAKPOINT_ADDR, `SELECT_WORD, `BREAKPOINT)
 
 		// Run core0
@@ -110,6 +126,16 @@ module coreMemory_tb;
 
 		$display("Comparing flash and SRAM data");
 		wait(testNumber == 120);
+
+		@(posedge completeTestSection)
+
+		$display("Testing spi RAM data");
+		wait(testNumber == 148);
+
+		@(posedge completeTestSection)
+
+		$display("Testing bulk spi RAM data");
+		wait(testNumber == 276);
 
 		@(posedge completeTestSection)
 
@@ -161,9 +187,9 @@ module coreMemory_tb;
 		.currentTestName(currentTestName),
 		.testNumber(testNumber));
 
-	spiflash #(
+	SPI_Flash #(
 		.FILENAME(`FLASH_FILE)
-	) testflash (
+	) spiFlash (
 		.csb(user_flash_csb),
 		.clk(user_flash_clk),
 		.io0(user_flash_io0),
@@ -171,4 +197,12 @@ module coreMemory_tb;
 		.io2(),			// not used
 		.io3());		// not used
 	
+	SPI_RAM spiRam (
+		.csb(user_ram_csb),
+		.clk(user_ram_clk),
+		.io0(user_ram_io0),
+		.io1(user_ram_io1),
+		.io2(),			// not used
+		.io3());		// not used
+
 endmodule

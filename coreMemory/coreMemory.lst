@@ -6,15 +6,15 @@ Disassembly of section .text:
 
 14000000 <_start>:
 14000000:	00000517          	auipc	a0,0x0
-14000004:	07450513          	addi	a0,a0,116 # 14000074 <_trap>
+14000004:	0c450513          	addi	a0,a0,196 # 140000c4 <_trap>
 14000008:	30551073          	csrw	mtvec,a0
 1400000c:	ec000197          	auipc	gp,0xec000
 14000010:	7f418193          	addi	gp,gp,2036 # 800 <_global_pointer$>
 14000014:	ec001117          	auipc	sp,0xec001
 14000018:	fec10113          	addi	sp,sp,-20 # 1000 <_stack_top>
 1400001c:	00010433          	add	s0,sp,zero
-14000020:	00000517          	auipc	a0,0x0
-14000024:	75850513          	addi	a0,a0,1880 # 14000778 <_etext>
+14000020:	00001517          	auipc	a0,0x1
+14000024:	b2050513          	addi	a0,a0,-1248 # 14000b40 <_etext>
 14000028:	ec000597          	auipc	a1,0xec000
 1400002c:	fd858593          	addi	a1,a1,-40 # 0 <testInstructionsInSRAM>
 14000030:	ec000617          	auipc	a2,0xec000
@@ -39,476 +39,726 @@ Disassembly of section .text:
 14000064:	feb54ce3          	blt	a0,a1,1400005c <loop_init_bss>
 
 14000068 <end_init_bss>:
-14000068:	620000ef          	jal	ra,14000688 <main>
-1400006c:	00100073          	ebreak
+14000068:	00001517          	auipc	a0,0x1
+1400006c:	0c050513          	addi	a0,a0,192 # 14001128 <_sibulkdata>
+14000070:	01000597          	auipc	a1,0x1000
+14000074:	f9058593          	addi	a1,a1,-112 # 15000000 <psramData>
+14000078:	01000617          	auipc	a2,0x1000
+1400007c:	fa860613          	addi	a2,a2,-88 # 15000020 <psramLargeData>
+14000080:	00c5dc63          	bge	a1,a2,14000098 <end_init_bulkdata>
 
-14000070 <_exit>:
-14000070:	000000ef          	jal	ra,14000070 <_exit>
+14000084 <loop_init_bulkdata>:
+14000084:	00052683          	lw	a3,0(a0)
+14000088:	00d5a023          	sw	a3,0(a1)
+1400008c:	00450513          	addi	a0,a0,4
+14000090:	00458593          	addi	a1,a1,4
+14000094:	fec5c8e3          	blt	a1,a2,14000084 <loop_init_bulkdata>
 
-14000074 <_trap>:
-14000074:	0000006f          	j	14000074 <_trap>
+14000098 <end_init_bulkdata>:
+14000098:	01000517          	auipc	a0,0x1000
+1400009c:	f8850513          	addi	a0,a0,-120 # 15000020 <psramLargeData>
+140000a0:	01400597          	auipc	a1,0x1400
+140000a4:	f8058593          	addi	a1,a1,-128 # 15400020 <_ebulkbss>
+140000a8:	00b55863          	bge	a0,a1,140000b8 <end_init_bulkbss>
 
-14000078 <flashData>:
-14000078:	12345678 deadbeef abcdef01 0f1e2d3c     xV4.........<-..
+140000ac <loop_init_bulkbss>:
+140000ac:	00052023          	sw	zero,0(a0)
+140000b0:	00450513          	addi	a0,a0,4
+140000b4:	feb54ce3          	blt	a0,a1,140000ac <loop_init_bulkbss>
 
-14000088 <flashString>:
-14000088:	6c6c6548 6f77206f 21646c72 00000000     Hello world!....
+140000b8 <end_init_bulkbss>:
+140000b8:	620000ef          	jal	ra,140006d8 <main>
+140000bc:	00100073          	ebreak
 
-14000098 <digitalWrite>:
-14000098:	00b52023          	sw	a1,0(a0)
-1400009c:	00008067          	ret
+140000c0 <_exit>:
+140000c0:	000000ef          	jal	ra,140000c0 <_exit>
 
-140000a0 <setupTests>:
-140000a0:	ff010113          	addi	sp,sp,-16
-140000a4:	00112623          	sw	ra,12(sp)
-140000a8:	000015b7          	lui	a1,0x1
-140000ac:	13031537          	lui	a0,0x13031
-140000b0:	01050513          	addi	a0,a0,16 # 13031010 <_stack_top+0x13030010>
-140000b4:	fe5ff0ef          	jal	ra,14000098 <digitalWrite>
-140000b8:	00c12083          	lw	ra,12(sp)
-140000bc:	01010113          	addi	sp,sp,16
-140000c0:	00008067          	ret
+140000c4 <_trap>:
+140000c4:	0000006f          	j	140000c4 <_trap>
 
-140000c4 <testPass>:
-140000c4:	ff010113          	addi	sp,sp,-16
-140000c8:	00112623          	sw	ra,12(sp)
-140000cc:	00812423          	sw	s0,8(sp)
-140000d0:	000035b7          	lui	a1,0x3
-140000d4:	13031437          	lui	s0,0x13031
-140000d8:	01440513          	addi	a0,s0,20 # 13031014 <_stack_top+0x13030014>
-140000dc:	fbdff0ef          	jal	ra,14000098 <digitalWrite>
-140000e0:	000025b7          	lui	a1,0x2
-140000e4:	01840513          	addi	a0,s0,24
-140000e8:	fb1ff0ef          	jal	ra,14000098 <digitalWrite>
-140000ec:	00c12083          	lw	ra,12(sp)
-140000f0:	00812403          	lw	s0,8(sp)
-140000f4:	01010113          	addi	sp,sp,16
-140000f8:	00008067          	ret
+140000c8 <flashData>:
+140000c8:	12345678 deadbeef abcdef01 0f1e2d3c     xV4.........<-..
 
-140000fc <testFail>:
-140000fc:	ff010113          	addi	sp,sp,-16
-14000100:	00112623          	sw	ra,12(sp)
-14000104:	00812423          	sw	s0,8(sp)
-14000108:	000015b7          	lui	a1,0x1
-1400010c:	13031437          	lui	s0,0x13031
-14000110:	01840513          	addi	a0,s0,24 # 13031018 <_stack_top+0x13030018>
-14000114:	f85ff0ef          	jal	ra,14000098 <digitalWrite>
-14000118:	000025b7          	lui	a1,0x2
-1400011c:	01440513          	addi	a0,s0,20
-14000120:	f79ff0ef          	jal	ra,14000098 <digitalWrite>
-14000124:	0000006f          	j	14000124 <testFail+0x28>
+140000d8 <flashString>:
+140000d8:	6c6c6548 6f77206f 21646c72 00000000     Hello world!....
 
-14000128 <assert>:
-14000128:	ff010113          	addi	sp,sp,-16
-1400012c:	00112623          	sw	ra,12(sp)
-14000130:	00050a63          	beqz	a0,14000144 <assert+0x1c>
-14000134:	f91ff0ef          	jal	ra,140000c4 <testPass>
-14000138:	00c12083          	lw	ra,12(sp)
-1400013c:	01010113          	addi	sp,sp,16
-14000140:	00008067          	ret
-14000144:	fb9ff0ef          	jal	ra,140000fc <testFail>
+140000e8 <digitalWrite>:
+140000e8:	00b52023          	sw	a1,0(a0)
+140000ec:	00008067          	ret
 
-14000148 <completeTestSection>:
-14000148:	ff010113          	addi	sp,sp,-16
-1400014c:	00112623          	sw	ra,12(sp)
-14000150:	00812423          	sw	s0,8(sp)
-14000154:	000045b7          	lui	a1,0x4
-14000158:	13031437          	lui	s0,0x13031
-1400015c:	01440513          	addi	a0,s0,20 # 13031014 <_stack_top+0x13030014>
-14000160:	f39ff0ef          	jal	ra,14000098 <digitalWrite>
-14000164:	000045b7          	lui	a1,0x4
-14000168:	01840513          	addi	a0,s0,24
-1400016c:	f2dff0ef          	jal	ra,14000098 <digitalWrite>
-14000170:	00c12083          	lw	ra,12(sp)
-14000174:	00812403          	lw	s0,8(sp)
-14000178:	01010113          	addi	sp,sp,16
-1400017c:	00008067          	ret
+140000f0 <setupTests>:
+140000f0:	ff010113          	addi	sp,sp,-16
+140000f4:	00112623          	sw	ra,12(sp)
+140000f8:	000105b7          	lui	a1,0x10
+140000fc:	13031537          	lui	a0,0x13031
+14000100:	01050513          	addi	a0,a0,16 # 13031010 <_stack_top+0x13030010>
+14000104:	fe5ff0ef          	jal	ra,140000e8 <digitalWrite>
+14000108:	00c12083          	lw	ra,12(sp)
+1400010c:	01010113          	addi	sp,sp,16
+14000110:	00008067          	ret
 
-14000180 <testInstructionsInFlash>:
-14000180:	fd010113          	addi	sp,sp,-48
-14000184:	02112623          	sw	ra,44(sp)
-14000188:	02812423          	sw	s0,40(sp)
-1400018c:	02912223          	sw	s1,36(sp)
-14000190:	03212023          	sw	s2,32(sp)
-14000194:	5c800413          	li	s0,1480
-14000198:	00042503          	lw	a0,0(s0)
-1400019c:	edcbb7b7          	lui	a5,0xedcbb
-140001a0:	98878793          	addi	a5,a5,-1656 # edcba988 <_etext+0xd9cba210>
-140001a4:	00f50533          	add	a0,a0,a5
-140001a8:	00153513          	seqz	a0,a0
-140001ac:	f7dff0ef          	jal	ra,14000128 <assert>
-140001b0:	00442503          	lw	a0,4(s0)
-140001b4:	215247b7          	lui	a5,0x21524
-140001b8:	11178793          	addi	a5,a5,273 # 21524111 <_etext+0xd523999>
-140001bc:	00f50533          	add	a0,a0,a5
-140001c0:	00153513          	seqz	a0,a0
-140001c4:	f65ff0ef          	jal	ra,14000128 <assert>
-140001c8:	00842503          	lw	a0,8(s0)
-140001cc:	543217b7          	lui	a5,0x54321
-140001d0:	0ff78793          	addi	a5,a5,255 # 543210ff <_etext+0x40320987>
-140001d4:	00f50533          	add	a0,a0,a5
-140001d8:	00153513          	seqz	a0,a0
-140001dc:	f4dff0ef          	jal	ra,14000128 <assert>
-140001e0:	00c42503          	lw	a0,12(s0)
-140001e4:	f0e1d7b7          	lui	a5,0xf0e1d
-140001e8:	2c478793          	addi	a5,a5,708 # f0e1d2c4 <_etext+0xdce1cb4c>
-140001ec:	00f50533          	add	a0,a0,a5
-140001f0:	00153513          	seqz	a0,a0
-140001f4:	f35ff0ef          	jal	ra,14000128 <assert>
-140001f8:	00045503          	lhu	a0,0(s0)
-140001fc:	ffffb937          	lui	s2,0xffffb
-14000200:	98890913          	addi	s2,s2,-1656 # ffffa988 <_etext+0xebffa210>
-14000204:	01250533          	add	a0,a0,s2
-14000208:	00153513          	seqz	a0,a0
-1400020c:	f1dff0ef          	jal	ra,14000128 <assert>
-14000210:	00245503          	lhu	a0,2(s0)
-14000214:	fffff4b7          	lui	s1,0xfffff
-14000218:	dcc48493          	addi	s1,s1,-564 # ffffedcc <_etext+0xebffe654>
-1400021c:	00950533          	add	a0,a0,s1
-14000220:	00153513          	seqz	a0,a0
-14000224:	f05ff0ef          	jal	ra,14000128 <assert>
-14000228:	00445503          	lhu	a0,4(s0)
-1400022c:	ffff47b7          	lui	a5,0xffff4
-14000230:	11178793          	addi	a5,a5,273 # ffff4111 <_etext+0xebff3999>
-14000234:	00f50533          	add	a0,a0,a5
-14000238:	00153513          	seqz	a0,a0
-1400023c:	eedff0ef          	jal	ra,14000128 <assert>
-14000240:	00645503          	lhu	a0,6(s0)
-14000244:	ffff27b7          	lui	a5,0xffff2
-14000248:	15378793          	addi	a5,a5,339 # ffff2153 <_etext+0xebff19db>
-1400024c:	00f50533          	add	a0,a0,a5
-14000250:	00153513          	seqz	a0,a0
-14000254:	ed5ff0ef          	jal	ra,14000128 <assert>
-14000258:	00045503          	lhu	a0,0(s0)
-1400025c:	01051513          	slli	a0,a0,0x10
-14000260:	41055513          	srai	a0,a0,0x10
-14000264:	01250533          	add	a0,a0,s2
-14000268:	00153513          	seqz	a0,a0
-1400026c:	ebdff0ef          	jal	ra,14000128 <assert>
-14000270:	00245503          	lhu	a0,2(s0)
-14000274:	01051513          	slli	a0,a0,0x10
-14000278:	41055513          	srai	a0,a0,0x10
-1400027c:	00950533          	add	a0,a0,s1
-14000280:	00153513          	seqz	a0,a0
-14000284:	ea5ff0ef          	jal	ra,14000128 <assert>
-14000288:	00445503          	lhu	a0,4(s0)
-1400028c:	01051513          	slli	a0,a0,0x10
-14000290:	41055513          	srai	a0,a0,0x10
-14000294:	000047b7          	lui	a5,0x4
-14000298:	11178793          	addi	a5,a5,273 # 4111 <_stack_top+0x3111>
+14000114 <testPass>:
+14000114:	ff010113          	addi	sp,sp,-16
+14000118:	00112623          	sw	ra,12(sp)
+1400011c:	00812423          	sw	s0,8(sp)
+14000120:	000305b7          	lui	a1,0x30
+14000124:	13031437          	lui	s0,0x13031
+14000128:	01440513          	addi	a0,s0,20 # 13031014 <_stack_top+0x13030014>
+1400012c:	fbdff0ef          	jal	ra,140000e8 <digitalWrite>
+14000130:	000205b7          	lui	a1,0x20
+14000134:	01840513          	addi	a0,s0,24
+14000138:	fb1ff0ef          	jal	ra,140000e8 <digitalWrite>
+1400013c:	00c12083          	lw	ra,12(sp)
+14000140:	00812403          	lw	s0,8(sp)
+14000144:	01010113          	addi	sp,sp,16
+14000148:	00008067          	ret
+
+1400014c <testFail>:
+1400014c:	ff010113          	addi	sp,sp,-16
+14000150:	00112623          	sw	ra,12(sp)
+14000154:	00812423          	sw	s0,8(sp)
+14000158:	000105b7          	lui	a1,0x10
+1400015c:	13031437          	lui	s0,0x13031
+14000160:	01840513          	addi	a0,s0,24 # 13031018 <_stack_top+0x13030018>
+14000164:	f85ff0ef          	jal	ra,140000e8 <digitalWrite>
+14000168:	000205b7          	lui	a1,0x20
+1400016c:	01440513          	addi	a0,s0,20
+14000170:	f79ff0ef          	jal	ra,140000e8 <digitalWrite>
+14000174:	0000006f          	j	14000174 <testFail+0x28>
+
+14000178 <assert>:
+14000178:	ff010113          	addi	sp,sp,-16
+1400017c:	00112623          	sw	ra,12(sp)
+14000180:	00050a63          	beqz	a0,14000194 <assert+0x1c>
+14000184:	f91ff0ef          	jal	ra,14000114 <testPass>
+14000188:	00c12083          	lw	ra,12(sp)
+1400018c:	01010113          	addi	sp,sp,16
+14000190:	00008067          	ret
+14000194:	fb9ff0ef          	jal	ra,1400014c <testFail>
+
+14000198 <completeTestSection>:
+14000198:	ff010113          	addi	sp,sp,-16
+1400019c:	00112623          	sw	ra,12(sp)
+140001a0:	00812423          	sw	s0,8(sp)
+140001a4:	000405b7          	lui	a1,0x40
+140001a8:	13031437          	lui	s0,0x13031
+140001ac:	01440513          	addi	a0,s0,20 # 13031014 <_stack_top+0x13030014>
+140001b0:	f39ff0ef          	jal	ra,140000e8 <digitalWrite>
+140001b4:	000405b7          	lui	a1,0x40
+140001b8:	01840513          	addi	a0,s0,24
+140001bc:	f2dff0ef          	jal	ra,140000e8 <digitalWrite>
+140001c0:	00c12083          	lw	ra,12(sp)
+140001c4:	00812403          	lw	s0,8(sp)
+140001c8:	01010113          	addi	sp,sp,16
+140001cc:	00008067          	ret
+
+140001d0 <testInstructionsInFlash>:
+140001d0:	fd010113          	addi	sp,sp,-48
+140001d4:	02112623          	sw	ra,44(sp)
+140001d8:	02812423          	sw	s0,40(sp)
+140001dc:	02912223          	sw	s1,36(sp)
+140001e0:	03212023          	sw	s2,32(sp)
+140001e4:	5c800413          	li	s0,1480
+140001e8:	00042503          	lw	a0,0(s0)
+140001ec:	edcbb7b7          	lui	a5,0xedcbb
+140001f0:	98878793          	addi	a5,a5,-1656 # edcba988 <_ebulkbss+0xd88ba968>
+140001f4:	00f50533          	add	a0,a0,a5
+140001f8:	00153513          	seqz	a0,a0
+140001fc:	f7dff0ef          	jal	ra,14000178 <assert>
+14000200:	00442503          	lw	a0,4(s0)
+14000204:	215247b7          	lui	a5,0x21524
+14000208:	11178793          	addi	a5,a5,273 # 21524111 <_ebulkbss+0xc1240f1>
+1400020c:	00f50533          	add	a0,a0,a5
+14000210:	00153513          	seqz	a0,a0
+14000214:	f65ff0ef          	jal	ra,14000178 <assert>
+14000218:	00842503          	lw	a0,8(s0)
+1400021c:	543217b7          	lui	a5,0x54321
+14000220:	0ff78793          	addi	a5,a5,255 # 543210ff <_ebulkbss+0x3ef210df>
+14000224:	00f50533          	add	a0,a0,a5
+14000228:	00153513          	seqz	a0,a0
+1400022c:	f4dff0ef          	jal	ra,14000178 <assert>
+14000230:	00c42503          	lw	a0,12(s0)
+14000234:	f0e1d7b7          	lui	a5,0xf0e1d
+14000238:	2c478793          	addi	a5,a5,708 # f0e1d2c4 <_ebulkbss+0xdba1d2a4>
+1400023c:	00f50533          	add	a0,a0,a5
+14000240:	00153513          	seqz	a0,a0
+14000244:	f35ff0ef          	jal	ra,14000178 <assert>
+14000248:	00045503          	lhu	a0,0(s0)
+1400024c:	ffffb937          	lui	s2,0xffffb
+14000250:	98890913          	addi	s2,s2,-1656 # ffffa988 <_ebulkbss+0xeabfa968>
+14000254:	01250533          	add	a0,a0,s2
+14000258:	00153513          	seqz	a0,a0
+1400025c:	f1dff0ef          	jal	ra,14000178 <assert>
+14000260:	00245503          	lhu	a0,2(s0)
+14000264:	fffff4b7          	lui	s1,0xfffff
+14000268:	dcc48493          	addi	s1,s1,-564 # ffffedcc <_ebulkbss+0xeabfedac>
+1400026c:	00950533          	add	a0,a0,s1
+14000270:	00153513          	seqz	a0,a0
+14000274:	f05ff0ef          	jal	ra,14000178 <assert>
+14000278:	00445503          	lhu	a0,4(s0)
+1400027c:	ffff47b7          	lui	a5,0xffff4
+14000280:	11178793          	addi	a5,a5,273 # ffff4111 <_ebulkbss+0xeabf40f1>
+14000284:	00f50533          	add	a0,a0,a5
+14000288:	00153513          	seqz	a0,a0
+1400028c:	eedff0ef          	jal	ra,14000178 <assert>
+14000290:	00645503          	lhu	a0,6(s0)
+14000294:	ffff27b7          	lui	a5,0xffff2
+14000298:	15378793          	addi	a5,a5,339 # ffff2153 <_ebulkbss+0xeabf2133>
 1400029c:	00f50533          	add	a0,a0,a5
 140002a0:	00153513          	seqz	a0,a0
-140002a4:	e85ff0ef          	jal	ra,14000128 <assert>
-140002a8:	00645503          	lhu	a0,6(s0)
+140002a4:	ed5ff0ef          	jal	ra,14000178 <assert>
+140002a8:	00045503          	lhu	a0,0(s0)
 140002ac:	01051513          	slli	a0,a0,0x10
 140002b0:	41055513          	srai	a0,a0,0x10
-140002b4:	000027b7          	lui	a5,0x2
-140002b8:	15378793          	addi	a5,a5,339 # 2153 <_stack_top+0x1153>
-140002bc:	00f50533          	add	a0,a0,a5
-140002c0:	00153513          	seqz	a0,a0
-140002c4:	e65ff0ef          	jal	ra,14000128 <assert>
-140002c8:	00144503          	lbu	a0,1(s0)
-140002cc:	00244783          	lbu	a5,2(s0)
-140002d0:	00879793          	slli	a5,a5,0x8
-140002d4:	00f56533          	or	a0,a0,a5
-140002d8:	ffffd7b7          	lui	a5,0xffffd
-140002dc:	baa78793          	addi	a5,a5,-1110 # ffffcbaa <_etext+0xebffc432>
-140002e0:	00f50533          	add	a0,a0,a5
-140002e4:	00153513          	seqz	a0,a0
-140002e8:	e41ff0ef          	jal	ra,14000128 <assert>
-140002ec:	00344503          	lbu	a0,3(s0)
-140002f0:	00444783          	lbu	a5,4(s0)
-140002f4:	00879793          	slli	a5,a5,0x8
-140002f8:	00f56533          	or	a0,a0,a5
-140002fc:	ffff17b7          	lui	a5,0xffff1
-14000300:	0ee78793          	addi	a5,a5,238 # ffff10ee <_etext+0xebff0976>
-14000304:	00f50533          	add	a0,a0,a5
-14000308:	00153513          	seqz	a0,a0
-1400030c:	e1dff0ef          	jal	ra,14000128 <assert>
-14000310:	00544503          	lbu	a0,5(s0)
-14000314:	00644783          	lbu	a5,6(s0)
-14000318:	00879793          	slli	a5,a5,0x8
-1400031c:	00f56533          	or	a0,a0,a5
-14000320:	ffff57b7          	lui	a5,0xffff5
-14000324:	24278793          	addi	a5,a5,578 # ffff5242 <_etext+0xebff4aca>
-14000328:	00f50533          	add	a0,a0,a5
-1400032c:	00153513          	seqz	a0,a0
-14000330:	df9ff0ef          	jal	ra,14000128 <assert>
-14000334:	00744503          	lbu	a0,7(s0)
-14000338:	00844783          	lbu	a5,8(s0)
-1400033c:	00879793          	slli	a5,a5,0x8
-14000340:	00f56533          	or	a0,a0,a5
-14000344:	e2250513          	addi	a0,a0,-478
-14000348:	00153513          	seqz	a0,a0
-1400034c:	dddff0ef          	jal	ra,14000128 <assert>
-14000350:	5d800413          	li	s0,1496
-14000354:	00044503          	lbu	a0,0(s0)
-14000358:	fb850513          	addi	a0,a0,-72
-1400035c:	00153513          	seqz	a0,a0
-14000360:	dc9ff0ef          	jal	ra,14000128 <assert>
-14000364:	00144503          	lbu	a0,1(s0)
-14000368:	f9b50513          	addi	a0,a0,-101
-1400036c:	00153513          	seqz	a0,a0
-14000370:	db9ff0ef          	jal	ra,14000128 <assert>
-14000374:	00244503          	lbu	a0,2(s0)
-14000378:	f9450513          	addi	a0,a0,-108
+140002b4:	01250533          	add	a0,a0,s2
+140002b8:	00153513          	seqz	a0,a0
+140002bc:	ebdff0ef          	jal	ra,14000178 <assert>
+140002c0:	00245503          	lhu	a0,2(s0)
+140002c4:	01051513          	slli	a0,a0,0x10
+140002c8:	41055513          	srai	a0,a0,0x10
+140002cc:	00950533          	add	a0,a0,s1
+140002d0:	00153513          	seqz	a0,a0
+140002d4:	ea5ff0ef          	jal	ra,14000178 <assert>
+140002d8:	00445503          	lhu	a0,4(s0)
+140002dc:	01051513          	slli	a0,a0,0x10
+140002e0:	41055513          	srai	a0,a0,0x10
+140002e4:	000047b7          	lui	a5,0x4
+140002e8:	11178793          	addi	a5,a5,273 # 4111 <_stack_top+0x3111>
+140002ec:	00f50533          	add	a0,a0,a5
+140002f0:	00153513          	seqz	a0,a0
+140002f4:	e85ff0ef          	jal	ra,14000178 <assert>
+140002f8:	00645503          	lhu	a0,6(s0)
+140002fc:	01051513          	slli	a0,a0,0x10
+14000300:	41055513          	srai	a0,a0,0x10
+14000304:	000027b7          	lui	a5,0x2
+14000308:	15378793          	addi	a5,a5,339 # 2153 <_stack_top+0x1153>
+1400030c:	00f50533          	add	a0,a0,a5
+14000310:	00153513          	seqz	a0,a0
+14000314:	e65ff0ef          	jal	ra,14000178 <assert>
+14000318:	00144503          	lbu	a0,1(s0)
+1400031c:	00244783          	lbu	a5,2(s0)
+14000320:	00879793          	slli	a5,a5,0x8
+14000324:	00f56533          	or	a0,a0,a5
+14000328:	ffffd7b7          	lui	a5,0xffffd
+1400032c:	baa78793          	addi	a5,a5,-1110 # ffffcbaa <_ebulkbss+0xeabfcb8a>
+14000330:	00f50533          	add	a0,a0,a5
+14000334:	00153513          	seqz	a0,a0
+14000338:	e41ff0ef          	jal	ra,14000178 <assert>
+1400033c:	00344503          	lbu	a0,3(s0)
+14000340:	00444783          	lbu	a5,4(s0)
+14000344:	00879793          	slli	a5,a5,0x8
+14000348:	00f56533          	or	a0,a0,a5
+1400034c:	ffff17b7          	lui	a5,0xffff1
+14000350:	0ee78793          	addi	a5,a5,238 # ffff10ee <_ebulkbss+0xeabf10ce>
+14000354:	00f50533          	add	a0,a0,a5
+14000358:	00153513          	seqz	a0,a0
+1400035c:	e1dff0ef          	jal	ra,14000178 <assert>
+14000360:	00544503          	lbu	a0,5(s0)
+14000364:	00644783          	lbu	a5,6(s0)
+14000368:	00879793          	slli	a5,a5,0x8
+1400036c:	00f56533          	or	a0,a0,a5
+14000370:	ffff57b7          	lui	a5,0xffff5
+14000374:	24278793          	addi	a5,a5,578 # ffff5242 <_ebulkbss+0xeabf5222>
+14000378:	00f50533          	add	a0,a0,a5
 1400037c:	00153513          	seqz	a0,a0
-14000380:	da9ff0ef          	jal	ra,14000128 <assert>
-14000384:	00444503          	lbu	a0,4(s0)
-14000388:	f9150513          	addi	a0,a0,-111
-1400038c:	00153513          	seqz	a0,a0
-14000390:	d99ff0ef          	jal	ra,14000128 <assert>
-14000394:	00644503          	lbu	a0,6(s0)
-14000398:	f8950513          	addi	a0,a0,-119
-1400039c:	00153513          	seqz	a0,a0
-140003a0:	d89ff0ef          	jal	ra,14000128 <assert>
-140003a4:	00744503          	lbu	a0,7(s0)
-140003a8:	f9150513          	addi	a0,a0,-111
+14000380:	df9ff0ef          	jal	ra,14000178 <assert>
+14000384:	00744503          	lbu	a0,7(s0)
+14000388:	00844783          	lbu	a5,8(s0)
+1400038c:	00879793          	slli	a5,a5,0x8
+14000390:	00f56533          	or	a0,a0,a5
+14000394:	e2250513          	addi	a0,a0,-478
+14000398:	00153513          	seqz	a0,a0
+1400039c:	dddff0ef          	jal	ra,14000178 <assert>
+140003a0:	5d800413          	li	s0,1496
+140003a4:	00044503          	lbu	a0,0(s0)
+140003a8:	fb850513          	addi	a0,a0,-72
 140003ac:	00153513          	seqz	a0,a0
-140003b0:	d79ff0ef          	jal	ra,14000128 <assert>
-140003b4:	00944503          	lbu	a0,9(s0)
-140003b8:	f9450513          	addi	a0,a0,-108
+140003b0:	dc9ff0ef          	jal	ra,14000178 <assert>
+140003b4:	00144503          	lbu	a0,1(s0)
+140003b8:	f9b50513          	addi	a0,a0,-101
 140003bc:	00153513          	seqz	a0,a0
-140003c0:	d69ff0ef          	jal	ra,14000128 <assert>
-140003c4:	00b44503          	lbu	a0,11(s0)
-140003c8:	fdf50513          	addi	a0,a0,-33
+140003c0:	db9ff0ef          	jal	ra,14000178 <assert>
+140003c4:	00244503          	lbu	a0,2(s0)
+140003c8:	f9450513          	addi	a0,a0,-108
 140003cc:	00153513          	seqz	a0,a0
-140003d0:	d59ff0ef          	jal	ra,14000128 <assert>
-140003d4:	00000693          	li	a3,0
-140003d8:	0280006f          	j	14000400 <testInstructionsInFlash+0x280>
-140003dc:	00269713          	slli	a4,a3,0x2
-140003e0:	140007b7          	lui	a5,0x14000
-140003e4:	07878793          	addi	a5,a5,120 # 14000078 <flashData>
-140003e8:	00e787b3          	add	a5,a5,a4
-140003ec:	0007a783          	lw	a5,0(a5)
-140003f0:	02070713          	addi	a4,a4,32
-140003f4:	00270733          	add	a4,a4,sp
-140003f8:	fef72823          	sw	a5,-16(a4)
-140003fc:	00168693          	addi	a3,a3,1
-14000400:	00300793          	li	a5,3
-14000404:	fcd7dce3          	bge	a5,a3,140003dc <testInstructionsInFlash+0x25c>
-14000408:	00000713          	li	a4,0
-1400040c:	0240006f          	j	14000430 <testInstructionsInFlash+0x2b0>
-14000410:	140007b7          	lui	a5,0x14000
-14000414:	08878793          	addi	a5,a5,136 # 14000088 <flashString>
-14000418:	00e787b3          	add	a5,a5,a4
-1400041c:	0007c683          	lbu	a3,0(a5)
-14000420:	02070793          	addi	a5,a4,32
-14000424:	002787b3          	add	a5,a5,sp
-14000428:	fed78223          	sb	a3,-28(a5)
-1400042c:	00170713          	addi	a4,a4,1
-14000430:	00b00793          	li	a5,11
-14000434:	fce7dee3          	bge	a5,a4,14000410 <testInstructionsInFlash+0x290>
-14000438:	01012503          	lw	a0,16(sp)
-1400043c:	edcbb7b7          	lui	a5,0xedcbb
-14000440:	98878793          	addi	a5,a5,-1656 # edcba988 <_etext+0xd9cba210>
-14000444:	00f50533          	add	a0,a0,a5
-14000448:	00153513          	seqz	a0,a0
-1400044c:	cddff0ef          	jal	ra,14000128 <assert>
-14000450:	01412503          	lw	a0,20(sp)
-14000454:	215247b7          	lui	a5,0x21524
-14000458:	11178793          	addi	a5,a5,273 # 21524111 <_etext+0xd523999>
-1400045c:	00f50533          	add	a0,a0,a5
-14000460:	00153513          	seqz	a0,a0
-14000464:	cc5ff0ef          	jal	ra,14000128 <assert>
-14000468:	01812503          	lw	a0,24(sp)
-1400046c:	543217b7          	lui	a5,0x54321
-14000470:	0ff78793          	addi	a5,a5,255 # 543210ff <_etext+0x40320987>
-14000474:	00f50533          	add	a0,a0,a5
-14000478:	00153513          	seqz	a0,a0
-1400047c:	cadff0ef          	jal	ra,14000128 <assert>
-14000480:	01c12503          	lw	a0,28(sp)
-14000484:	f0e1d7b7          	lui	a5,0xf0e1d
-14000488:	2c478793          	addi	a5,a5,708 # f0e1d2c4 <_etext+0xdce1cb4c>
-1400048c:	00f50533          	add	a0,a0,a5
-14000490:	00153513          	seqz	a0,a0
-14000494:	c95ff0ef          	jal	ra,14000128 <assert>
-14000498:	01015503          	lhu	a0,16(sp)
-1400049c:	ffffb4b7          	lui	s1,0xffffb
-140004a0:	98848493          	addi	s1,s1,-1656 # ffffa988 <_etext+0xebffa210>
-140004a4:	00950533          	add	a0,a0,s1
-140004a8:	00153513          	seqz	a0,a0
-140004ac:	c7dff0ef          	jal	ra,14000128 <assert>
-140004b0:	01215503          	lhu	a0,18(sp)
-140004b4:	fffff437          	lui	s0,0xfffff
-140004b8:	dcc40413          	addi	s0,s0,-564 # ffffedcc <_etext+0xebffe654>
-140004bc:	00850533          	add	a0,a0,s0
-140004c0:	00153513          	seqz	a0,a0
-140004c4:	c65ff0ef          	jal	ra,14000128 <assert>
-140004c8:	01415503          	lhu	a0,20(sp)
-140004cc:	ffff47b7          	lui	a5,0xffff4
-140004d0:	11178793          	addi	a5,a5,273 # ffff4111 <_etext+0xebff3999>
-140004d4:	00f50533          	add	a0,a0,a5
-140004d8:	00153513          	seqz	a0,a0
-140004dc:	c4dff0ef          	jal	ra,14000128 <assert>
-140004e0:	01615503          	lhu	a0,22(sp)
-140004e4:	ffff27b7          	lui	a5,0xffff2
-140004e8:	15378793          	addi	a5,a5,339 # ffff2153 <_etext+0xebff19db>
-140004ec:	00f50533          	add	a0,a0,a5
-140004f0:	00153513          	seqz	a0,a0
-140004f4:	c35ff0ef          	jal	ra,14000128 <assert>
-140004f8:	01015503          	lhu	a0,16(sp)
-140004fc:	01051513          	slli	a0,a0,0x10
-14000500:	41055513          	srai	a0,a0,0x10
-14000504:	00950533          	add	a0,a0,s1
-14000508:	00153513          	seqz	a0,a0
-1400050c:	c1dff0ef          	jal	ra,14000128 <assert>
-14000510:	01215503          	lhu	a0,18(sp)
-14000514:	01051513          	slli	a0,a0,0x10
-14000518:	41055513          	srai	a0,a0,0x10
-1400051c:	00850533          	add	a0,a0,s0
-14000520:	00153513          	seqz	a0,a0
-14000524:	c05ff0ef          	jal	ra,14000128 <assert>
-14000528:	01415503          	lhu	a0,20(sp)
-1400052c:	01051513          	slli	a0,a0,0x10
-14000530:	41055513          	srai	a0,a0,0x10
-14000534:	000047b7          	lui	a5,0x4
-14000538:	11178793          	addi	a5,a5,273 # 4111 <_stack_top+0x3111>
+140003d0:	da9ff0ef          	jal	ra,14000178 <assert>
+140003d4:	00444503          	lbu	a0,4(s0)
+140003d8:	f9150513          	addi	a0,a0,-111
+140003dc:	00153513          	seqz	a0,a0
+140003e0:	d99ff0ef          	jal	ra,14000178 <assert>
+140003e4:	00644503          	lbu	a0,6(s0)
+140003e8:	f8950513          	addi	a0,a0,-119
+140003ec:	00153513          	seqz	a0,a0
+140003f0:	d89ff0ef          	jal	ra,14000178 <assert>
+140003f4:	00744503          	lbu	a0,7(s0)
+140003f8:	f9150513          	addi	a0,a0,-111
+140003fc:	00153513          	seqz	a0,a0
+14000400:	d79ff0ef          	jal	ra,14000178 <assert>
+14000404:	00944503          	lbu	a0,9(s0)
+14000408:	f9450513          	addi	a0,a0,-108
+1400040c:	00153513          	seqz	a0,a0
+14000410:	d69ff0ef          	jal	ra,14000178 <assert>
+14000414:	00b44503          	lbu	a0,11(s0)
+14000418:	fdf50513          	addi	a0,a0,-33
+1400041c:	00153513          	seqz	a0,a0
+14000420:	d59ff0ef          	jal	ra,14000178 <assert>
+14000424:	00000693          	li	a3,0
+14000428:	0280006f          	j	14000450 <testInstructionsInFlash+0x280>
+1400042c:	00269713          	slli	a4,a3,0x2
+14000430:	140007b7          	lui	a5,0x14000
+14000434:	0c878793          	addi	a5,a5,200 # 140000c8 <flashData>
+14000438:	00e787b3          	add	a5,a5,a4
+1400043c:	0007a783          	lw	a5,0(a5)
+14000440:	02070713          	addi	a4,a4,32
+14000444:	00270733          	add	a4,a4,sp
+14000448:	fef72823          	sw	a5,-16(a4)
+1400044c:	00168693          	addi	a3,a3,1
+14000450:	00300793          	li	a5,3
+14000454:	fcd7dce3          	bge	a5,a3,1400042c <testInstructionsInFlash+0x25c>
+14000458:	00000713          	li	a4,0
+1400045c:	0240006f          	j	14000480 <testInstructionsInFlash+0x2b0>
+14000460:	140007b7          	lui	a5,0x14000
+14000464:	0d878793          	addi	a5,a5,216 # 140000d8 <flashString>
+14000468:	00e787b3          	add	a5,a5,a4
+1400046c:	0007c683          	lbu	a3,0(a5)
+14000470:	02070793          	addi	a5,a4,32
+14000474:	002787b3          	add	a5,a5,sp
+14000478:	fed78223          	sb	a3,-28(a5)
+1400047c:	00170713          	addi	a4,a4,1
+14000480:	00b00793          	li	a5,11
+14000484:	fce7dee3          	bge	a5,a4,14000460 <testInstructionsInFlash+0x290>
+14000488:	01012503          	lw	a0,16(sp)
+1400048c:	edcbb7b7          	lui	a5,0xedcbb
+14000490:	98878793          	addi	a5,a5,-1656 # edcba988 <_ebulkbss+0xd88ba968>
+14000494:	00f50533          	add	a0,a0,a5
+14000498:	00153513          	seqz	a0,a0
+1400049c:	cddff0ef          	jal	ra,14000178 <assert>
+140004a0:	01412503          	lw	a0,20(sp)
+140004a4:	215247b7          	lui	a5,0x21524
+140004a8:	11178793          	addi	a5,a5,273 # 21524111 <_ebulkbss+0xc1240f1>
+140004ac:	00f50533          	add	a0,a0,a5
+140004b0:	00153513          	seqz	a0,a0
+140004b4:	cc5ff0ef          	jal	ra,14000178 <assert>
+140004b8:	01812503          	lw	a0,24(sp)
+140004bc:	543217b7          	lui	a5,0x54321
+140004c0:	0ff78793          	addi	a5,a5,255 # 543210ff <_ebulkbss+0x3ef210df>
+140004c4:	00f50533          	add	a0,a0,a5
+140004c8:	00153513          	seqz	a0,a0
+140004cc:	cadff0ef          	jal	ra,14000178 <assert>
+140004d0:	01c12503          	lw	a0,28(sp)
+140004d4:	f0e1d7b7          	lui	a5,0xf0e1d
+140004d8:	2c478793          	addi	a5,a5,708 # f0e1d2c4 <_ebulkbss+0xdba1d2a4>
+140004dc:	00f50533          	add	a0,a0,a5
+140004e0:	00153513          	seqz	a0,a0
+140004e4:	c95ff0ef          	jal	ra,14000178 <assert>
+140004e8:	01015503          	lhu	a0,16(sp)
+140004ec:	ffffb4b7          	lui	s1,0xffffb
+140004f0:	98848493          	addi	s1,s1,-1656 # ffffa988 <_ebulkbss+0xeabfa968>
+140004f4:	00950533          	add	a0,a0,s1
+140004f8:	00153513          	seqz	a0,a0
+140004fc:	c7dff0ef          	jal	ra,14000178 <assert>
+14000500:	01215503          	lhu	a0,18(sp)
+14000504:	fffff437          	lui	s0,0xfffff
+14000508:	dcc40413          	addi	s0,s0,-564 # ffffedcc <_ebulkbss+0xeabfedac>
+1400050c:	00850533          	add	a0,a0,s0
+14000510:	00153513          	seqz	a0,a0
+14000514:	c65ff0ef          	jal	ra,14000178 <assert>
+14000518:	01415503          	lhu	a0,20(sp)
+1400051c:	ffff47b7          	lui	a5,0xffff4
+14000520:	11178793          	addi	a5,a5,273 # ffff4111 <_ebulkbss+0xeabf40f1>
+14000524:	00f50533          	add	a0,a0,a5
+14000528:	00153513          	seqz	a0,a0
+1400052c:	c4dff0ef          	jal	ra,14000178 <assert>
+14000530:	01615503          	lhu	a0,22(sp)
+14000534:	ffff27b7          	lui	a5,0xffff2
+14000538:	15378793          	addi	a5,a5,339 # ffff2153 <_ebulkbss+0xeabf2133>
 1400053c:	00f50533          	add	a0,a0,a5
 14000540:	00153513          	seqz	a0,a0
-14000544:	be5ff0ef          	jal	ra,14000128 <assert>
-14000548:	01615503          	lhu	a0,22(sp)
+14000544:	c35ff0ef          	jal	ra,14000178 <assert>
+14000548:	01015503          	lhu	a0,16(sp)
 1400054c:	01051513          	slli	a0,a0,0x10
 14000550:	41055513          	srai	a0,a0,0x10
-14000554:	000027b7          	lui	a5,0x2
-14000558:	15378793          	addi	a5,a5,339 # 2153 <_stack_top+0x1153>
-1400055c:	00f50533          	add	a0,a0,a5
-14000560:	00153513          	seqz	a0,a0
-14000564:	bc5ff0ef          	jal	ra,14000128 <assert>
-14000568:	01114503          	lbu	a0,17(sp)
-1400056c:	01214783          	lbu	a5,18(sp)
-14000570:	00879793          	slli	a5,a5,0x8
-14000574:	00f56533          	or	a0,a0,a5
-14000578:	ffffd7b7          	lui	a5,0xffffd
-1400057c:	baa78793          	addi	a5,a5,-1110 # ffffcbaa <_etext+0xebffc432>
-14000580:	00f50533          	add	a0,a0,a5
-14000584:	00153513          	seqz	a0,a0
-14000588:	ba1ff0ef          	jal	ra,14000128 <assert>
-1400058c:	01314503          	lbu	a0,19(sp)
-14000590:	01414783          	lbu	a5,20(sp)
-14000594:	00879793          	slli	a5,a5,0x8
-14000598:	00f56533          	or	a0,a0,a5
-1400059c:	ffff17b7          	lui	a5,0xffff1
-140005a0:	0ee78793          	addi	a5,a5,238 # ffff10ee <_etext+0xebff0976>
-140005a4:	00f50533          	add	a0,a0,a5
-140005a8:	00153513          	seqz	a0,a0
-140005ac:	b7dff0ef          	jal	ra,14000128 <assert>
-140005b0:	01514503          	lbu	a0,21(sp)
-140005b4:	01614783          	lbu	a5,22(sp)
-140005b8:	00879793          	slli	a5,a5,0x8
-140005bc:	00f56533          	or	a0,a0,a5
-140005c0:	ffff57b7          	lui	a5,0xffff5
-140005c4:	24278793          	addi	a5,a5,578 # ffff5242 <_etext+0xebff4aca>
-140005c8:	00f50533          	add	a0,a0,a5
-140005cc:	00153513          	seqz	a0,a0
-140005d0:	b59ff0ef          	jal	ra,14000128 <assert>
-140005d4:	01714503          	lbu	a0,23(sp)
-140005d8:	01814783          	lbu	a5,24(sp)
-140005dc:	00879793          	slli	a5,a5,0x8
-140005e0:	00f56533          	or	a0,a0,a5
-140005e4:	e2250513          	addi	a0,a0,-478
-140005e8:	00153513          	seqz	a0,a0
-140005ec:	b3dff0ef          	jal	ra,14000128 <assert>
-140005f0:	00414503          	lbu	a0,4(sp)
-140005f4:	fb850513          	addi	a0,a0,-72
+14000554:	00950533          	add	a0,a0,s1
+14000558:	00153513          	seqz	a0,a0
+1400055c:	c1dff0ef          	jal	ra,14000178 <assert>
+14000560:	01215503          	lhu	a0,18(sp)
+14000564:	01051513          	slli	a0,a0,0x10
+14000568:	41055513          	srai	a0,a0,0x10
+1400056c:	00850533          	add	a0,a0,s0
+14000570:	00153513          	seqz	a0,a0
+14000574:	c05ff0ef          	jal	ra,14000178 <assert>
+14000578:	01415503          	lhu	a0,20(sp)
+1400057c:	01051513          	slli	a0,a0,0x10
+14000580:	41055513          	srai	a0,a0,0x10
+14000584:	000047b7          	lui	a5,0x4
+14000588:	11178793          	addi	a5,a5,273 # 4111 <_stack_top+0x3111>
+1400058c:	00f50533          	add	a0,a0,a5
+14000590:	00153513          	seqz	a0,a0
+14000594:	be5ff0ef          	jal	ra,14000178 <assert>
+14000598:	01615503          	lhu	a0,22(sp)
+1400059c:	01051513          	slli	a0,a0,0x10
+140005a0:	41055513          	srai	a0,a0,0x10
+140005a4:	000027b7          	lui	a5,0x2
+140005a8:	15378793          	addi	a5,a5,339 # 2153 <_stack_top+0x1153>
+140005ac:	00f50533          	add	a0,a0,a5
+140005b0:	00153513          	seqz	a0,a0
+140005b4:	bc5ff0ef          	jal	ra,14000178 <assert>
+140005b8:	01114503          	lbu	a0,17(sp)
+140005bc:	01214783          	lbu	a5,18(sp)
+140005c0:	00879793          	slli	a5,a5,0x8
+140005c4:	00f56533          	or	a0,a0,a5
+140005c8:	ffffd7b7          	lui	a5,0xffffd
+140005cc:	baa78793          	addi	a5,a5,-1110 # ffffcbaa <_ebulkbss+0xeabfcb8a>
+140005d0:	00f50533          	add	a0,a0,a5
+140005d4:	00153513          	seqz	a0,a0
+140005d8:	ba1ff0ef          	jal	ra,14000178 <assert>
+140005dc:	01314503          	lbu	a0,19(sp)
+140005e0:	01414783          	lbu	a5,20(sp)
+140005e4:	00879793          	slli	a5,a5,0x8
+140005e8:	00f56533          	or	a0,a0,a5
+140005ec:	ffff17b7          	lui	a5,0xffff1
+140005f0:	0ee78793          	addi	a5,a5,238 # ffff10ee <_ebulkbss+0xeabf10ce>
+140005f4:	00f50533          	add	a0,a0,a5
 140005f8:	00153513          	seqz	a0,a0
-140005fc:	b2dff0ef          	jal	ra,14000128 <assert>
-14000600:	00514503          	lbu	a0,5(sp)
-14000604:	f9b50513          	addi	a0,a0,-101
-14000608:	00153513          	seqz	a0,a0
-1400060c:	b1dff0ef          	jal	ra,14000128 <assert>
-14000610:	00614503          	lbu	a0,6(sp)
-14000614:	f9450513          	addi	a0,a0,-108
-14000618:	00153513          	seqz	a0,a0
-1400061c:	b0dff0ef          	jal	ra,14000128 <assert>
-14000620:	00814503          	lbu	a0,8(sp)
-14000624:	f9150513          	addi	a0,a0,-111
-14000628:	00153513          	seqz	a0,a0
-1400062c:	afdff0ef          	jal	ra,14000128 <assert>
-14000630:	00a14503          	lbu	a0,10(sp)
-14000634:	f8950513          	addi	a0,a0,-119
+140005fc:	b7dff0ef          	jal	ra,14000178 <assert>
+14000600:	01514503          	lbu	a0,21(sp)
+14000604:	01614783          	lbu	a5,22(sp)
+14000608:	00879793          	slli	a5,a5,0x8
+1400060c:	00f56533          	or	a0,a0,a5
+14000610:	ffff57b7          	lui	a5,0xffff5
+14000614:	24278793          	addi	a5,a5,578 # ffff5242 <_ebulkbss+0xeabf5222>
+14000618:	00f50533          	add	a0,a0,a5
+1400061c:	00153513          	seqz	a0,a0
+14000620:	b59ff0ef          	jal	ra,14000178 <assert>
+14000624:	01714503          	lbu	a0,23(sp)
+14000628:	01814783          	lbu	a5,24(sp)
+1400062c:	00879793          	slli	a5,a5,0x8
+14000630:	00f56533          	or	a0,a0,a5
+14000634:	e2250513          	addi	a0,a0,-478
 14000638:	00153513          	seqz	a0,a0
-1400063c:	aedff0ef          	jal	ra,14000128 <assert>
-14000640:	00b14503          	lbu	a0,11(sp)
-14000644:	f9150513          	addi	a0,a0,-111
+1400063c:	b3dff0ef          	jal	ra,14000178 <assert>
+14000640:	00414503          	lbu	a0,4(sp)
+14000644:	fb850513          	addi	a0,a0,-72
 14000648:	00153513          	seqz	a0,a0
-1400064c:	addff0ef          	jal	ra,14000128 <assert>
-14000650:	00d14503          	lbu	a0,13(sp)
-14000654:	f9450513          	addi	a0,a0,-108
+1400064c:	b2dff0ef          	jal	ra,14000178 <assert>
+14000650:	00514503          	lbu	a0,5(sp)
+14000654:	f9b50513          	addi	a0,a0,-101
 14000658:	00153513          	seqz	a0,a0
-1400065c:	acdff0ef          	jal	ra,14000128 <assert>
-14000660:	00f14503          	lbu	a0,15(sp)
-14000664:	fdf50513          	addi	a0,a0,-33
+1400065c:	b1dff0ef          	jal	ra,14000178 <assert>
+14000660:	00614503          	lbu	a0,6(sp)
+14000664:	f9450513          	addi	a0,a0,-108
 14000668:	00153513          	seqz	a0,a0
-1400066c:	abdff0ef          	jal	ra,14000128 <assert>
-14000670:	02c12083          	lw	ra,44(sp)
-14000674:	02812403          	lw	s0,40(sp)
-14000678:	02412483          	lw	s1,36(sp)
-1400067c:	02012903          	lw	s2,32(sp)
-14000680:	03010113          	addi	sp,sp,48
-14000684:	00008067          	ret
+1400066c:	b0dff0ef          	jal	ra,14000178 <assert>
+14000670:	00814503          	lbu	a0,8(sp)
+14000674:	f9150513          	addi	a0,a0,-111
+14000678:	00153513          	seqz	a0,a0
+1400067c:	afdff0ef          	jal	ra,14000178 <assert>
+14000680:	00a14503          	lbu	a0,10(sp)
+14000684:	f8950513          	addi	a0,a0,-119
+14000688:	00153513          	seqz	a0,a0
+1400068c:	aedff0ef          	jal	ra,14000178 <assert>
+14000690:	00b14503          	lbu	a0,11(sp)
+14000694:	f9150513          	addi	a0,a0,-111
+14000698:	00153513          	seqz	a0,a0
+1400069c:	addff0ef          	jal	ra,14000178 <assert>
+140006a0:	00d14503          	lbu	a0,13(sp)
+140006a4:	f9450513          	addi	a0,a0,-108
+140006a8:	00153513          	seqz	a0,a0
+140006ac:	acdff0ef          	jal	ra,14000178 <assert>
+140006b0:	00f14503          	lbu	a0,15(sp)
+140006b4:	fdf50513          	addi	a0,a0,-33
+140006b8:	00153513          	seqz	a0,a0
+140006bc:	abdff0ef          	jal	ra,14000178 <assert>
+140006c0:	02c12083          	lw	ra,44(sp)
+140006c4:	02812403          	lw	s0,40(sp)
+140006c8:	02412483          	lw	s1,36(sp)
+140006cc:	02012903          	lw	s2,32(sp)
+140006d0:	03010113          	addi	sp,sp,48
+140006d4:	00008067          	ret
 
-14000688 <main>:
-14000688:	ff010113          	addi	sp,sp,-16
-1400068c:	00112623          	sw	ra,12(sp)
-14000690:	00812423          	sw	s0,8(sp)
-14000694:	a0dff0ef          	jal	ra,140000a0 <setupTests>
-14000698:	000000e7          	jalr	zero # 0 <testInstructionsInSRAM>
-1400069c:	aadff0ef          	jal	ra,14000148 <completeTestSection>
-140006a0:	ae1ff0ef          	jal	ra,14000180 <testInstructionsInFlash>
-140006a4:	aa5ff0ef          	jal	ra,14000148 <completeTestSection>
-140006a8:	00000413          	li	s0,0
-140006ac:	0340006f          	j	140006e0 <main+0x58>
-140006b0:	00241713          	slli	a4,s0,0x2
-140006b4:	140007b7          	lui	a5,0x14000
-140006b8:	07878793          	addi	a5,a5,120 # 14000078 <flashData>
-140006bc:	00e787b3          	add	a5,a5,a4
-140006c0:	0007a503          	lw	a0,0(a5)
-140006c4:	5c800793          	li	a5,1480
-140006c8:	00e787b3          	add	a5,a5,a4
-140006cc:	0007a783          	lw	a5,0(a5)
-140006d0:	40f50533          	sub	a0,a0,a5
-140006d4:	00153513          	seqz	a0,a0
-140006d8:	a51ff0ef          	jal	ra,14000128 <assert>
-140006dc:	00140413          	addi	s0,s0,1
-140006e0:	00300793          	li	a5,3
-140006e4:	fc87d6e3          	bge	a5,s0,140006b0 <main+0x28>
-140006e8:	00000413          	li	s0,0
-140006ec:	0340006f          	j	14000720 <main+0x98>
-140006f0:	00141713          	slli	a4,s0,0x1
-140006f4:	140007b7          	lui	a5,0x14000
-140006f8:	07878793          	addi	a5,a5,120 # 14000078 <flashData>
-140006fc:	00e787b3          	add	a5,a5,a4
-14000700:	0007d503          	lhu	a0,0(a5)
-14000704:	5c800793          	li	a5,1480
-14000708:	00e787b3          	add	a5,a5,a4
-1400070c:	0007d783          	lhu	a5,0(a5)
-14000710:	40f50533          	sub	a0,a0,a5
-14000714:	00153513          	seqz	a0,a0
-14000718:	a11ff0ef          	jal	ra,14000128 <assert>
-1400071c:	00140413          	addi	s0,s0,1
-14000720:	00700793          	li	a5,7
-14000724:	fc87d6e3          	bge	a5,s0,140006f0 <main+0x68>
-14000728:	00000413          	li	s0,0
-1400072c:	0300006f          	j	1400075c <main+0xd4>
-14000730:	140007b7          	lui	a5,0x14000
-14000734:	08878793          	addi	a5,a5,136 # 14000088 <flashString>
-14000738:	008787b3          	add	a5,a5,s0
-1400073c:	0007c503          	lbu	a0,0(a5)
-14000740:	5d800793          	li	a5,1496
-14000744:	008787b3          	add	a5,a5,s0
-14000748:	0007c783          	lbu	a5,0(a5)
-1400074c:	40f50533          	sub	a0,a0,a5
-14000750:	00153513          	seqz	a0,a0
-14000754:	9d5ff0ef          	jal	ra,14000128 <assert>
-14000758:	00140413          	addi	s0,s0,1
-1400075c:	00b00793          	li	a5,11
-14000760:	fc87d8e3          	bge	a5,s0,14000730 <main+0xa8>
-14000764:	9e5ff0ef          	jal	ra,14000148 <completeTestSection>
-14000768:	00c12083          	lw	ra,12(sp)
-1400076c:	00812403          	lw	s0,8(sp)
-14000770:	01010113          	addi	sp,sp,16
-14000774:	00008067          	ret
+140006d8 <main>:
+140006d8:	ff010113          	addi	sp,sp,-16
+140006dc:	00112623          	sw	ra,12(sp)
+140006e0:	00812423          	sw	s0,8(sp)
+140006e4:	00912223          	sw	s1,4(sp)
+140006e8:	01212023          	sw	s2,0(sp)
+140006ec:	a05ff0ef          	jal	ra,140000f0 <setupTests>
+140006f0:	000000e7          	jalr	zero # 0 <testInstructionsInSRAM>
+140006f4:	aa5ff0ef          	jal	ra,14000198 <completeTestSection>
+140006f8:	ad9ff0ef          	jal	ra,140001d0 <testInstructionsInFlash>
+140006fc:	a9dff0ef          	jal	ra,14000198 <completeTestSection>
+14000700:	00000413          	li	s0,0
+14000704:	0340006f          	j	14000738 <main+0x60>
+14000708:	00241713          	slli	a4,s0,0x2
+1400070c:	140007b7          	lui	a5,0x14000
+14000710:	0c878793          	addi	a5,a5,200 # 140000c8 <flashData>
+14000714:	00e787b3          	add	a5,a5,a4
+14000718:	0007a503          	lw	a0,0(a5)
+1400071c:	5c800793          	li	a5,1480
+14000720:	00e787b3          	add	a5,a5,a4
+14000724:	0007a783          	lw	a5,0(a5)
+14000728:	40f50533          	sub	a0,a0,a5
+1400072c:	00153513          	seqz	a0,a0
+14000730:	a49ff0ef          	jal	ra,14000178 <assert>
+14000734:	00140413          	addi	s0,s0,1
+14000738:	00300793          	li	a5,3
+1400073c:	fc87d6e3          	bge	a5,s0,14000708 <main+0x30>
+14000740:	00000413          	li	s0,0
+14000744:	0340006f          	j	14000778 <main+0xa0>
+14000748:	00141713          	slli	a4,s0,0x1
+1400074c:	140007b7          	lui	a5,0x14000
+14000750:	0c878793          	addi	a5,a5,200 # 140000c8 <flashData>
+14000754:	00e787b3          	add	a5,a5,a4
+14000758:	0007d503          	lhu	a0,0(a5)
+1400075c:	5c800793          	li	a5,1480
+14000760:	00e787b3          	add	a5,a5,a4
+14000764:	0007d783          	lhu	a5,0(a5)
+14000768:	40f50533          	sub	a0,a0,a5
+1400076c:	00153513          	seqz	a0,a0
+14000770:	a09ff0ef          	jal	ra,14000178 <assert>
+14000774:	00140413          	addi	s0,s0,1
+14000778:	00700793          	li	a5,7
+1400077c:	fc87d6e3          	bge	a5,s0,14000748 <main+0x70>
+14000780:	00000413          	li	s0,0
+14000784:	0300006f          	j	140007b4 <main+0xdc>
+14000788:	140007b7          	lui	a5,0x14000
+1400078c:	0d878793          	addi	a5,a5,216 # 140000d8 <flashString>
+14000790:	008787b3          	add	a5,a5,s0
+14000794:	0007c503          	lbu	a0,0(a5)
+14000798:	5d800793          	li	a5,1496
+1400079c:	008787b3          	add	a5,a5,s0
+140007a0:	0007c783          	lbu	a5,0(a5)
+140007a4:	40f50533          	sub	a0,a0,a5
+140007a8:	00153513          	seqz	a0,a0
+140007ac:	9cdff0ef          	jal	ra,14000178 <assert>
+140007b0:	00140413          	addi	s0,s0,1
+140007b4:	00b00793          	li	a5,11
+140007b8:	fc87d8e3          	bge	a5,s0,14000788 <main+0xb0>
+140007bc:	9ddff0ef          	jal	ra,14000198 <completeTestSection>
+140007c0:	15000437          	lui	s0,0x15000
+140007c4:	00040413          	mv	s0,s0
+140007c8:	00042503          	lw	a0,0(s0) # 15000000 <psramData>
+140007cc:	edcbb7b7          	lui	a5,0xedcbb
+140007d0:	98878793          	addi	a5,a5,-1656 # edcba988 <_ebulkbss+0xd88ba968>
+140007d4:	00f50533          	add	a0,a0,a5
+140007d8:	00153513          	seqz	a0,a0
+140007dc:	99dff0ef          	jal	ra,14000178 <assert>
+140007e0:	00442503          	lw	a0,4(s0)
+140007e4:	215247b7          	lui	a5,0x21524
+140007e8:	11178793          	addi	a5,a5,273 # 21524111 <_ebulkbss+0xc1240f1>
+140007ec:	00f50533          	add	a0,a0,a5
+140007f0:	00153513          	seqz	a0,a0
+140007f4:	985ff0ef          	jal	ra,14000178 <assert>
+140007f8:	00842503          	lw	a0,8(s0)
+140007fc:	543217b7          	lui	a5,0x54321
+14000800:	0ff78793          	addi	a5,a5,255 # 543210ff <_ebulkbss+0x3ef210df>
+14000804:	00f50533          	add	a0,a0,a5
+14000808:	00153513          	seqz	a0,a0
+1400080c:	96dff0ef          	jal	ra,14000178 <assert>
+14000810:	00c42503          	lw	a0,12(s0)
+14000814:	f0e1d7b7          	lui	a5,0xf0e1d
+14000818:	2c478793          	addi	a5,a5,708 # f0e1d2c4 <_ebulkbss+0xdba1d2a4>
+1400081c:	00f50533          	add	a0,a0,a5
+14000820:	00153513          	seqz	a0,a0
+14000824:	955ff0ef          	jal	ra,14000178 <assert>
+14000828:	00045503          	lhu	a0,0(s0)
+1400082c:	ffffb937          	lui	s2,0xffffb
+14000830:	98890913          	addi	s2,s2,-1656 # ffffa988 <_ebulkbss+0xeabfa968>
+14000834:	01250533          	add	a0,a0,s2
+14000838:	00153513          	seqz	a0,a0
+1400083c:	93dff0ef          	jal	ra,14000178 <assert>
+14000840:	00245503          	lhu	a0,2(s0)
+14000844:	fffff4b7          	lui	s1,0xfffff
+14000848:	dcc48493          	addi	s1,s1,-564 # ffffedcc <_ebulkbss+0xeabfedac>
+1400084c:	00950533          	add	a0,a0,s1
+14000850:	00153513          	seqz	a0,a0
+14000854:	925ff0ef          	jal	ra,14000178 <assert>
+14000858:	00445503          	lhu	a0,4(s0)
+1400085c:	ffff47b7          	lui	a5,0xffff4
+14000860:	11178793          	addi	a5,a5,273 # ffff4111 <_ebulkbss+0xeabf40f1>
+14000864:	00f50533          	add	a0,a0,a5
+14000868:	00153513          	seqz	a0,a0
+1400086c:	90dff0ef          	jal	ra,14000178 <assert>
+14000870:	00645503          	lhu	a0,6(s0)
+14000874:	ffff27b7          	lui	a5,0xffff2
+14000878:	15378793          	addi	a5,a5,339 # ffff2153 <_ebulkbss+0xeabf2133>
+1400087c:	00f50533          	add	a0,a0,a5
+14000880:	00153513          	seqz	a0,a0
+14000884:	8f5ff0ef          	jal	ra,14000178 <assert>
+14000888:	00045503          	lhu	a0,0(s0)
+1400088c:	01051513          	slli	a0,a0,0x10
+14000890:	41055513          	srai	a0,a0,0x10
+14000894:	01250533          	add	a0,a0,s2
+14000898:	00153513          	seqz	a0,a0
+1400089c:	8ddff0ef          	jal	ra,14000178 <assert>
+140008a0:	00245503          	lhu	a0,2(s0)
+140008a4:	01051513          	slli	a0,a0,0x10
+140008a8:	41055513          	srai	a0,a0,0x10
+140008ac:	00950533          	add	a0,a0,s1
+140008b0:	00153513          	seqz	a0,a0
+140008b4:	8c5ff0ef          	jal	ra,14000178 <assert>
+140008b8:	00445503          	lhu	a0,4(s0)
+140008bc:	01051513          	slli	a0,a0,0x10
+140008c0:	41055513          	srai	a0,a0,0x10
+140008c4:	000047b7          	lui	a5,0x4
+140008c8:	11178793          	addi	a5,a5,273 # 4111 <_stack_top+0x3111>
+140008cc:	00f50533          	add	a0,a0,a5
+140008d0:	00153513          	seqz	a0,a0
+140008d4:	8a5ff0ef          	jal	ra,14000178 <assert>
+140008d8:	00645503          	lhu	a0,6(s0)
+140008dc:	01051513          	slli	a0,a0,0x10
+140008e0:	41055513          	srai	a0,a0,0x10
+140008e4:	000027b7          	lui	a5,0x2
+140008e8:	15378793          	addi	a5,a5,339 # 2153 <_stack_top+0x1153>
+140008ec:	00f50533          	add	a0,a0,a5
+140008f0:	00153513          	seqz	a0,a0
+140008f4:	885ff0ef          	jal	ra,14000178 <assert>
+140008f8:	00144503          	lbu	a0,1(s0)
+140008fc:	00244783          	lbu	a5,2(s0)
+14000900:	00879793          	slli	a5,a5,0x8
+14000904:	00f56533          	or	a0,a0,a5
+14000908:	ffffd7b7          	lui	a5,0xffffd
+1400090c:	baa78793          	addi	a5,a5,-1110 # ffffcbaa <_ebulkbss+0xeabfcb8a>
+14000910:	00f50533          	add	a0,a0,a5
+14000914:	00153513          	seqz	a0,a0
+14000918:	861ff0ef          	jal	ra,14000178 <assert>
+1400091c:	00344503          	lbu	a0,3(s0)
+14000920:	00444783          	lbu	a5,4(s0)
+14000924:	00879793          	slli	a5,a5,0x8
+14000928:	00f56533          	or	a0,a0,a5
+1400092c:	ffff17b7          	lui	a5,0xffff1
+14000930:	0ee78793          	addi	a5,a5,238 # ffff10ee <_ebulkbss+0xeabf10ce>
+14000934:	00f50533          	add	a0,a0,a5
+14000938:	00153513          	seqz	a0,a0
+1400093c:	83dff0ef          	jal	ra,14000178 <assert>
+14000940:	00544503          	lbu	a0,5(s0)
+14000944:	00644783          	lbu	a5,6(s0)
+14000948:	00879793          	slli	a5,a5,0x8
+1400094c:	00f56533          	or	a0,a0,a5
+14000950:	ffff57b7          	lui	a5,0xffff5
+14000954:	24278793          	addi	a5,a5,578 # ffff5242 <_ebulkbss+0xeabf5222>
+14000958:	00f50533          	add	a0,a0,a5
+1400095c:	00153513          	seqz	a0,a0
+14000960:	819ff0ef          	jal	ra,14000178 <assert>
+14000964:	00744503          	lbu	a0,7(s0)
+14000968:	00844783          	lbu	a5,8(s0)
+1400096c:	00879793          	slli	a5,a5,0x8
+14000970:	00f56533          	or	a0,a0,a5
+14000974:	e2250513          	addi	a0,a0,-478
+14000978:	00153513          	seqz	a0,a0
+1400097c:	ffcff0ef          	jal	ra,14000178 <assert>
+14000980:	01044503          	lbu	a0,16(s0)
+14000984:	fb850513          	addi	a0,a0,-72
+14000988:	00153513          	seqz	a0,a0
+1400098c:	fecff0ef          	jal	ra,14000178 <assert>
+14000990:	01144503          	lbu	a0,17(s0)
+14000994:	f9b50513          	addi	a0,a0,-101
+14000998:	00153513          	seqz	a0,a0
+1400099c:	fdcff0ef          	jal	ra,14000178 <assert>
+140009a0:	01244503          	lbu	a0,18(s0)
+140009a4:	f9450513          	addi	a0,a0,-108
+140009a8:	00153513          	seqz	a0,a0
+140009ac:	fccff0ef          	jal	ra,14000178 <assert>
+140009b0:	01444503          	lbu	a0,20(s0)
+140009b4:	f9150513          	addi	a0,a0,-111
+140009b8:	00153513          	seqz	a0,a0
+140009bc:	fbcff0ef          	jal	ra,14000178 <assert>
+140009c0:	01644503          	lbu	a0,22(s0)
+140009c4:	f8950513          	addi	a0,a0,-119
+140009c8:	00153513          	seqz	a0,a0
+140009cc:	facff0ef          	jal	ra,14000178 <assert>
+140009d0:	01744503          	lbu	a0,23(s0)
+140009d4:	f9150513          	addi	a0,a0,-111
+140009d8:	00153513          	seqz	a0,a0
+140009dc:	f9cff0ef          	jal	ra,14000178 <assert>
+140009e0:	01944503          	lbu	a0,25(s0)
+140009e4:	f9450513          	addi	a0,a0,-108
+140009e8:	00153513          	seqz	a0,a0
+140009ec:	f8cff0ef          	jal	ra,14000178 <assert>
+140009f0:	01b44503          	lbu	a0,27(s0)
+140009f4:	fdf50513          	addi	a0,a0,-33
+140009f8:	00153513          	seqz	a0,a0
+140009fc:	f7cff0ef          	jal	ra,14000178 <assert>
+14000a00:	f98ff0ef          	jal	ra,14000198 <completeTestSection>
+14000a04:	00000713          	li	a4,0
+14000a08:	06c0006f          	j	14000a74 <main+0x39c>
+14000a0c:	150007b7          	lui	a5,0x15000
+14000a10:	02078793          	addi	a5,a5,32 # 15000020 <psramLargeData>
+14000a14:	00271693          	slli	a3,a4,0x2
+14000a18:	00d786b3          	add	a3,a5,a3
+14000a1c:	12345637          	lui	a2,0x12345
+14000a20:	67860613          	addi	a2,a2,1656 # 12345678 <_stack_top+0x12344678>
+14000a24:	00c6a023          	sw	a2,0(a3)
+14000a28:	00a70693          	addi	a3,a4,10
+14000a2c:	00269693          	slli	a3,a3,0x2
+14000a30:	00d786b3          	add	a3,a5,a3
+14000a34:	deadc637          	lui	a2,0xdeadc
+14000a38:	eef60613          	addi	a2,a2,-273 # deadbeef <_ebulkbss+0xc96dbecf>
+14000a3c:	00c6a023          	sw	a2,0(a3)
+14000a40:	02070693          	addi	a3,a4,32
+14000a44:	00269693          	slli	a3,a3,0x2
+14000a48:	00d786b3          	add	a3,a5,a3
+14000a4c:	abcdf637          	lui	a2,0xabcdf
+14000a50:	f0160613          	addi	a2,a2,-255 # abcdef01 <_ebulkbss+0x968deee1>
+14000a54:	00c6a023          	sw	a2,0(a3)
+14000a58:	04070693          	addi	a3,a4,64
+14000a5c:	00269693          	slli	a3,a3,0x2
+14000a60:	00d787b3          	add	a5,a5,a3
+14000a64:	0f1e36b7          	lui	a3,0xf1e3
+14000a68:	d3c68693          	addi	a3,a3,-708 # f1e2d3c <_stack_top+0xf1e1d3c>
+14000a6c:	00d7a023          	sw	a3,0(a5)
+14000a70:	08070713          	addi	a4,a4,128
+14000a74:	000017b7          	lui	a5,0x1
+14000a78:	f8f74ae3          	blt	a4,a5,14000a0c <main+0x334>
+14000a7c:	00000493          	li	s1,0
+14000a80:	09c0006f          	j	14000b1c <main+0x444>
+14000a84:	15000437          	lui	s0,0x15000
+14000a88:	02040413          	addi	s0,s0,32 # 15000020 <psramLargeData>
+14000a8c:	00249793          	slli	a5,s1,0x2
+14000a90:	00f407b3          	add	a5,s0,a5
+14000a94:	0007a503          	lw	a0,0(a5) # 1000 <_stack_top>
+14000a98:	edcbb7b7          	lui	a5,0xedcbb
+14000a9c:	98878793          	addi	a5,a5,-1656 # edcba988 <_ebulkbss+0xd88ba968>
+14000aa0:	00f50533          	add	a0,a0,a5
+14000aa4:	00153513          	seqz	a0,a0
+14000aa8:	ed0ff0ef          	jal	ra,14000178 <assert>
+14000aac:	00a48793          	addi	a5,s1,10
+14000ab0:	00279793          	slli	a5,a5,0x2
+14000ab4:	00f407b3          	add	a5,s0,a5
+14000ab8:	0007a503          	lw	a0,0(a5)
+14000abc:	215247b7          	lui	a5,0x21524
+14000ac0:	11178793          	addi	a5,a5,273 # 21524111 <_ebulkbss+0xc1240f1>
+14000ac4:	00f50533          	add	a0,a0,a5
+14000ac8:	00153513          	seqz	a0,a0
+14000acc:	eacff0ef          	jal	ra,14000178 <assert>
+14000ad0:	02048793          	addi	a5,s1,32
+14000ad4:	00279793          	slli	a5,a5,0x2
+14000ad8:	00f407b3          	add	a5,s0,a5
+14000adc:	0007a503          	lw	a0,0(a5)
+14000ae0:	543217b7          	lui	a5,0x54321
+14000ae4:	0ff78793          	addi	a5,a5,255 # 543210ff <_ebulkbss+0x3ef210df>
+14000ae8:	00f50533          	add	a0,a0,a5
+14000aec:	00153513          	seqz	a0,a0
+14000af0:	e88ff0ef          	jal	ra,14000178 <assert>
+14000af4:	04048793          	addi	a5,s1,64
+14000af8:	00279793          	slli	a5,a5,0x2
+14000afc:	00f40433          	add	s0,s0,a5
+14000b00:	00042503          	lw	a0,0(s0)
+14000b04:	f0e1d7b7          	lui	a5,0xf0e1d
+14000b08:	2c478793          	addi	a5,a5,708 # f0e1d2c4 <_ebulkbss+0xdba1d2a4>
+14000b0c:	00f50533          	add	a0,a0,a5
+14000b10:	00153513          	seqz	a0,a0
+14000b14:	e64ff0ef          	jal	ra,14000178 <assert>
+14000b18:	08048493          	addi	s1,s1,128
+14000b1c:	000017b7          	lui	a5,0x1
+14000b20:	f6f4c2e3          	blt	s1,a5,14000a84 <main+0x3ac>
+14000b24:	e74ff0ef          	jal	ra,14000198 <completeTestSection>
+14000b28:	00c12083          	lw	ra,12(sp)
+14000b2c:	00812403          	lw	s0,8(sp)
+14000b30:	00412483          	lw	s1,4(sp)
+14000b34:	00012903          	lw	s2,0(sp)
+14000b38:	01010113          	addi	sp,sp,16
+14000b3c:	00008067          	ret
 
 Disassembly of section .data:
 
@@ -521,74 +771,74 @@ Disassembly of section .data:
   14:	5c800413          	li	s0,1480
   18:	00042503          	lw	a0,0(s0)
   1c:	edcbb7b7          	lui	a5,0xedcbb
-  20:	98878793          	addi	a5,a5,-1656 # edcba988 <_etext+0xd9cba210>
+  20:	98878793          	addi	a5,a5,-1656 # edcba988 <_ebulkbss+0xd88ba968>
   24:	00f50533          	add	a0,a0,a5
   28:	00153513          	seqz	a0,a0
   2c:	14000097          	auipc	ra,0x14000
-  30:	0fc080e7          	jalr	252(ra) # 14000128 <assert>
+  30:	14c080e7          	jalr	332(ra) # 14000178 <assert>
   34:	00442503          	lw	a0,4(s0)
   38:	215247b7          	lui	a5,0x21524
-  3c:	11178793          	addi	a5,a5,273 # 21524111 <_etext+0xd523999>
+  3c:	11178793          	addi	a5,a5,273 # 21524111 <_ebulkbss+0xc1240f1>
   40:	00f50533          	add	a0,a0,a5
   44:	00153513          	seqz	a0,a0
   48:	14000097          	auipc	ra,0x14000
-  4c:	0e0080e7          	jalr	224(ra) # 14000128 <assert>
+  4c:	130080e7          	jalr	304(ra) # 14000178 <assert>
   50:	00842503          	lw	a0,8(s0)
   54:	543217b7          	lui	a5,0x54321
-  58:	0ff78793          	addi	a5,a5,255 # 543210ff <_etext+0x40320987>
+  58:	0ff78793          	addi	a5,a5,255 # 543210ff <_ebulkbss+0x3ef210df>
   5c:	00f50533          	add	a0,a0,a5
   60:	00153513          	seqz	a0,a0
   64:	14000097          	auipc	ra,0x14000
-  68:	0c4080e7          	jalr	196(ra) # 14000128 <assert>
+  68:	114080e7          	jalr	276(ra) # 14000178 <assert>
   6c:	00c42503          	lw	a0,12(s0)
   70:	f0e1d7b7          	lui	a5,0xf0e1d
-  74:	2c478793          	addi	a5,a5,708 # f0e1d2c4 <_etext+0xdce1cb4c>
+  74:	2c478793          	addi	a5,a5,708 # f0e1d2c4 <_ebulkbss+0xdba1d2a4>
   78:	00f50533          	add	a0,a0,a5
   7c:	00153513          	seqz	a0,a0
   80:	14000097          	auipc	ra,0x14000
-  84:	0a8080e7          	jalr	168(ra) # 14000128 <assert>
+  84:	0f8080e7          	jalr	248(ra) # 14000178 <assert>
   88:	00045503          	lhu	a0,0(s0)
   8c:	ffffb937          	lui	s2,0xffffb
-  90:	98890913          	addi	s2,s2,-1656 # ffffa988 <_etext+0xebffa210>
+  90:	98890913          	addi	s2,s2,-1656 # ffffa988 <_ebulkbss+0xeabfa968>
   94:	01250533          	add	a0,a0,s2
   98:	00153513          	seqz	a0,a0
   9c:	14000097          	auipc	ra,0x14000
-  a0:	08c080e7          	jalr	140(ra) # 14000128 <assert>
+  a0:	0dc080e7          	jalr	220(ra) # 14000178 <assert>
   a4:	00245503          	lhu	a0,2(s0)
   a8:	fffff4b7          	lui	s1,0xfffff
-  ac:	dcc48493          	addi	s1,s1,-564 # ffffedcc <_etext+0xebffe654>
+  ac:	dcc48493          	addi	s1,s1,-564 # ffffedcc <_ebulkbss+0xeabfedac>
   b0:	00950533          	add	a0,a0,s1
   b4:	00153513          	seqz	a0,a0
   b8:	14000097          	auipc	ra,0x14000
-  bc:	070080e7          	jalr	112(ra) # 14000128 <assert>
+  bc:	0c0080e7          	jalr	192(ra) # 14000178 <assert>
   c0:	00445503          	lhu	a0,4(s0)
   c4:	ffff47b7          	lui	a5,0xffff4
-  c8:	11178793          	addi	a5,a5,273 # ffff4111 <_etext+0xebff3999>
+  c8:	11178793          	addi	a5,a5,273 # ffff4111 <_ebulkbss+0xeabf40f1>
   cc:	00f50533          	add	a0,a0,a5
   d0:	00153513          	seqz	a0,a0
   d4:	14000097          	auipc	ra,0x14000
-  d8:	054080e7          	jalr	84(ra) # 14000128 <assert>
+  d8:	0a4080e7          	jalr	164(ra) # 14000178 <assert>
   dc:	00645503          	lhu	a0,6(s0)
   e0:	ffff27b7          	lui	a5,0xffff2
-  e4:	15378793          	addi	a5,a5,339 # ffff2153 <_etext+0xebff19db>
+  e4:	15378793          	addi	a5,a5,339 # ffff2153 <_ebulkbss+0xeabf2133>
   e8:	00f50533          	add	a0,a0,a5
   ec:	00153513          	seqz	a0,a0
   f0:	14000097          	auipc	ra,0x14000
-  f4:	038080e7          	jalr	56(ra) # 14000128 <assert>
+  f4:	088080e7          	jalr	136(ra) # 14000178 <assert>
   f8:	00045503          	lhu	a0,0(s0)
   fc:	01051513          	slli	a0,a0,0x10
  100:	41055513          	srai	a0,a0,0x10
  104:	01250533          	add	a0,a0,s2
  108:	00153513          	seqz	a0,a0
  10c:	14000097          	auipc	ra,0x14000
- 110:	01c080e7          	jalr	28(ra) # 14000128 <assert>
+ 110:	06c080e7          	jalr	108(ra) # 14000178 <assert>
  114:	00245503          	lhu	a0,2(s0)
  118:	01051513          	slli	a0,a0,0x10
  11c:	41055513          	srai	a0,a0,0x10
  120:	00950533          	add	a0,a0,s1
  124:	00153513          	seqz	a0,a0
  128:	14000097          	auipc	ra,0x14000
- 12c:	000080e7          	jalr	ra # 14000128 <assert>
+ 12c:	050080e7          	jalr	80(ra) # 14000178 <assert>
  130:	00445503          	lhu	a0,4(s0)
  134:	01051513          	slli	a0,a0,0x10
  138:	41055513          	srai	a0,a0,0x10
@@ -597,7 +847,7 @@ Disassembly of section .data:
  144:	00f50533          	add	a0,a0,a5
  148:	00153513          	seqz	a0,a0
  14c:	14000097          	auipc	ra,0x14000
- 150:	fdc080e7          	jalr	-36(ra) # 14000128 <assert>
+ 150:	02c080e7          	jalr	44(ra) # 14000178 <assert>
  154:	00645503          	lhu	a0,6(s0)
  158:	01051513          	slli	a0,a0,0x10
  15c:	41055513          	srai	a0,a0,0x10
@@ -606,37 +856,37 @@ Disassembly of section .data:
  168:	00f50533          	add	a0,a0,a5
  16c:	00153513          	seqz	a0,a0
  170:	14000097          	auipc	ra,0x14000
- 174:	fb8080e7          	jalr	-72(ra) # 14000128 <assert>
+ 174:	008080e7          	jalr	8(ra) # 14000178 <assert>
  178:	00144503          	lbu	a0,1(s0)
  17c:	00244783          	lbu	a5,2(s0)
  180:	00879793          	slli	a5,a5,0x8
  184:	00f56533          	or	a0,a0,a5
  188:	ffffd7b7          	lui	a5,0xffffd
- 18c:	baa78793          	addi	a5,a5,-1110 # ffffcbaa <_etext+0xebffc432>
+ 18c:	baa78793          	addi	a5,a5,-1110 # ffffcbaa <_ebulkbss+0xeabfcb8a>
  190:	00f50533          	add	a0,a0,a5
  194:	00153513          	seqz	a0,a0
  198:	14000097          	auipc	ra,0x14000
- 19c:	f90080e7          	jalr	-112(ra) # 14000128 <assert>
+ 19c:	fe0080e7          	jalr	-32(ra) # 14000178 <assert>
  1a0:	00344503          	lbu	a0,3(s0)
  1a4:	00444783          	lbu	a5,4(s0)
  1a8:	00879793          	slli	a5,a5,0x8
  1ac:	00f56533          	or	a0,a0,a5
  1b0:	ffff17b7          	lui	a5,0xffff1
- 1b4:	0ee78793          	addi	a5,a5,238 # ffff10ee <_etext+0xebff0976>
+ 1b4:	0ee78793          	addi	a5,a5,238 # ffff10ee <_ebulkbss+0xeabf10ce>
  1b8:	00f50533          	add	a0,a0,a5
  1bc:	00153513          	seqz	a0,a0
  1c0:	14000097          	auipc	ra,0x14000
- 1c4:	f68080e7          	jalr	-152(ra) # 14000128 <assert>
+ 1c4:	fb8080e7          	jalr	-72(ra) # 14000178 <assert>
  1c8:	00544503          	lbu	a0,5(s0)
  1cc:	00644783          	lbu	a5,6(s0)
  1d0:	00879793          	slli	a5,a5,0x8
  1d4:	00f56533          	or	a0,a0,a5
  1d8:	ffff57b7          	lui	a5,0xffff5
- 1dc:	24278793          	addi	a5,a5,578 # ffff5242 <_etext+0xebff4aca>
+ 1dc:	24278793          	addi	a5,a5,578 # ffff5242 <_ebulkbss+0xeabf5222>
  1e0:	00f50533          	add	a0,a0,a5
  1e4:	00153513          	seqz	a0,a0
  1e8:	14000097          	auipc	ra,0x14000
- 1ec:	f40080e7          	jalr	-192(ra) # 14000128 <assert>
+ 1ec:	f90080e7          	jalr	-112(ra) # 14000178 <assert>
  1f0:	00744503          	lbu	a0,7(s0)
  1f4:	00844783          	lbu	a5,8(s0)
  1f8:	00879793          	slli	a5,a5,0x8
@@ -644,53 +894,53 @@ Disassembly of section .data:
  200:	e2250513          	addi	a0,a0,-478
  204:	00153513          	seqz	a0,a0
  208:	14000097          	auipc	ra,0x14000
- 20c:	f20080e7          	jalr	-224(ra) # 14000128 <assert>
+ 20c:	f70080e7          	jalr	-144(ra) # 14000178 <assert>
  210:	5d800413          	li	s0,1496
  214:	00044503          	lbu	a0,0(s0)
  218:	fb850513          	addi	a0,a0,-72
  21c:	00153513          	seqz	a0,a0
  220:	14000097          	auipc	ra,0x14000
- 224:	f08080e7          	jalr	-248(ra) # 14000128 <assert>
+ 224:	f58080e7          	jalr	-168(ra) # 14000178 <assert>
  228:	00144503          	lbu	a0,1(s0)
  22c:	f9b50513          	addi	a0,a0,-101
  230:	00153513          	seqz	a0,a0
  234:	14000097          	auipc	ra,0x14000
- 238:	ef4080e7          	jalr	-268(ra) # 14000128 <assert>
+ 238:	f44080e7          	jalr	-188(ra) # 14000178 <assert>
  23c:	00244503          	lbu	a0,2(s0)
  240:	f9450513          	addi	a0,a0,-108
  244:	00153513          	seqz	a0,a0
  248:	14000097          	auipc	ra,0x14000
- 24c:	ee0080e7          	jalr	-288(ra) # 14000128 <assert>
+ 24c:	f30080e7          	jalr	-208(ra) # 14000178 <assert>
  250:	00444503          	lbu	a0,4(s0)
  254:	f9150513          	addi	a0,a0,-111
  258:	00153513          	seqz	a0,a0
  25c:	14000097          	auipc	ra,0x14000
- 260:	ecc080e7          	jalr	-308(ra) # 14000128 <assert>
+ 260:	f1c080e7          	jalr	-228(ra) # 14000178 <assert>
  264:	00644503          	lbu	a0,6(s0)
  268:	f8950513          	addi	a0,a0,-119
  26c:	00153513          	seqz	a0,a0
  270:	14000097          	auipc	ra,0x14000
- 274:	eb8080e7          	jalr	-328(ra) # 14000128 <assert>
+ 274:	f08080e7          	jalr	-248(ra) # 14000178 <assert>
  278:	00744503          	lbu	a0,7(s0)
  27c:	f9150513          	addi	a0,a0,-111
  280:	00153513          	seqz	a0,a0
  284:	14000097          	auipc	ra,0x14000
- 288:	ea4080e7          	jalr	-348(ra) # 14000128 <assert>
+ 288:	ef4080e7          	jalr	-268(ra) # 14000178 <assert>
  28c:	00944503          	lbu	a0,9(s0)
  290:	f9450513          	addi	a0,a0,-108
  294:	00153513          	seqz	a0,a0
  298:	14000097          	auipc	ra,0x14000
- 29c:	e90080e7          	jalr	-368(ra) # 14000128 <assert>
+ 29c:	ee0080e7          	jalr	-288(ra) # 14000178 <assert>
  2a0:	00b44503          	lbu	a0,11(s0)
  2a4:	fdf50513          	addi	a0,a0,-33
  2a8:	00153513          	seqz	a0,a0
  2ac:	14000097          	auipc	ra,0x14000
- 2b0:	e7c080e7          	jalr	-388(ra) # 14000128 <assert>
+ 2b0:	ecc080e7          	jalr	-308(ra) # 14000178 <assert>
  2b4:	00000693          	li	a3,0
  2b8:	0280006f          	j	2e0 <_stack_size+0xe0>
  2bc:	00269713          	slli	a4,a3,0x2
  2c0:	140007b7          	lui	a5,0x14000
- 2c4:	07878793          	addi	a5,a5,120 # 14000078 <flashData>
+ 2c4:	0c878793          	addi	a5,a5,200 # 140000c8 <flashData>
  2c8:	00e787b3          	add	a5,a5,a4
  2cc:	0007a783          	lw	a5,0(a5)
  2d0:	02070713          	addi	a4,a4,32
@@ -702,7 +952,7 @@ Disassembly of section .data:
  2e8:	00000713          	li	a4,0
  2ec:	0240006f          	j	310 <_stack_size+0x110>
  2f0:	140007b7          	lui	a5,0x14000
- 2f4:	08878793          	addi	a5,a5,136 # 14000088 <flashString>
+ 2f4:	0d878793          	addi	a5,a5,216 # 140000d8 <flashString>
  2f8:	00e787b3          	add	a5,a5,a4
  2fc:	0007c683          	lbu	a3,0(a5)
  300:	02070793          	addi	a5,a4,32
@@ -713,74 +963,74 @@ Disassembly of section .data:
  314:	fce7dee3          	bge	a5,a4,2f0 <_stack_size+0xf0>
  318:	01012503          	lw	a0,16(sp)
  31c:	edcbb7b7          	lui	a5,0xedcbb
- 320:	98878793          	addi	a5,a5,-1656 # edcba988 <_etext+0xd9cba210>
+ 320:	98878793          	addi	a5,a5,-1656 # edcba988 <_ebulkbss+0xd88ba968>
  324:	00f50533          	add	a0,a0,a5
  328:	00153513          	seqz	a0,a0
  32c:	14000097          	auipc	ra,0x14000
- 330:	dfc080e7          	jalr	-516(ra) # 14000128 <assert>
+ 330:	e4c080e7          	jalr	-436(ra) # 14000178 <assert>
  334:	01412503          	lw	a0,20(sp)
  338:	215247b7          	lui	a5,0x21524
- 33c:	11178793          	addi	a5,a5,273 # 21524111 <_etext+0xd523999>
+ 33c:	11178793          	addi	a5,a5,273 # 21524111 <_ebulkbss+0xc1240f1>
  340:	00f50533          	add	a0,a0,a5
  344:	00153513          	seqz	a0,a0
  348:	14000097          	auipc	ra,0x14000
- 34c:	de0080e7          	jalr	-544(ra) # 14000128 <assert>
+ 34c:	e30080e7          	jalr	-464(ra) # 14000178 <assert>
  350:	01812503          	lw	a0,24(sp)
  354:	543217b7          	lui	a5,0x54321
- 358:	0ff78793          	addi	a5,a5,255 # 543210ff <_etext+0x40320987>
+ 358:	0ff78793          	addi	a5,a5,255 # 543210ff <_ebulkbss+0x3ef210df>
  35c:	00f50533          	add	a0,a0,a5
  360:	00153513          	seqz	a0,a0
  364:	14000097          	auipc	ra,0x14000
- 368:	dc4080e7          	jalr	-572(ra) # 14000128 <assert>
+ 368:	e14080e7          	jalr	-492(ra) # 14000178 <assert>
  36c:	01c12503          	lw	a0,28(sp)
  370:	f0e1d7b7          	lui	a5,0xf0e1d
- 374:	2c478793          	addi	a5,a5,708 # f0e1d2c4 <_etext+0xdce1cb4c>
+ 374:	2c478793          	addi	a5,a5,708 # f0e1d2c4 <_ebulkbss+0xdba1d2a4>
  378:	00f50533          	add	a0,a0,a5
  37c:	00153513          	seqz	a0,a0
  380:	14000097          	auipc	ra,0x14000
- 384:	da8080e7          	jalr	-600(ra) # 14000128 <assert>
+ 384:	df8080e7          	jalr	-520(ra) # 14000178 <assert>
  388:	01015503          	lhu	a0,16(sp)
  38c:	ffffb4b7          	lui	s1,0xffffb
- 390:	98848493          	addi	s1,s1,-1656 # ffffa988 <_etext+0xebffa210>
+ 390:	98848493          	addi	s1,s1,-1656 # ffffa988 <_ebulkbss+0xeabfa968>
  394:	00950533          	add	a0,a0,s1
  398:	00153513          	seqz	a0,a0
  39c:	14000097          	auipc	ra,0x14000
- 3a0:	d8c080e7          	jalr	-628(ra) # 14000128 <assert>
+ 3a0:	ddc080e7          	jalr	-548(ra) # 14000178 <assert>
  3a4:	01215503          	lhu	a0,18(sp)
  3a8:	fffff437          	lui	s0,0xfffff
- 3ac:	dcc40413          	addi	s0,s0,-564 # ffffedcc <_etext+0xebffe654>
+ 3ac:	dcc40413          	addi	s0,s0,-564 # ffffedcc <_ebulkbss+0xeabfedac>
  3b0:	00850533          	add	a0,a0,s0
  3b4:	00153513          	seqz	a0,a0
  3b8:	14000097          	auipc	ra,0x14000
- 3bc:	d70080e7          	jalr	-656(ra) # 14000128 <assert>
+ 3bc:	dc0080e7          	jalr	-576(ra) # 14000178 <assert>
  3c0:	01415503          	lhu	a0,20(sp)
  3c4:	ffff47b7          	lui	a5,0xffff4
- 3c8:	11178793          	addi	a5,a5,273 # ffff4111 <_etext+0xebff3999>
+ 3c8:	11178793          	addi	a5,a5,273 # ffff4111 <_ebulkbss+0xeabf40f1>
  3cc:	00f50533          	add	a0,a0,a5
  3d0:	00153513          	seqz	a0,a0
  3d4:	14000097          	auipc	ra,0x14000
- 3d8:	d54080e7          	jalr	-684(ra) # 14000128 <assert>
+ 3d8:	da4080e7          	jalr	-604(ra) # 14000178 <assert>
  3dc:	01615503          	lhu	a0,22(sp)
  3e0:	ffff27b7          	lui	a5,0xffff2
- 3e4:	15378793          	addi	a5,a5,339 # ffff2153 <_etext+0xebff19db>
+ 3e4:	15378793          	addi	a5,a5,339 # ffff2153 <_ebulkbss+0xeabf2133>
  3e8:	00f50533          	add	a0,a0,a5
  3ec:	00153513          	seqz	a0,a0
  3f0:	14000097          	auipc	ra,0x14000
- 3f4:	d38080e7          	jalr	-712(ra) # 14000128 <assert>
+ 3f4:	d88080e7          	jalr	-632(ra) # 14000178 <assert>
  3f8:	01015503          	lhu	a0,16(sp)
  3fc:	01051513          	slli	a0,a0,0x10
  400:	41055513          	srai	a0,a0,0x10
  404:	00950533          	add	a0,a0,s1
  408:	00153513          	seqz	a0,a0
  40c:	14000097          	auipc	ra,0x14000
- 410:	d1c080e7          	jalr	-740(ra) # 14000128 <assert>
+ 410:	d6c080e7          	jalr	-660(ra) # 14000178 <assert>
  414:	01215503          	lhu	a0,18(sp)
  418:	01051513          	slli	a0,a0,0x10
  41c:	41055513          	srai	a0,a0,0x10
  420:	00850533          	add	a0,a0,s0
  424:	00153513          	seqz	a0,a0
  428:	14000097          	auipc	ra,0x14000
- 42c:	d00080e7          	jalr	-768(ra) # 14000128 <assert>
+ 42c:	d50080e7          	jalr	-688(ra) # 14000178 <assert>
  430:	01415503          	lhu	a0,20(sp)
  434:	01051513          	slli	a0,a0,0x10
  438:	41055513          	srai	a0,a0,0x10
@@ -789,7 +1039,7 @@ Disassembly of section .data:
  444:	00f50533          	add	a0,a0,a5
  448:	00153513          	seqz	a0,a0
  44c:	14000097          	auipc	ra,0x14000
- 450:	cdc080e7          	jalr	-804(ra) # 14000128 <assert>
+ 450:	d2c080e7          	jalr	-724(ra) # 14000178 <assert>
  454:	01615503          	lhu	a0,22(sp)
  458:	01051513          	slli	a0,a0,0x10
  45c:	41055513          	srai	a0,a0,0x10
@@ -798,37 +1048,37 @@ Disassembly of section .data:
  468:	00f50533          	add	a0,a0,a5
  46c:	00153513          	seqz	a0,a0
  470:	14000097          	auipc	ra,0x14000
- 474:	cb8080e7          	jalr	-840(ra) # 14000128 <assert>
+ 474:	d08080e7          	jalr	-760(ra) # 14000178 <assert>
  478:	01114503          	lbu	a0,17(sp)
  47c:	01214783          	lbu	a5,18(sp)
  480:	00879793          	slli	a5,a5,0x8
  484:	00f56533          	or	a0,a0,a5
  488:	ffffd7b7          	lui	a5,0xffffd
- 48c:	baa78793          	addi	a5,a5,-1110 # ffffcbaa <_etext+0xebffc432>
+ 48c:	baa78793          	addi	a5,a5,-1110 # ffffcbaa <_ebulkbss+0xeabfcb8a>
  490:	00f50533          	add	a0,a0,a5
  494:	00153513          	seqz	a0,a0
  498:	14000097          	auipc	ra,0x14000
- 49c:	c90080e7          	jalr	-880(ra) # 14000128 <assert>
+ 49c:	ce0080e7          	jalr	-800(ra) # 14000178 <assert>
  4a0:	01314503          	lbu	a0,19(sp)
  4a4:	01414783          	lbu	a5,20(sp)
  4a8:	00879793          	slli	a5,a5,0x8
  4ac:	00f56533          	or	a0,a0,a5
  4b0:	ffff17b7          	lui	a5,0xffff1
- 4b4:	0ee78793          	addi	a5,a5,238 # ffff10ee <_etext+0xebff0976>
+ 4b4:	0ee78793          	addi	a5,a5,238 # ffff10ee <_ebulkbss+0xeabf10ce>
  4b8:	00f50533          	add	a0,a0,a5
  4bc:	00153513          	seqz	a0,a0
  4c0:	14000097          	auipc	ra,0x14000
- 4c4:	c68080e7          	jalr	-920(ra) # 14000128 <assert>
+ 4c4:	cb8080e7          	jalr	-840(ra) # 14000178 <assert>
  4c8:	01514503          	lbu	a0,21(sp)
  4cc:	01614783          	lbu	a5,22(sp)
  4d0:	00879793          	slli	a5,a5,0x8
  4d4:	00f56533          	or	a0,a0,a5
  4d8:	ffff57b7          	lui	a5,0xffff5
- 4dc:	24278793          	addi	a5,a5,578 # ffff5242 <_etext+0xebff4aca>
+ 4dc:	24278793          	addi	a5,a5,578 # ffff5242 <_ebulkbss+0xeabf5222>
  4e0:	00f50533          	add	a0,a0,a5
  4e4:	00153513          	seqz	a0,a0
  4e8:	14000097          	auipc	ra,0x14000
- 4ec:	c40080e7          	jalr	-960(ra) # 14000128 <assert>
+ 4ec:	c90080e7          	jalr	-880(ra) # 14000178 <assert>
  4f0:	01714503          	lbu	a0,23(sp)
  4f4:	01814783          	lbu	a5,24(sp)
  4f8:	00879793          	slli	a5,a5,0x8
@@ -836,47 +1086,47 @@ Disassembly of section .data:
  500:	e2250513          	addi	a0,a0,-478
  504:	00153513          	seqz	a0,a0
  508:	14000097          	auipc	ra,0x14000
- 50c:	c20080e7          	jalr	-992(ra) # 14000128 <assert>
+ 50c:	c70080e7          	jalr	-912(ra) # 14000178 <assert>
  510:	00414503          	lbu	a0,4(sp)
  514:	fb850513          	addi	a0,a0,-72
  518:	00153513          	seqz	a0,a0
  51c:	14000097          	auipc	ra,0x14000
- 520:	c0c080e7          	jalr	-1012(ra) # 14000128 <assert>
+ 520:	c5c080e7          	jalr	-932(ra) # 14000178 <assert>
  524:	00514503          	lbu	a0,5(sp)
  528:	f9b50513          	addi	a0,a0,-101
  52c:	00153513          	seqz	a0,a0
  530:	14000097          	auipc	ra,0x14000
- 534:	bf8080e7          	jalr	-1032(ra) # 14000128 <assert>
+ 534:	c48080e7          	jalr	-952(ra) # 14000178 <assert>
  538:	00614503          	lbu	a0,6(sp)
  53c:	f9450513          	addi	a0,a0,-108
  540:	00153513          	seqz	a0,a0
  544:	14000097          	auipc	ra,0x14000
- 548:	be4080e7          	jalr	-1052(ra) # 14000128 <assert>
+ 548:	c34080e7          	jalr	-972(ra) # 14000178 <assert>
  54c:	00814503          	lbu	a0,8(sp)
  550:	f9150513          	addi	a0,a0,-111
  554:	00153513          	seqz	a0,a0
  558:	14000097          	auipc	ra,0x14000
- 55c:	bd0080e7          	jalr	-1072(ra) # 14000128 <assert>
+ 55c:	c20080e7          	jalr	-992(ra) # 14000178 <assert>
  560:	00a14503          	lbu	a0,10(sp)
  564:	f8950513          	addi	a0,a0,-119
  568:	00153513          	seqz	a0,a0
  56c:	14000097          	auipc	ra,0x14000
- 570:	bbc080e7          	jalr	-1092(ra) # 14000128 <assert>
+ 570:	c0c080e7          	jalr	-1012(ra) # 14000178 <assert>
  574:	00b14503          	lbu	a0,11(sp)
  578:	f9150513          	addi	a0,a0,-111
  57c:	00153513          	seqz	a0,a0
  580:	14000097          	auipc	ra,0x14000
- 584:	ba8080e7          	jalr	-1112(ra) # 14000128 <assert>
+ 584:	bf8080e7          	jalr	-1032(ra) # 14000178 <assert>
  588:	00d14503          	lbu	a0,13(sp)
  58c:	f9450513          	addi	a0,a0,-108
  590:	00153513          	seqz	a0,a0
  594:	14000097          	auipc	ra,0x14000
- 598:	b94080e7          	jalr	-1132(ra) # 14000128 <assert>
+ 598:	be4080e7          	jalr	-1052(ra) # 14000178 <assert>
  59c:	00f14503          	lbu	a0,15(sp)
  5a0:	fdf50513          	addi	a0,a0,-33
  5a4:	00153513          	seqz	a0,a0
  5a8:	14000097          	auipc	ra,0x14000
- 5ac:	b80080e7          	jalr	-1152(ra) # 14000128 <assert>
+ 5ac:	bd0080e7          	jalr	-1072(ra) # 14000178 <assert>
  5b0:	02c12083          	lw	ra,44(sp)
  5b4:	02812403          	lw	s0,40(sp)
  5b8:	02412483          	lw	s1,36(sp)

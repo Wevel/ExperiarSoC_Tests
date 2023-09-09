@@ -51,6 +51,11 @@ const char flashString[] = "Hello world!";
 volatile uint32_t sramData[4] = { UINT32_DATA_0, UINT32_DATA_1, UINT32_DATA_2, UINT32_DATA_3 };
 volatile char sramString[] = "Hello world!";
 
+// PSRAM test data
+__attribute__ ((section (".bulkdata"))) volatile uint32_t psramData[4] = { UINT32_DATA_0, UINT32_DATA_1, UINT32_DATA_2, UINT32_DATA_3 };
+__attribute__ ((section (".bulkdata"))) volatile char psramString[] = "Hello world!";
+__attribute__ ((section (".bulkbss"))) volatile uint32_t psramLargeData[1024 * 1024] = {};
+
 void digitalWrite (uint32_t* location, uint32_t value)
 {
 	*((volatile uint32_t*)location) = value;
@@ -58,19 +63,19 @@ void digitalWrite (uint32_t* location, uint32_t value)
 
 void setupTests ()
 {
-	digitalWrite (GPIO0_OUTPUT_WRITE_ADDR, 0x01000);
+	digitalWrite (GPIO0_OUTPUT_WRITE_ADDR, 0x10000);
 }
 
 void testPass ()
 {
-	digitalWrite (GPIO0_OUTPUT_SET_ADDR, 0x03000);
-	digitalWrite (GPIO0_OUTPUT_CLEAR_ADDR, 0x02000);
+	digitalWrite (GPIO0_OUTPUT_SET_ADDR, 0x30000);
+	digitalWrite (GPIO0_OUTPUT_CLEAR_ADDR, 0x20000);
 }
 
 void testFail ()
 {
-	digitalWrite (GPIO0_OUTPUT_CLEAR_ADDR, 0x01000);
-	digitalWrite (GPIO0_OUTPUT_SET_ADDR, 0x02000);
+	digitalWrite (GPIO0_OUTPUT_CLEAR_ADDR, 0x10000);
+	digitalWrite (GPIO0_OUTPUT_SET_ADDR, 0x20000);
 
 	while (1) {}
 }
@@ -85,8 +90,8 @@ void assert (int condition)
 
 void completeTestSection ()
 {
-	digitalWrite (GPIO0_OUTPUT_SET_ADDR, 0x04000);
-	digitalWrite (GPIO0_OUTPUT_CLEAR_ADDR, 0x04000);
+	digitalWrite (GPIO0_OUTPUT_SET_ADDR, 0x40000);
+	digitalWrite (GPIO0_OUTPUT_CLEAR_ADDR, 0x40000);
 }
 
 void testInstructionsInFlash ()
@@ -280,6 +285,61 @@ void main ()
 	// UINT8
 	for (int i = 0; i < UINT8_DATA_COUNT; i++)
 		assert (flashString[i] == sramString[i]);
+
+	completeTestSection ();
+
+	// Test spi RAM
+	// UINT32
+	assert (psramData[0] == UINT32_DATA_0);
+	assert (psramData[1] == UINT32_DATA_1);
+	assert (psramData[2] == UINT32_DATA_2);
+	assert (psramData[3] == UINT32_DATA_3);
+
+	// UINT16
+	volatile uint16_t* psramData16 = (uint16_t*)psramData;
+	volatile int16_t* psramData16Signed = (int16_t*)psramData;
+	volatile uint16_t* psramData16Offset = (uint16_t*)((uint8_t*)psramData + 1);
+	assert (psramData16[0] == UINT16_DATA_0);
+	assert (psramData16[1] == UINT16_DATA_1);
+	assert (psramData16[2] == UINT16_DATA_2);
+	assert (psramData16[3] == UINT16_DATA_3);
+	assert (psramData16Signed[0] == INT16_DATA_0);
+	assert (psramData16Signed[1] == INT16_DATA_1);
+	assert (psramData16Signed[2] == INT16_DATA_2);
+	assert (psramData16Signed[3] == INT16_DATA_3);
+	assert (psramData16Offset[0] == UINT16_OFFSET_DATA_0);
+	assert (psramData16Offset[1] == UINT16_OFFSET_DATA_1);
+	assert (psramData16Offset[2] == UINT16_OFFSET_DATA_2);
+	assert (psramData16Offset[3] == UINT16_OFFSET_DATA_3);
+
+	// UINT8
+	assert (psramString[0] == 'H');
+	assert (psramString[1] == 'e');
+	assert (psramString[2] == 'l');
+	assert (psramString[4] == 'o');
+	assert (psramString[6] == 'w');
+	assert (psramString[7] == 'o');
+	assert (psramString[9] == 'l');
+	assert (psramString[11] == '!');
+
+	completeTestSection ();
+
+	// Bulk data
+	for (int i = 0; i < 4 * 1024; i += 128)
+	{
+		psramLargeData[i] = UINT32_DATA_0;
+		psramLargeData[i + 10] = UINT32_DATA_1;
+		psramLargeData[i + 32] = UINT32_DATA_2;
+		psramLargeData[i + 64] = UINT32_DATA_3;
+	}
+
+	for (int i = 0; i < 4 * 1024; i += 128)
+	{
+		assert (psramLargeData[i] == UINT32_DATA_0);
+		assert (psramLargeData[i + 10] == UINT32_DATA_1);
+		assert (psramLargeData[i + 32] == UINT32_DATA_2);
+		assert (psramLargeData[i + 64] == UINT32_DATA_3);
+	}
 
 	completeTestSection ();
 }
