@@ -4,14 +4,30 @@
 
 `define FLASH_FILE "snakeUART.hex"
 
-`define FLASH_ADDRESS_CORE 32'h1400_0000
-`define FLASH_ADDRESS 32'h3400_0000
-`define FLASH_CONFIG 32'h3480_0000
-`define FLASH_STATUS 32'h3480_0004
-`define FLASH_CURRENT_PAGE_ADDRESS 32'h3480_0008
-`define FLASH_LOAD_ADDRESS 32'h3480_000C
-`define FLASH_PAGE_SIZE_WORDS 32'd512
-`define FLASH_PAGE_SIZE_BYTES `FLASH_PAGE_SIZE_WORDS * 4
+`define SPI_MEMORY0_ADDRESS_CORE 32'h1400_0000
+`define SPI_MEMORY0_ADDRESS 32'h3400_0000
+`define SPI_MEMORY0_CONFIG 32'h3480_0000
+`define SPI_MEMORY0_STATUS 32'h3480_0004
+`define SPI_MEMORY0_CURRENT_PAGE_ADDRESS 32'h3480_0008
+`define SPI_MEMORY0_CACHE_STATUS 32'h3480_000C
+
+`define SPI_MEMORY1_ADDRESS_CORE 32'h1500_0000
+`define SPI_MEMORY1_ADDRESS 32'h3500_0000
+`define SPI_MEMORY1_CONFIG 32'h3580_0000
+`define SPI_MEMORY1_STATUS 32'h3580_0004
+`define SPI_MEMORY1_CURRENT_PAGE_ADDRESS 32'h3580_0008
+`define SPI_MEMORY1_CACHE_STATUS 32'h3580_000C
+
+`define SPI_MEMORY_PAGE_SIZE_WORDS 32'd512
+`define SPI_MEMORY_PAGE_SIZE_BYTES `SPI_MEMORY_PAGE_SIZE_WORDS * 4
+`define SPI_MEMORY_CONFIG_DISABLE 		  32'b000
+`define SPI_MEMORY_CONFIG_ENABLE 		  32'b001
+`define SPI_MEMORY_CONFIG_AUTOMATIC_MODE  32'b010
+`define SPI_MEMORY_CONFIG_WRITE_ENABLE 	  32'b100
+`define SPI_MEMORY_STATUS_NOT_INITIALISED 32'b000
+`define SPI_MEMORY_STATUS_INITIALISED 	  32'b001
+`define SPI_MEMORY_STATUS_LOADING	 	  32'b010
+`define SPI_MEMORY_STATUS_SAVING	 	  32'b100
 
 `define CPU_FREQUENCY 40000000 // Hz
 `define UART1_BAUD_RATE 9216000
@@ -76,25 +92,28 @@ module snakeUART_tb;
 		#100
 
 		// Read the initial flash status
-		`TEST_READ_EQ(`FLASH_STATUS, `SELECT_WORD, testValue, 32'b0, "Read initial flash status")
-		`TEST_READ_EQ(`FLASH_CONFIG, `SELECT_WORD, testValue, 32'b0, "Read initial flash config")
+		`TEST_READ_EQ(`SPI_MEMORY0_CONFIG, `SELECT_WORD, testValue, `SPI_MEMORY_CONFIG_DISABLE, "Read initial flash config")
+		`TEST_READ_EQ(`SPI_MEMORY0_STATUS, `SELECT_WORD, testValue, `SPI_MEMORY_STATUS_NOT_INITIALISED, "Read initial flash status")
+		`TEST_READ_EQ(`SPI_MEMORY0_CACHE_STATUS, `SELECT_WORD, testValue, 32'h0000_0000, "Read initial flash cache status")
 
-		`TEST_WRITE_EQ(`FLASH_CONFIG, `SELECT_WORD, testValue, 32'b01, "Set flash config to manual page selection")
+		// Setup the flash for manual page selection
+		`TEST_WRITE_EQ(`SPI_MEMORY0_CONFIG, `SELECT_WORD, testValue, `SPI_MEMORY_CONFIG_ENABLE, "Set flash config to manual page selection")
+		`TEST_READ_EQ(`SPI_MEMORY0_STATUS, `SELECT_WORD, testValue, `SPI_MEMORY_STATUS_NOT_INITIALISED, "Read flash status after manual page selection")
+		`TEST_READ_EQ(`SPI_MEMORY0_CACHE_STATUS, `SELECT_WORD, testValue, 32'h0000_0000, "Read flash cache status after manual page selection")
 
 		// Wait for initialisation to complete
-		#1000
-		`TEST_READ_EQ(`FLASH_STATUS, `SELECT_WORD, testValue, 32'b01, "Read flash status to check for initialisation complete")
+		`TEST_READ_TIMEOUT(`SPI_MEMORY0_STATUS, `SELECT_WORD, testValue, testValue == `SPI_MEMORY_STATUS_INITIALISED, 100, 10, "Read flash status to check for initialisation complete")
 
 		// Write the page address
-		`TEST_WRITE_EQ(`FLASH_CURRENT_PAGE_ADDRESS, `SELECT_WORD, testValue, 32'h0, "Write page address to 0")
+		`TEST_WRITE_EQ(`SPI_MEMORY0_CURRENT_PAGE_ADDRESS, `SELECT_WORD, testValue, 32'h0, "Write page address to 0")
 
 		// Setup the flash for automatic page selection
-		`TEST_WRITE_EQ(`FLASH_CONFIG, `SELECT_WORD, testValue, 32'b11, "Set flash config to automatic page selection")
-		`TEST_READ_EQ(`FLASH_STATUS, `SELECT_WORD, testValue, 32'b11, "Read flash status after automatic page selection")
+		`TEST_WRITE_EQ(`SPI_MEMORY0_CONFIG, `SELECT_WORD, testValue, `SPI_MEMORY_CONFIG_AUTOMATIC_MODE | `SPI_MEMORY_CONFIG_ENABLE, "Set flash config to automatic page selection")
+		`TEST_READ_EQ(`SPI_MEMORY0_STATUS, `SELECT_WORD, testValue, `SPI_MEMORY_STATUS_INITIALISED, "Read flash status after automatic page selection")
 
 		// Initialise core0
 		`TEST_READ_EQ(`CORE0_CONFIG_ADDR, `SELECT_WORD, testValue, `CORE_HALT, "Read core0 config before initialisation")
-		`TEST_WRITE_EQ(`CORE0_REG_PC_ADDR, `SELECT_WORD, testValue, `FLASH_ADDRESS_CORE, "Write core0 PC start of flash address")
+		`TEST_WRITE_EQ(`CORE0_REG_PC_ADDR, `SELECT_WORD, testValue, `SPI_MEMORY0_ADDRESS_CORE, "Write core0 PC start of flash address")
 		
 		// Setup core0 instruction breakpoint
 		`TEST_WRITE_EQ(`CORE0_INSTRUCTION_BREAKPOINT_ADDR, `SELECT_WORD, testValue, `BREAKPOINT, "Write core0 instruction breakpoint address")

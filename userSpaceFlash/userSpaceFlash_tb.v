@@ -4,24 +4,40 @@
 
 `define FLASH_FILE "userSpaceFlash.hex"
 
-`define FLASH_ADDRESS_CORE 32'h1400_0000
-`define FLASH_ADDRESS 32'h3400_0000
-`define FLASH_CONFIG 32'h3480_0000
-`define FLASH_STATUS 32'h3480_0004
-`define FLASH_CURRENT_PAGE_ADDRESS 32'h3480_0008
-`define FLASH_CACHE_STATUS 32'h3480_000C
-`define FLASH_PAGE_SIZE_WORDS 32'd512
-`define FLASH_PAGE_SIZE_BYTES `FLASH_PAGE_SIZE_WORDS * 4
+`define SPI_MEMORY0_ADDRESS_CORE 32'h1400_0000
+`define SPI_MEMORY0_ADDRESS 32'h3400_0000
+`define SPI_MEMORY0_CONFIG 32'h3480_0000
+`define SPI_MEMORY0_STATUS 32'h3480_0004
+`define SPI_MEMORY0_CURRENT_PAGE_ADDRESS 32'h3480_0008
+`define SPI_MEMORY0_CACHE_STATUS 32'h3480_000C
+
+`define SPI_MEMORY1_ADDRESS_CORE 32'h1500_0000
+`define SPI_MEMORY1_ADDRESS 32'h3500_0000
+`define SPI_MEMORY1_CONFIG 32'h3580_0000
+`define SPI_MEMORY1_STATUS 32'h3580_0004
+`define SPI_MEMORY1_CURRENT_PAGE_ADDRESS 32'h3580_0008
+`define SPI_MEMORY1_CACHE_STATUS 32'h3580_000C
+
+`define SPI_MEMORY_PAGE_SIZE_WORDS 32'd512
+`define SPI_MEMORY_PAGE_SIZE_BYTES `SPI_MEMORY_PAGE_SIZE_WORDS * 4
+`define SPI_MEMORY_CONFIG_DISABLE 		  32'b000
+`define SPI_MEMORY_CONFIG_ENABLE 		  32'b001
+`define SPI_MEMORY_CONFIG_AUTOMATIC_MODE  32'b010
+`define SPI_MEMORY_CONFIG_WRITE_ENABLE 	  32'b100
+`define SPI_MEMORY_STATUS_NOT_INITIALISED 32'b000
+`define SPI_MEMORY_STATUS_INITIALISED 	  32'b001
+`define SPI_MEMORY_STATUS_LOADING 		  32'b010
+`define SPI_MEMORY_STATUS_SAVING	 	  32'b100
 
 `define VAR_CURRENT_CHAR_ADDRESS 32'h0000_0000
 `define VAR_PRIMARY_TOTAL_ADDRESS 32'h0000_0004
 `define VAR_SECONDARY_TOTAL_ADDRESS 32'h0000_0008
 `define VAR_STATE_ADDRESS 32'h0000_000C
 
-`define FLASH_WORD(ADDRESS) { flashMemory[{ADDRESS, 2'b00} + 3], flashMemory[{ADDRESS, 2'b00} + 2], flashMemory[{ADDRESS, 2'b00} + 1], flashMemory[{ADDRESS, 2'b00}] }
+`define SPI_MEMORY_WORD(ADDRESS) { flashMemory[{ADDRESS, 2'b00} + 3], flashMemory[{ADDRESS, 2'b00} + 2], flashMemory[{ADDRESS, 2'b00} + 1], flashMemory[{ADDRESS, 2'b00}] }
 
-`define TEST_FLASH(ADDRESS, TEST_NAME) `TEST_READ(`OFFSET_WORD(`FLASH_ADDRESS, ADDRESS), `SELECT_WORD, testValue, testValue == (`FLASH_WORD((ADDRESS) & 32'h000_ffff)), TEST_NAME)
-`define TEST_MANUAL_FLASH(PAGE, ADDRESS, TEST_NAME) `TEST_READ(`OFFSET_WORD(`FLASH_ADDRESS, ADDRESS), `SELECT_WORD, testValue, testValue == (`FLASH_WORD(((PAGE * `FLASH_PAGE_SIZE_WORDS) + ADDRESS) & 32'h000_ffff)), TEST_NAME)
+`define TEST_FLASH(ADDRESS, TEST_NAME) `TEST_READ(`OFFSET_WORD(`SPI_MEMORY0_ADDRESS, ADDRESS), `SELECT_WORD, testValue, testValue == (`SPI_MEMORY_WORD((ADDRESS) & 32'h000_ffff)), TEST_NAME)
+`define TEST_MANUAL_FLASH(PAGE, ADDRESS, TEST_NAME) `TEST_READ(`OFFSET_WORD(`SPI_MEMORY0_ADDRESS, ADDRESS), `SELECT_WORD, testValue, testValue == (`SPI_MEMORY_WORD(((PAGE * `SPI_MEMORY_PAGE_SIZE_WORDS) + ADDRESS) & 32'h000_ffff)), TEST_NAME)
 
 module userSpaceFlash_tb;
 	reg clk;
@@ -78,24 +94,24 @@ module userSpaceFlash_tb;
 		#100
 
 		// Read the initial flash status
-		`TEST_READ_EQ(`FLASH_STATUS, `SELECT_WORD, testValue, 32'b00, "Read initial flash status")
-		`TEST_READ_EQ(`FLASH_CACHE_STATUS, `SELECT_WORD, testValue, 32'h0000_0000, "Read initial flash cache status")
-		`TEST_READ_EQ(`FLASH_CONFIG, `SELECT_WORD, testValue, 32'b0, "Read initial flash config")
+		`TEST_READ_EQ(`SPI_MEMORY0_CONFIG, `SELECT_WORD, testValue, `SPI_MEMORY_CONFIG_DISABLE, "Read initial flash config")
+		`TEST_READ_EQ(`SPI_MEMORY0_STATUS, `SELECT_WORD, testValue, `SPI_MEMORY_STATUS_NOT_INITIALISED, "Read initial flash status")
+		`TEST_READ_EQ(`SPI_MEMORY0_CACHE_STATUS, `SELECT_WORD, testValue, 32'h0000_0000, "Read initial flash cache status")
 
 		// Setup the flash for manual page selection
-		`TEST_WRITE_EQ(`FLASH_CONFIG, `SELECT_WORD, testValue, 32'b001, "Set flash config to manual page selection")
-		`TEST_READ_EQ(`FLASH_STATUS, `SELECT_WORD, testValue, 32'b00, "Read flash status after manual page selection")
-		`TEST_READ_EQ(`FLASH_CACHE_STATUS, `SELECT_WORD, testValue, 32'h0000_0000, "Read flash cache status after manual page selection")
+		`TEST_WRITE_EQ(`SPI_MEMORY0_CONFIG, `SELECT_WORD, testValue, `SPI_MEMORY_CONFIG_ENABLE, "Set flash config to manual page selection")
+		`TEST_READ_EQ(`SPI_MEMORY0_STATUS, `SELECT_WORD, testValue, `SPI_MEMORY_STATUS_NOT_INITIALISED, "Read flash status after manual page selection")
+		`TEST_READ_EQ(`SPI_MEMORY0_CACHE_STATUS, `SELECT_WORD, testValue, 32'h0000_0000, "Read flash cache status after manual page selection")
 
 		// Wait for initialisation to complete
-		`TEST_READ_TIMEOUT(`FLASH_STATUS, `SELECT_WORD, testValue, testValue == 32'b01, 100, 10, "Read flash status to check for initialisation complete")
+		`TEST_READ_TIMEOUT(`SPI_MEMORY0_STATUS, `SELECT_WORD, testValue, testValue == `SPI_MEMORY_STATUS_INITIALISED, 100, 10, "Read flash status to check for initialisation complete")
 
 		// Write the page address
-		`TEST_WRITE_EQ(`FLASH_CURRENT_PAGE_ADDRESS, `SELECT_WORD, testValue, 32'h0, "Write page address to 0")
+		`TEST_WRITE_EQ(`SPI_MEMORY0_CURRENT_PAGE_ADDRESS, `SELECT_WORD, testValue, 32'h0, "Write page address to 0")
 
 		// Check that page loading has started
-		`TEST_READ_EQ(`FLASH_STATUS, `SELECT_WORD, testValue, 32'b11, "Read flash status to check for page 1 loading started")
-		`TEST_READ_EQ(`FLASH_CACHE_STATUS, `SELECT_WORD, testValue, 32'hFFFF_FFFF, "Read flash cache status to check for page 1 loading started")
+		`TEST_READ_EQ(`SPI_MEMORY0_STATUS, `SELECT_WORD, testValue, `SPI_MEMORY_STATUS_LOADING | `SPI_MEMORY_STATUS_INITIALISED, "Read flash status to check for page 1 loading started")
+		`TEST_READ_EQ(`SPI_MEMORY0_CACHE_STATUS, `SELECT_WORD, testValue, 32'hFFFF_FFFF, "Read flash cache status to check for page 1 loading started")
 
 
 		// Read data from the page to test that it is loaded correctly
@@ -132,18 +148,18 @@ module userSpaceFlash_tb;
 		`TEST_MANUAL_FLASH(32'h0, 32'h1DF, "Read word 0x1DF from page 0 to fully load page")
 		`TEST_MANUAL_FLASH(32'h0, 32'h1FF, "Read word 0x1FF from page 0 to fully load page")
 
-		`TEST_READ_EQ(`OFFSET_WORD(`FLASH_ADDRESS, 32'h200), `SELECT_WORD, testValue, ~32'b0, "Read invalid word 0x200 from page 0")
+		`TEST_READ_EQ(`OFFSET_WORD(`SPI_MEMORY0_ADDRESS, 32'h200), `SELECT_WORD, testValue, ~32'b0, "Read invalid word 0x200 from page 0")
 
 		// Check that page loading is complete
-		`TEST_READ_EQ(`FLASH_STATUS, `SELECT_WORD, testValue, 32'b01, "Read flash status to check for page loading complete")
-		`TEST_READ_EQ(`FLASH_CACHE_STATUS, `SELECT_WORD, testValue, 32'h0000_FFFF, "Read flash cache status to check for page loading complete")
+		`TEST_READ_EQ(`SPI_MEMORY0_STATUS, `SELECT_WORD, testValue, `SPI_MEMORY_STATUS_INITIALISED, "Read flash status to check for page loading complete")
+		`TEST_READ_EQ(`SPI_MEMORY0_CACHE_STATUS, `SELECT_WORD, testValue, 32'h0000_FFFF, "Read flash cache status to check for page loading complete")
 
 		// Change to a new page
-		`TEST_WRITE(`FLASH_CURRENT_PAGE_ADDRESS, `SELECT_WORD, testValue, 32'h2, testValue == (32'h2 * `FLASH_PAGE_SIZE_BYTES), "Write page address to 2")
+		`TEST_WRITE(`SPI_MEMORY0_CURRENT_PAGE_ADDRESS, `SELECT_WORD, testValue, 32'h2, testValue == (32'h2 * `SPI_MEMORY_PAGE_SIZE_BYTES), "Write page address to 2")
 
 		// Check that page loading has started
-		`TEST_READ_EQ(`FLASH_STATUS, `SELECT_WORD, testValue, 32'b11, "Read flash status to check for page 2 loading started")
-		`TEST_READ_EQ(`FLASH_CACHE_STATUS, `SELECT_WORD, testValue, 32'hFFFF_FFFF, "Read flash cache status to check for page 2 loading started")
+		`TEST_READ_EQ(`SPI_MEMORY0_STATUS, `SELECT_WORD, testValue, `SPI_MEMORY_STATUS_LOADING | `SPI_MEMORY_STATUS_INITIALISED, "Read flash status to check for page 2 loading started")
+		`TEST_READ_EQ(`SPI_MEMORY0_CACHE_STATUS, `SELECT_WORD, testValue, 32'hFFFF_FFFF, "Read flash cache status to check for page 2 loading started")
 
 		// Read data from the page to test that it is loaded correctly
 		`TEST_MANUAL_FLASH(32'h2, 32'h00, "Read word 0x00 from page 2")
@@ -155,16 +171,16 @@ module userSpaceFlash_tb;
 		`TEST_MANUAL_FLASH(32'h2, 32'h42, "Read word 0x42 from page 2")
 		`TEST_MANUAL_FLASH(32'h2, 32'h43, "Read word 0x43 from page 2")
 
-		`TEST_READ_EQ(`FLASH_STATUS, `SELECT_WORD, testValue, 32'b11, "Read flash status before automatic page selection")
-		`TEST_READ_EQ(`FLASH_CACHE_STATUS, `SELECT_WORD, testValue, 32'hFFFE_FFFF, "Read flash cache status before automatic page selection")
+		`TEST_READ_EQ(`SPI_MEMORY0_STATUS, `SELECT_WORD, testValue, `SPI_MEMORY_STATUS_LOADING | `SPI_MEMORY_STATUS_INITIALISED, "Read flash status before automatic page selection")
+		`TEST_READ_EQ(`SPI_MEMORY0_CACHE_STATUS, `SELECT_WORD, testValue, 32'hFFFE_FFFF, "Read flash cache status before automatic page selection")
 
 		// Setup the flash for automatic page selection
-		`TEST_WRITE_EQ(`FLASH_CONFIG, `SELECT_WORD, testValue, 32'b11, "Set flash config to automatic page selection")
-		`TEST_READ_EQ(`FLASH_STATUS, `SELECT_WORD, testValue, 32'b01, "Read flash status after automatic page selection")
-		`TEST_READ_EQ(`FLASH_CACHE_STATUS, `SELECT_WORD, testValue, 32'h0000_0000, "Read flash cache status after automatic page selection")
+		`TEST_WRITE_EQ(`SPI_MEMORY0_CONFIG, `SELECT_WORD, testValue, `SPI_MEMORY_CONFIG_AUTOMATIC_MODE | `SPI_MEMORY_CONFIG_ENABLE, "Set flash config to automatic page selection")
+		`TEST_READ_EQ(`SPI_MEMORY0_STATUS, `SELECT_WORD, testValue, `SPI_MEMORY_STATUS_INITIALISED, "Read flash status after automatic page selection")
+		`TEST_READ_EQ(`SPI_MEMORY0_CACHE_STATUS, `SELECT_WORD, testValue, 32'h0000_0000, "Read flash cache status after automatic page selection")
 		
 		// Read current page address
-		`TEST_READ_EQ(`FLASH_CURRENT_PAGE_ADDRESS, `SELECT_WORD, testValue, 32'h00FF_FFFF, "Read current page address after automatic page selection setup")
+		`TEST_READ_EQ(`SPI_MEMORY0_CURRENT_PAGE_ADDRESS, `SELECT_WORD, testValue, 32'h00FF_FFFF, "Read current page address after automatic page selection setup")
 
 		// Read from the first page
 		`TEST_FLASH(32'h000, "Read word 0x000 with automatic page selection")
@@ -172,16 +188,16 @@ module userSpaceFlash_tb;
 		`TEST_FLASH(32'h002, "Read word 0x002 with automatic page selection")
 		`TEST_FLASH(32'h003, "Read word 0x003 with automatic page selection")
 
-		`TEST_READ_EQ(`FLASH_STATUS, `SELECT_WORD, testValue, 32'b11, "Read flash status after first automatic page use")
-		`TEST_READ_EQ(`FLASH_CACHE_STATUS, `SELECT_WORD, testValue, 32'h0100_0100, "Read flash cache status after first automatic page use")
+		`TEST_READ_EQ(`SPI_MEMORY0_STATUS, `SELECT_WORD, testValue, `SPI_MEMORY_STATUS_LOADING | `SPI_MEMORY_STATUS_INITIALISED, "Read flash status after first automatic page use")
+		`TEST_READ_EQ(`SPI_MEMORY0_CACHE_STATUS, `SELECT_WORD, testValue, 32'h0100_0100, "Read flash cache status after first automatic page use")
 
 		`TEST_FLASH(32'h01C, "Read word 0x01C with automatic page selection")
 		`TEST_FLASH(32'h01D, "Read word 0x01D with automatic page selection")
 		`TEST_FLASH(32'h01E, "Read word 0x01E with automatic page selection")
 		`TEST_FLASH(32'h01F, "Read word 0x01F with automatic page selection")
 
-		`TEST_READ_EQ(`FLASH_STATUS, `SELECT_WORD, testValue, 32'b01, "Read flash status after first automatic page use to end of page")
-		`TEST_READ_EQ(`FLASH_CACHE_STATUS, `SELECT_WORD, testValue, 32'h0000_0100, "Read flash cache status after first automatic page use to end of page")
+		`TEST_READ_EQ(`SPI_MEMORY0_STATUS, `SELECT_WORD, testValue, `SPI_MEMORY_STATUS_INITIALISED, "Read flash status after first automatic page use to end of page")
+		`TEST_READ_EQ(`SPI_MEMORY0_CACHE_STATUS, `SELECT_WORD, testValue, 32'h0000_0100, "Read flash cache status after first automatic page use to end of page")
 
 		// Read from another page
 		`TEST_FLASH(32'h400, "Read word 0x400 with automatic page selection")
@@ -193,8 +209,8 @@ module userSpaceFlash_tb;
 		`TEST_FLASH(32'h442, "Read word 0x442 with automatic page selection")
 		`TEST_FLASH(32'h443, "Read word 0x443 with automatic page selection")
 
-		`TEST_READ_EQ(`FLASH_STATUS, `SELECT_WORD, testValue, 32'b11, "Read flash status after second automatic page use")
-		`TEST_READ_EQ(`FLASH_CACHE_STATUS, `SELECT_WORD, testValue, 32'h1000_1110, "Read flash cache status after second automatic page use")
+		`TEST_READ_EQ(`SPI_MEMORY0_STATUS, `SELECT_WORD, testValue, `SPI_MEMORY_STATUS_LOADING | `SPI_MEMORY_STATUS_INITIALISED, "Read flash status after second automatic page use")
+		`TEST_READ_EQ(`SPI_MEMORY0_CACHE_STATUS, `SELECT_WORD, testValue, 32'h1000_1110, "Read flash cache status after second automatic page use")
 
 		// Random read between pages
 		`TEST_FLASH(32'h000, "Read word 0x000 with automatic page selection switching pages")
@@ -206,19 +222,19 @@ module userSpaceFlash_tb;
 		`TEST_FLASH(32'h0F2, "Read word 0x0F2 with automatic page selection switching pages")
 		`TEST_FLASH(32'h4F3, "Read word 0x4F3 with automatic page selection switching pages")
 
-		`TEST_READ_EQ(`FLASH_STATUS, `SELECT_WORD, testValue, 32'b11, "Read flash status after alternating automatic page use")
-		`TEST_READ_EQ(`FLASH_CACHE_STATUS, `SELECT_WORD, testValue, 32'h0002_5112, "Read flash cache status after alternating automatic page use")
+		`TEST_READ_EQ(`SPI_MEMORY0_STATUS, `SELECT_WORD, testValue, `SPI_MEMORY_STATUS_LOADING | `SPI_MEMORY_STATUS_INITIALISED, "Read flash status after alternating automatic page use")
+		`TEST_READ_EQ(`SPI_MEMORY0_CACHE_STATUS, `SELECT_WORD, testValue, 32'h0002_5112, "Read flash cache status after alternating automatic page use")
 
 		// Initialise core0
 		`TEST_READ_EQ(`CORE0_CONFIG_ADDR, `SELECT_WORD, testValue, `CORE_HALT, "Read core0 config before initialisation")
-		`TEST_WRITE_EQ(`CORE0_REG_PC_ADDR, `SELECT_WORD, testValue, `FLASH_ADDRESS_CORE, "Write core0 PC start of flash address")
+		`TEST_WRITE_EQ(`CORE0_REG_PC_ADDR, `SELECT_WORD, testValue, `SPI_MEMORY0_ADDRESS_CORE, "Write core0 PC start of flash address")
 		`TEST_WRITE_EQ(`CORE0_SRAM_ADDR + `VAR_PRIMARY_TOTAL_ADDRESS, `SELECT_WORD, testValue, 32'b0, "Clear core0 calculation value for primary loop")
 		`TEST_WRITE_EQ(`CORE0_SRAM_ADDR + `VAR_SECONDARY_TOTAL_ADDRESS, `SELECT_WORD, testValue, 32'b0, "Clear core0 calculation value for secondary loop")
 		`TEST_WRITE_EQ(`CORE0_SRAM_ADDR + `VAR_STATE_ADDRESS, `SELECT_WORD, testValue, 32'h0, "Clear core0 state")
 
 		// Initialise core1
 		`TEST_READ_EQ(`CORE1_CONFIG_ADDR, `SELECT_WORD, testValue, `CORE_HALT, "Read core1 config before initialisation")
-		`TEST_WRITE_EQ(`CORE1_REG_PC_ADDR, `SELECT_WORD, testValue, `FLASH_ADDRESS_CORE, "Write core1 PC start of flash address")
+		`TEST_WRITE_EQ(`CORE1_REG_PC_ADDR, `SELECT_WORD, testValue, `SPI_MEMORY0_ADDRESS_CORE, "Write core1 PC start of flash address")
 		`TEST_WRITE_EQ(`CORE1_SRAM_ADDR + `VAR_PRIMARY_TOTAL_ADDRESS, `SELECT_WORD, testValue, 32'b0, "Clear core1 calculation value for primary loop")
 		`TEST_WRITE_EQ(`CORE1_SRAM_ADDR + `VAR_SECONDARY_TOTAL_ADDRESS, `SELECT_WORD, testValue, 32'b0, "Clear core1 calculation value for secondary loop")
 		`TEST_WRITE_EQ(`CORE1_SRAM_ADDR + `VAR_STATE_ADDRESS, `SELECT_WORD, testValue, 32'h0, "Clear core1 state")
@@ -227,7 +243,8 @@ module userSpaceFlash_tb;
 		`TEST_WRITE_EQ(`CORE0_CONFIG_ADDR, `SELECT_WORD, testValue, `CORE_RUN, "Write core0 config to run")
 		
 		// Test that core0 is running from only the first page
-		`TEST_READ_TIMEOUT(`CORE0_SRAM_ADDR + `VAR_PRIMARY_TOTAL_ADDRESS, `SELECT_WORD, testCompareValue, testCompareValue >= 32'd45, 1000, 1000, "Read core0 calculation value from primary loop")
+		`TEST_READ_TIMEOUT(`CORE0_SRAM_ADDR + `VAR_PRIMARY_TOTAL_ADDRESS, `SELECT_WORD, testCompareValue, testCompareValue >= 32'd45, 10000, 100, "Read core0 calculation value from primary loop")
+		`TEST_READ_EQ(`CORE0_SRAM_ADDR + `VAR_SECONDARY_TOTAL_ADDRESS, `SELECT_WORD, testValue, 32'b0, "Read core0 calculation value from secondary loop")
 
 		// Switch core0 to run from the second page
 		`TEST_WRITE_EQ(`CORE0_SRAM_ADDR + `VAR_STATE_ADDRESS, `SELECT_WORD, testValue, 32'h1, "Write core0 to switch to second state")
@@ -248,13 +265,17 @@ module userSpaceFlash_tb;
 		`TEST_WRITE_EQ(`CORE1_CONFIG_ADDR, `SELECT_WORD, testValue, `CORE_RUN, "Write core1 config to run")
 		#1000
 
-		// Test that core0 and core1 are running from only the first page
+		// Test that core1 is running from only the first page
+		`TEST_READ_TIMEOUT(`CORE1_SRAM_ADDR + `VAR_PRIMARY_TOTAL_ADDRESS, `SELECT_WORD, testCompareValue, testCompareValue >= 32'd45, 10000, 100, "Read core1 calculation value from primary loop")
+		`TEST_READ_EQ(`CORE1_SRAM_ADDR + `VAR_SECONDARY_TOTAL_ADDRESS, `SELECT_WORD, testValue, 32'b0, "Read core1 calculation value from secondary loop")
 
-		// Switch core0 to run from the second page
-		`TEST_WRITE_EQ(`CORE0_SRAM_ADDR + `VAR_STATE_ADDRESS, `SELECT_WORD, testValue, 32'h1, "Write core0 to switch to second state with core1 running")
+		// Switch core1 to run from the second page
+		`TEST_WRITE_EQ(`CORE1_SRAM_ADDR + `VAR_STATE_ADDRESS, `SELECT_WORD, testValue, 32'h1, "Write core1 to switch to second state")
 		#1000
 
-		// Test that core0 is running from only the second page and core1 is running from the first page
+		// Test that core1 is running from only the second page
+		`TEST_READ(`CORE1_SRAM_ADDR + `VAR_PRIMARY_TOTAL_ADDRESS, `SELECT_WORD, testValue, testCompareValue == testValue, "Check core1 calculation value from primary loop hasn't changed")
+		`TEST_READ_TIMEOUT(`CORE1_SRAM_ADDR + `VAR_SECONDARY_TOTAL_ADDRESS, `SELECT_WORD, testValue, testValue >= 32'd285, 100000, 100, "Read core1 calculation value from secondary loop")
 
 		// Stop core0
 		`TEST_WRITE_EQ(`CORE0_CONFIG_ADDR, `SELECT_WORD, testValue, `CORE_HALT, "Write core0 config to halt")
